@@ -1,26 +1,10 @@
 // src/app/[locale]/styleguide/styleguide-client.tsx
 "use client";
 
-import { useSyncExternalStore } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 import { usePathname, useRouter } from "@/i18n/navigation";
-
-// Reports whether the component has hydrated on the client. Implemented
-// with useSyncExternalStore (server snapshot false, client snapshot true)
-// rather than a useState + useEffect(() => setState(true), []) pair, so
-// there is no setState call inside an effect to trip
-// react-hooks/set-state-in-effect — the store never actually changes, we
-// only need the snapshot to differ between server and client renders.
-const emptySubscribe = () => () => {};
-
-function useHydrated() {
-  return useSyncExternalStore(
-    emptySubscribe,
-    () => true,
-    () => false,
-  );
-}
+import { useIsMounted } from "@/lib/hooks/use-is-mounted";
 
 type SemanticToken = {
   cssVar: `--color-${string}`;
@@ -287,7 +271,7 @@ function CheckIcon({ className }: { className?: string }) {
 function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
   const t = useTranslations("common");
-  const mounted = useHydrated();
+  const mounted = useIsMounted();
 
   const current = mounted ? resolvedTheme : undefined;
   const label = current === "dark" ? t("theme.dark") : t("theme.light");
@@ -330,7 +314,7 @@ export function StyleguideClient() {
   // Subscribing via useTheme() re-renders this component whenever the
   // resolved theme changes, even though the value itself isn't read here.
   useTheme();
-  const mounted = useHydrated();
+  const mounted = useIsMounted();
   // Pure, side-effect-free read of already-computed CSSOM values — no
   // state/effect needed. The useTheme() subscription above already causes
   // a re-render on every theme change, so recomputing this inline on each
