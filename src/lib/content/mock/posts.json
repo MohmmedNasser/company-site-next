@@ -1,0 +1,62 @@
+[
+  {
+    "id": "post-why-nextjs",
+    "slug": "why-we-chose-nextjs",
+    "coverImage": "/blog/why-we-chose-nextjs.jpg",
+    "publishedAt": "2026-06-15",
+    "order": 1,
+    "author": { "en": "Mona Hesham", "ar": "منى هشام" },
+    "title": {
+      "en": "Why We Chose Next.js for Client Projects",
+      "ar": "لماذا اخترنا Next.js لمشاريع عملائنا"
+    },
+    "excerpt": {
+      "en": "App Router, static rendering, and one framework for both marketing sites and dashboards.",
+      "ar": "App Router، العرض الثابت، وإطار عمل واحد لكل من المواقع التسويقية ولوحات التحكم."
+    },
+    "body": {
+      "en": "For most client projects we don't need a fully custom backend framework on day one — we need pages that render fast, an admin surface that can come later, and a deploy story that doesn't require a DevOps hire. Next.js's App Router gives us static rendering for marketing pages and server components for anything that needs live data, in the same codebase.",
+      "ar": "في معظم مشاريع العملاء لا نحتاج إطار خلفية مخصصًا بالكامل من اليوم الأول — نحتاج صفحات تُعرض بسرعة، ولوحة تحكم يمكن إضافتها لاحقًا، وقصة نشر لا تتطلب توظيف مهندس DevOps. يمنحنا App Router في Next.js عرضًا ثابتًا للصفحات التسويقية ومكونات خادم لأي شيء يحتاج بيانات حية، في نفس قاعدة الكود."
+    }
+  },
+  {
+    "id": "post-laravel-json-translations",
+    "slug": "laravel-json-columns-for-translations",
+    "coverImage": "/blog/laravel-json-columns-for-translations.jpg",
+    "publishedAt": "2026-05-02",
+    "order": 2,
+    "author": { "en": "Tarek Ismail", "ar": "طارق إسماعيل" },
+    "title": {
+      "en": "Using JSON Columns for Multilingual Content in Laravel",
+      "ar": "استخدام أعمدة JSON للمحتوى متعدد اللغات في Laravel"
+    },
+    "excerpt": {
+      "en": "Why a separate translations table is often the wrong call at small-to-medium scale.",
+      "ar": "لماذا يكون جدول ترجمات منفصل غالبًا خيارًا خاطئًا في الحجم الصغير إلى المتوسط."
+    },
+    "body": {
+      "en": "A separate translations table looks like the 'correct' normalized design, until you're writing a join for every single list query. For a site with two languages and a few thousand rows per table, a JSON column holding {\"en\": ..., \"ar\": ...} keeps queries simple and lets Eloquent resolve the right string with a one-line accessor.",
+      "ar": "يبدو جدول الترجمات المنفصل التصميم المعياري 'الصحيح'، إلى أن تجد نفسك تكتب join لكل استعلام قائمة. لموقع بلغتين وآلاف قليلة من الصفوف في كل جدول، يبقي عمود JSON بالشكل {\"en\": ..., \"ar\": ...} الاستعلامات بسيطة، ويسمح لـEloquent بإرجاع النص الصحيح عبر accessor من سطر واحد."
+    }
+  },
+  {
+    "id": "post-performance-budget",
+    "slug": "performance-budget-for-marketing-sites",
+    "coverImage": "/blog/performance-budget-for-marketing-sites.jpg",
+    "publishedAt": "2026-03-20",
+    "order": 3,
+    "author": { "en": "Mona Hesham", "ar": "منى هشام" },
+    "title": {
+      "en": "Setting a Performance Budget for Marketing Sites",
+      "ar": "وضع ميزانية أداء لمواقع التسويق"
+    },
+    "excerpt": {
+      "en": "A hero animation is not worth a 4-second LCP on a mid-range phone.",
+      "ar": "لا تستحق حركة الواجهة الرئيسية أن تكلفك LCP بأربع ثوانٍ على هاتف متوسط."
+    },
+    "body": {
+      "en": "Every marketing site we ship gets a written budget before the first component exists: LCP under 2.5s on throttled 4G, one WebGL canvas maximum, and a static fallback for anything that can't hit that number on a mid-range device. Agreeing on the number before the design gets attached to it is what makes the budget survive contact with a client who loves the hero animation.",
+      "ar": "كل موقع تسويقي نسلّمه يحصل على ميزانية أداء مكتوبة قبل بناء أول مكون: LCP أقل من 2.5 ثانية على اتصال 4G مخنوق، لوحة رسم WebGL واحدة كحد أقصى، وبديل ثابت لأي شيء لا يحقق هذا الرقم على جهاز متوسط. الاتفاق على الرقم قبل أن يتعلق به التصميم هو ما يجعل الميزانية تصمد أمام عميل معجب بحركة الواجهة الرئيسية."
+    }
+  }
+]

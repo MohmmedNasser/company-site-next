@@ -1,0 +1,101 @@
+[
+  {
+    "id": "svc-web-development",
+    "slug": "web-development",
+    "icon": "Globe",
+    "order": 1,
+    "title": { "en": "Web Development", "ar": "تطوير الويب" },
+    "excerpt": {
+      "en": "Fast, accessible websites and web apps built on Next.js and modern tooling.",
+      "ar": "مواقع وتطبيقات ويب سريعة وسهلة الوصول، مبنية على Next.js وأدوات حديثة."
+    },
+    "body": {
+      "en": "We build marketing sites, dashboards, and web applications that load fast, hold up under real traffic, and stay easy to change six months after launch. Every project ships with clean component architecture and a content layer your team can edit without touching code.",
+      "ar": "نبني مواقع تعريفية ولوحات تحكم وتطبيقات ويب تُحمَّل بسرعة وتتحمل حركة زوار حقيقية، وتبقى سهلة التعديل بعد الإطلاق بأشهر. كل مشروع يخرج بمعمارية مكونات نظيفة وطبقة محتوى يمكن لفريقك تعديلها دون لمس الكود."
+    }
+  },
+  {
+    "id": "svc-mobile-apps",
+    "slug": "mobile-apps",
+    "icon": "Smartphone",
+    "order": 2,
+    "title": { "en": "Mobile App Development", "ar": "تطوير تطبيقات الجوال" },
+    "excerpt": {
+      "en": "Native-feeling iOS and Android apps from a single React Native codebase.",
+      "ar": "تطبيقات iOS وAndroid بأداء قريب من التطبيقات الأصلية، من كود React Native واحد."
+    },
+    "body": {
+      "en": "From the first wireframe to an App Store listing, we handle the full mobile build: offline support, push notifications, and a release pipeline your team can keep shipping through after we hand off.",
+      "ar": "من أول تصميم أولي حتى النشر على المتاجر، نتولى بناء التطبيق بالكامل: العمل دون اتصال، الإشعارات، وخط نشر يمكن لفريقك الاستمرار في استخدامه بعد التسليم."
+    }
+  },
+  {
+    "id": "svc-ui-ux-design",
+    "slug": "ui-ux-design",
+    "icon": "PenTool",
+    "order": 3,
+    "title": {
+      "en": "UI/UX Design",
+      "ar": "تصميم واجهات وتجربة المستخدم"
+    },
+    "excerpt": {
+      "en": "Interface design grounded in a real design system, not a one-off Figma file.",
+      "ar": "تصميم واجهات مبني على نظام تصميم حقيقي، لا ملف Figma منفصل يُستخدم مرة واحدة."
+    },
+    "body": {
+      "en": "We design in tokens from day one — color, type, spacing, and motion — so what ships in production matches the mockups pixel for pixel, and stays consistent as the product grows past the first release.",
+      "ar": "نصمم باستخدام رموز تصميم (tokens) منذ البداية — الألوان، الخطوط، المسافات، والحركة — بحيث يطابق ما يُنشر فعليًا التصاميم بدقة، ويبقى متسقًا مع نمو المنتج بعد الإصدار الأول."
+    }
+  },
+  {
+    "id": "svc-backend-laravel",
+    "slug": "backend-laravel",
+    "icon": "Server",
+    "order": 4,
+    "title": {
+      "en": "Backend & Laravel Engineering",
+      "ar": "هندسة الخلفية البرمجية وLaravel"
+    },
+    "excerpt": {
+      "en": "APIs, admin panels, and data models built on Laravel, done properly.",
+      "ar": "واجهات برمجية، لوحات تحكم، ونماذج بيانات مبنية على Laravel بشكل احترافي."
+    },
+    "body": {
+      "en": "Migrations instead of hand-edited databases, jobs and queues for anything that shouldn't block a request, and a REST API your frontend team can rely on without guessing at undocumented behavior.",
+      "ar": "ترحيلات (migrations) بدل تعديل قواعد البيانات يدويًا، مهام وطوابير (queues) لكل ما لا يجب أن يُبطئ الطلب، وواجهة REST يمكن لفريق الواجهة الأمامية الاعتماد عليها دون تخمين سلوك غير موثّق."
+    }
+  },
+  {
+    "id": "svc-devops-cloud",
+    "slug": "devops-cloud",
+    "icon": "Cloud",
+    "order": 5,
+    "title": {
+      "en": "DevOps & Cloud Infrastructure",
+      "ar": "DevOps والبنية السحابية"
+    },
+    "excerpt": {
+      "en": "Deployment pipelines and server infrastructure that stay up without a pager going off every week.",
+      "ar": "خطوط نشر وبنية خوادم تعمل باستقرار دون إنذارات متكررة كل أسبوع."
+    },
+    "body": {
+      "en": "CI/CD, monitoring, backups, and infrastructure as code — set up once, documented, and handed off with a runbook instead of tribal knowledge trapped in one engineer's head.",
+      "ar": "تكامل ونشر مستمر (CI/CD)، مراقبة، نسخ احتياطي، وبنية تحتية ككود — تُعد مرة واحدة، وتُوثّق، وتُسلَّم مع دليل تشغيل بدل معرفة حبيسة في رأس مهندس واحد."
+    }
+  },
+  {
+    "id": "svc-technical-consulting",
+    "slug": "technical-consulting",
+    "icon": "Compass",
+    "order": 6,
+    "title": { "en": "Technical Consulting", "ar": "استشارات تقنية" },
+    "excerpt": {
+      "en": "An outside technical read on your stack, your team, or a build-vs-buy decision.",
+      "ar": "رأي تقني خارجي حول بنيتكم التقنية، فريقكم، أو قرار البناء مقابل الشراء."
+    },
+    "body": {
+      "en": "Architecture reviews, code audits, and vendor evaluations for teams that need a second opinion before a decision that's expensive to reverse.",
+      "ar": "مراجعات معمارية، تدقيق كود، وتقييم موردين للفرق التي تحتاج رأيًا ثانيًا قبل قرار مكلف التراجع عنه."
+    }
+  }
+]

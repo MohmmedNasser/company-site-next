@@ -1,0 +1,119 @@
+[
+  {
+    "id": "proj-ferry-logistics-platform",
+    "slug": "ferry-logistics-platform",
+    "category": "web",
+    "status": "shipped",
+    "client": "client-ferry-logistics",
+    "coverImage": "/projects/ferry-logistics-platform.jpg",
+    "order": 1,
+    "title": {
+      "en": "Ferry Logistics Tracking Platform",
+      "ar": "منصة تتبع الشحنات لفيري"
+    },
+    "summary": {
+      "en": "A real-time shipment tracking dashboard replacing a spreadsheet-based workflow.",
+      "ar": "لوحة تتبع شحنات لحظية حلّت محل مسار عمل قائم على جداول بيانات."
+    },
+    "description": {
+      "en": "Ferry Logistics tracked shipments across three warehouses using a shared spreadsheet that broke down past 40 concurrent updates. We built a dashboard with live status updates, driver check-ins, and exportable reports, cutting shipment-status queries from a support inbox to a self-serve view.",
+      "ar": "كانت فيري تتابع شحناتها عبر ثلاثة مستودعات باستخدام جدول بيانات مشترك يتعطل عند تجاوز 40 تحديثًا متزامنًا. بنينا لوحة تحكم بتحديثات حالة لحظية، تسجيل دخول للسائقين، وتقارير قابلة للتصدير، ما نقل استعلامات حالة الشحنات من صندوق دعم إلى واجهة ذاتية الخدمة."
+    }
+  },
+  {
+    "id": "proj-nour-mobile-banking",
+    "slug": "nour-mobile-banking",
+    "category": "mobile",
+    "status": "shipped",
+    "client": "client-nour-fintech",
+    "coverImage": "/projects/nour-mobile-banking.jpg",
+    "order": 2,
+    "title": {
+      "en": "Nour Mobile Banking App",
+      "ar": "تطبيق نور للخدمات المصرفية"
+    },
+    "summary": {
+      "en": "A React Native banking app with biometric login and instant transfers.",
+      "ar": "تطبيق مصرفي بReact Native مع تسجيل دخول بالبصمة وتحويلات فورية."
+    },
+    "description": {
+      "en": "Nour needed a mobile banking app that felt as fast as their competitors' native apps without maintaining two separate codebases. We shipped a single React Native app with biometric login, instant transfers, and offline balance caching, live on both stores within four months.",
+      "ar": "احتاجت نور تطبيقًا مصرفيًا بسرعة تنافس التطبيقات الأصلية دون صيانة قاعدتي كود منفصلتين. أطلقنا تطبيق React Native واحدًا بتسجيل دخول بالبصمة، تحويلات فورية، وتخزين مؤقت للرصيد دون اتصال، ونُشر على المتجرين خلال أربعة أشهر."
+    }
+  },
+  {
+    "id": "proj-basma-storefront",
+    "slug": "basma-storefront",
+    "category": "ecommerce",
+    "status": "shipped",
+    "client": "client-basma-retail",
+    "coverImage": "/projects/basma-storefront.jpg",
+    "order": 3,
+    "title": { "en": "Basma Retail Storefront", "ar": "متجر بسمة الإلكتروني" },
+    "summary": {
+      "en": "A headless storefront that cut checkout time in half.",
+      "ar": "متجر إلكتروني (headless) قلّص وقت إتمام الشراء إلى النصف."
+    },
+    "description": {
+      "en": "Basma's old storefront took four steps to check out and lost most mobile shoppers along the way. We rebuilt it as a headless storefront on Next.js with a single-page checkout, cutting checkout abandonment by more than a third in the first quarter after launch.",
+      "ar": "كان متجر بسمة القديم يتطلب أربع خطوات لإتمام الشراء ويفقد أغلب المتسوقين عبر الجوال في الطريق. أعدنا بناءه كمتجر headless على Next.js بصفحة دفع واحدة، ما خفّض معدل التخلي عن السلة بأكثر من الثلث في الربع الأول بعد الإطلاق."
+    }
+  },
+  {
+    "id": "proj-waha-patient-portal",
+    "slug": "waha-patient-portal",
+    "category": "web",
+    "status": "shipped",
+    "client": "client-waha-health",
+    "coverImage": "/projects/waha-patient-portal.jpg",
+    "order": 4,
+    "title": { "en": "Waha Patient Portal", "ar": "بوابة مرضى واحة" },
+    "summary": {
+      "en": "A patient portal for appointment booking and lab results.",
+      "ar": "بوابة مرضى لحجز المواعيد ونتائج التحاليل."
+    },
+    "description": {
+      "en": "Waha Health ran appointment booking entirely over phone calls. We built a patient portal for booking, rescheduling, and viewing lab results, with a Laravel backend enforcing the same validation rules the front-desk staff used to apply manually.",
+      "ar": "كانت واحة تدير حجز المواعيد بالكامل عبر المكالمات الهاتفية. بنينا بوابة مرضى لحجز المواعيد وإعادة جدولتها وعرض نتائج التحاليل، بخلفية Laravel تطبّق قواعد التحقق نفسها التي كان موظفو الاستقبال يطبقونها يدويًا."
+    }
+  },
+  {
+    "id": "proj-marsa-listings-app",
+    "slug": "marsa-listings-app",
+    "category": "mobile",
+    "status": "in-development",
+    "client": "client-marsa-realestate",
+    "coverImage": "/projects/marsa-listings-app.jpg",
+    "order": 5,
+    "title": { "en": "Marsa Listings App", "ar": "تطبيق مرسى العقاري" },
+    "summary": {
+      "en": "A property-browsing app with saved searches and agent chat, currently in development.",
+      "ar": "تطبيق لتصفح العقارات مع عمليات بحث محفوظة ومحادثة مع الوسيط، قيد التطوير حاليًا."
+    },
+    "description": {
+      "en": "Marsa's listings currently live on a public feed with no way to save a search or contact an agent directly. We're building a dedicated app with saved searches, push alerts for new matches, and in-app chat with listing agents.",
+      "ar": "تُعرض عقارات مرسى حاليًا على خلاصة عامة دون إمكانية حفظ بحث أو التواصل مباشرة مع وسيط. نعمل على بناء تطبيق مخصص بعمليات بحث محفوظة، تنبيهات فورية للعروض الجديدة، ومحادثة داخل التطبيق مع وسطاء العقارات."
+    }
+  },
+  {
+    "id": "proj-rawaq-lms",
+    "slug": "rawaq-lms",
+    "category": "saas",
+    "status": "shipped",
+    "client": "client-rawaq-learning",
+    "coverImage": "/projects/rawaq-lms.jpg",
+    "order": 6,
+    "title": {
+      "en": "Rawaq Learning Platform",
+      "ar": "منصة رواق التعليمية"
+    },
+    "summary": {
+      "en": "A multi-tenant course platform serving over 40 instructors.",
+      "ar": "منصة كورسات متعددة المستأجرين تخدم أكثر من 40 مدربًا."
+    },
+    "description": {
+      "en": "Rawaq wanted to let instructors run their own branded course pages under one platform. We built a multi-tenant Laravel application with per-instructor subdomains, video progress tracking, and a quiz engine, now serving more than 40 instructors and several thousand students.",
+      "ar": "أرادت رواق تمكين المدربين من إدارة صفحات كورسات بهويتهم الخاصة ضمن منصة واحدة. بنينا تطبيق Laravel متعدد المستأجرين بنطاقات فرعية لكل مدرب، تتبع تقدم الفيديو، ومحرك اختبارات، تخدم الآن أكثر من 40 مدربًا وآلاف الطلاب."
+    }
+  }
+]

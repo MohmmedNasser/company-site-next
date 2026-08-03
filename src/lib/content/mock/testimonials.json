@@ -1,0 +1,44 @@
+[
+  {
+    "id": "test-youssef-adel",
+    "clientId": "client-ferry-logistics",
+    "avatar": "/testimonials/youssef-adel.jpg",
+    "order": 1,
+    "author": { "en": "Youssef Adel", "ar": "يوسف عادل" },
+    "role": {
+      "en": "Operations Director, Ferry Logistics",
+      "ar": "مدير العمليات، فيري للخدمات اللوجستية"
+    },
+    "quote": {
+      "en": "We went from three people manually checking a spreadsheet to a dashboard the whole warehouse floor trusts. It paid for itself in the first month.",
+      "ar": "انتقلنا من ثلاثة أشخاص يراجعون جدول بيانات يدويًا إلى لوحة تحكم يثق بها كل موظفي المستودع. غطت تكلفتها خلال الشهر الأول."
+    }
+  },
+  {
+    "id": "test-salma-farid",
+    "clientId": "client-nour-fintech",
+    "avatar": "/testimonials/salma-farid.jpg",
+    "order": 2,
+    "author": { "en": "Salma Farid", "ar": "سلمى فريد" },
+    "role": {
+      "en": "Head of Product, Nour Fintech",
+      "ar": "رئيسة المنتج، نور للتقنية المالية"
+    },
+    "quote": {
+      "en": "They shipped a banking app that passed our compliance review on the first submission. That almost never happens.",
+      "ar": "سلّموا تطبيقًا مصرفيًا اجتاز مراجعة الامتثال من أول تقديم. هذا نادرًا ما يحدث."
+    }
+  },
+  {
+    "id": "test-omar-nabil",
+    "clientId": "client-rawaq-learning",
+    "avatar": "/testimonials/omar-nabil.jpg",
+    "order": 3,
+    "author": { "en": "Omar Nabil", "ar": "عمر نبيل" },
+    "role": { "en": "Founder, Rawaq Learning", "ar": "مؤسس رواق للتعليم" },
+    "quote": {
+      "en": "They understood the multi-tenant architecture question before I finished explaining it, and that saved us months of rework.",
+      "ar": "فهموا سؤال المعمارية متعددة المستأجرين قبل أن أنهي شرحه، وهذا وفّر علينا أشهرًا من إعادة العمل."
+    }
+  }
+]

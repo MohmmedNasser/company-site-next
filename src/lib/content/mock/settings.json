@@ -1,0 +1,72 @@
+{
+  "hero": {
+    "title": {
+      "en": "We build software that ships.",
+      "ar": "نبني برمجيات تصل فعلًا إلى الإنتاج."
+    },
+    "subtitle": {
+      "en": "A software agency for teams who need a product built right the first time — web, mobile, and the backend that holds it together.",
+      "ar": "وكالة برمجية للفرق التي تريد منتجًا مبنيًا بشكل صحيح من أول مرة — مواقع، تطبيقات جوال، والخلفية البرمجية التي تربط كل ذلك."
+    },
+    "ctaPrimary": { "en": "Start a project", "ar": "ابدأ مشروعك" },
+    "ctaSecondary": { "en": "See our work", "ar": "شاهد أعمالنا" }
+  },
+  "sections": {
+    "about": {
+      "heading": { "en": "About us", "ar": "من نحن" },
+      "description": {
+        "en": "A small team that ships production software, not prototypes.",
+        "ar": "فريق صغير يسلّم برمجيات جاهزة للإنتاج، لا نماذج أولية."
+      }
+    },
+    "services": {
+      "heading": { "en": "What we do", "ar": "ماذا نقدم" },
+      "description": {
+        "en": "From the first design file to the server it runs on.",
+        "ar": "من أول ملف تصميم إلى الخادم الذي يعمل عليه المنتج."
+      }
+    },
+    "portfolio": {
+      "heading": { "en": "Selected work", "ar": "أعمال مختارة" },
+      "description": {
+        "en": "A few of the products we've shipped for clients.",
+        "ar": "بعض المنتجات التي سلّمناها لعملائنا."
+      }
+    },
+    "testimonials": {
+      "heading": { "en": "What clients say", "ar": "ماذا يقول عملاؤنا" },
+      "description": {
+        "en": "In their words, not ours.",
+        "ar": "بكلماتهم، لا بكلماتنا."
+      }
+    },
+    "clients": {
+      "heading": { "en": "Trusted by", "ar": "يثق بنا" },
+      "description": {
+        "en": "Teams across logistics, fintech, retail, and healthcare.",
+        "ar": "فرق من قطاعات اللوجستيات، التقنية المالية، التجزئة، والرعاية الصحية."
+      }
+    },
+    "contact": {
+      "heading": { "en": "Let's talk", "ar": "لنتحدث" },
+      "description": {
+        "en": "Tell us about the project — we usually reply within a day.",
+        "ar": "أخبرنا عن مشروعك — نرد عادة خلال يوم واحد."
+      }
+    }
+  },
+  "contact": {
+    "email": "hello@company-site.example",
+    "phone": "+20 100 000 0000",
+    "address": { "en": "Cairo, Egypt", "ar": "القاهرة، مصر" }
+  },
+  "social": [
+    {
+      "platform": "linkedin",
+      "url": "https://linkedin.com/company/company-site"
+    },
+    { "platform": "twitter", "url": "https://twitter.com/companysite" },
+    { "platform": "github", "url": "https://github.com/company-site" },
+    { "platform": "instagram", "url": "https://instagram.com/companysite" }
+  ]
+}
