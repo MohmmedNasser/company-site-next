@@ -1,1 +1,93 @@
 @import "tailwindcss";
+@import "../styles/palette.css";
+@import "../styles/tokens.css";
+
+/* Class-driven dark mode. Tailwind v4 defaults `dark:` to
+   `prefers-color-scheme`; this custom variant switches it to key off
+   `.dark` on <html> instead — required for the Phase 2 theme toggle
+   (and the styleguide's toggle) to have any effect. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Maps the Tailwind colour namespace to the runtime variables defined in
+ * tokens.css's `:root` / `.dark`, under the exact semantic names
+ * components use.
+ *
+ * This MUST be `@theme inline`, not plain `@theme`. Plain `@theme`
+ * resolves `var(--bg)` once, at build time, using whatever `:root`
+ * holds during compilation — always the light value, since `.dark` is
+ * never an active class mid-build. The generated `bg-bg` utility would
+ * freeze on that one value forever, and the theme toggle would visibly
+ * do nothing. `@theme inline` keeps the `var()` reference live in the
+ * emitted CSS, so the utility re-resolves against whichever of `:root` /
+ * `.dark` is actually applied at paint time.
+ */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-card: var(--card);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-border: var(--border);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-secondary: var(--secondary);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+}
+
+/* Base reset */
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+}
+
+/* Never remove focus outlines. Ring built from --color-primary, matching
+   the soft violet glow in violet-issue-DESIGN.md's Elevation section. */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px
+    color-mix(in srgb, var(--color-primary) 15%, transparent);
+}
+
+/*
+ * Bilingual typography — see docs/design-decisions.md §3. Selecting on
+ * `[lang="ar"]` (not a route/locale check) means the rule applies
+ * regardless of where in the tree `lang="ar"` is set.
+ */
+[lang="ar"] {
+  font-family: var(--font-noto-kufi), var(--font-inter), sans-serif;
+  letter-spacing: 0; /* negative Latin tracking damages connected Arabic letterforms */
+  line-height: 1.8; /* Kufi ascenders/descenders and diacritics need vertical room */
+  /* Kufi renders visually larger at the same px value. Applied ONCE here,
+     at the element carrying `lang="ar"` — never again on a descendant,
+     or the 0.95 factor compounds and shrinks deeply nested content. */
+  font-size: 0.95em;
+}
+
+[lang="ar"] h1,
+[lang="ar"] h2,
+[lang="ar"] h3,
+[lang="ar"] h4,
+[lang="ar"] h5,
+[lang="ar"] h6 {
+  letter-spacing: 0;
+  line-height: 1.4;
+}
+
+/* Arabic has no case. `.overline` uppercases only under :lang(en); Arabic
+   text (and any Latin fallback mixed into it) is left untouched. */
+.overline {
+  letter-spacing: 0.05em;
+}
+
+:lang(en) .overline {
+  text-transform: uppercase;
+}

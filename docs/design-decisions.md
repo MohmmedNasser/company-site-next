@@ -180,3 +180,165 @@ messages/*.json. Phase 14 swaps the source, not the shape.
 
 Fallback: empty `ar` falls back to `en` at render time. The admin flags
 incomplete translations rather than hiding them.
+
+---
+
+## 6. Phase 1 — Design token implementation
+
+**Decision:** Wire every token from §1–3 into `src/app/globals.css` as a
+two-layer system — a raw palette (hex literals, named by hue) and a semantic
+layer that references it — plus two new derived values §2 and §3 didn't
+cover.
+
+### Final semantic token names
+
+| Token                    | Dark      | Light     | Raw source                                    |
+| ------------------------ | --------- | --------- | --------------------------------------------- |
+| `--color-bg`             | `#101014` | `#FAFAFC` | `--color-neutral-950` / `--color-neutral-25`  |
+| `--color-card`           | `#1B1B25` | `#FFFFFF` | `--color-neutral-900` / `--color-neutral-0`   |
+| `--color-surface`        | `#1F1F2E` | `#F3F3F7` | `--color-neutral-850` / `--color-neutral-50`  |
+| `--color-surface-raised` | `#252536` | `#EBEBF2` | `--color-neutral-800` / `--color-neutral-150` |
+| `--color-border`         | `#2C2C3A` | `#E2E2EA` | `--color-neutral-700` / `--color-neutral-200` |
+| `--color-text-primary`   | `#F1F1F4` | `#16161C` | `--color-neutral-100` / `--color-neutral-925` |
+| `--color-text-secondary` | `#8A8F98` | `#61656E` | `--color-neutral-400` / `--color-neutral-500` |
+| `--color-primary`        | `#5E6AD2` | `#4E5BBF` | `--color-violet-500` / `--color-violet-600`   |
+| `--color-primary-hover`  | `#4E5BBF` | `#404BA5` | `--color-violet-600` / `--color-violet-700`   |
+| `--color-secondary`      | `#6E79D6` | `#5B68C3` | `--color-violet-400` / `--color-violet-550`   |
+| `--color-success`        | `#3DD68C` | `#1FA968` | `--color-emerald-500` / `--color-emerald-600` |
+| `--color-warning`        | `#F0C000` | `#B88A00` | `--color-gold-500` / `--color-gold-600`       |
+| `--color-error`          | `#EB5757` | `#D13B3B` | `--color-coral-500` / `--color-coral-600`     |
+
+Two entries above resolve gaps §2 left open:
+
+- **`--color-card`** — §2 recorded the "Neutral / Card" role's values but the
+  design-system skill had no token slot for it (flagged as an open point).
+  It now exists as its own token, distinct from `--color-surface`.
+- **`--color-secondary`, light theme (`#5B68C3`, raw name `--color-violet-550`)**
+  — `violet-issue-DESIGN.md` only defines Secondary for the dark theme
+  (`#6E79D6`, "Light Violet"). Derived by applying the same per-channel
+  darkening ratio §2 used to derive `--color-primary`'s light value from its
+  dark one (a flat channel-wise multiplier, not a hue/saturation rotation).
+  Verified: 4.98:1 against white, 4.78:1 against `--color-bg` (light) — both
+  clear the 4.5:1 AA body-text bar, even though Secondary is normally used as
+  an accent rather than body text.
+
+**Rejected alternative for Secondary:** reusing `--color-primary`'s light
+value for Secondary too — rejected because it would make two semantically
+distinct roles (primary action vs. secondary highlight) visually
+indistinguishable in light mode.
+
+### Why semantic tokens sit in front of raw palette values
+
+Raw hex values (`--color-violet-500`, `--color-neutral-950`, etc.) appear
+exactly once each, grouped by hue in a single `@theme` block. Every semantic
+token (`--color-bg`, `--color-primary`, ...) references a raw one instead of
+repeating its hex. Two consequences:
+
+1. A palette correction (e.g. re-deriving a colour for better AA contrast)
+   changes one raw value and every semantic token that depends on it updates
+   automatically — nothing downstream needs to be found and edited.
+2. Components importing only the semantic names never need to know the
+   underlying hex exists at all, which is what makes "no raw hex in
+   components" enforceable as a lint-of-the-eye rule rather than something
+   that has to be manually cross-checked against a swatch sheet.
+
+### Why `@theme inline`, not plain `@theme`
+
+The semantic layer (`:root` / `.dark`) is the one part of the token system
+that changes at runtime — the whole point of a theme toggle. Tailwind's
+plain `@theme` resolves any `var()` inside it once, at build time, using
+whatever `:root` holds during that build (always the light value, since
+`.dark` is never an active class mid-compile). A utility like `bg-bg`
+generated from a plain `@theme` would therefore freeze on the light colour
+forever and the toggle would silently do nothing.
+
+`@theme inline` keeps the `var()` reference live in the emitted CSS instead
+of resolving it at build time, so `bg-bg` re-reads whichever of `:root` /
+`.dark` is actually applied on `<html>` at paint time. The raw palette and
+the static scales (type, spacing, radius, duration) don't have this problem
+— they never change between themes — so they stay in a plain `@theme` block.
+
+### Spacing base unit
+
+Tailwind's default spacing unit is `0.25rem`, so a class like `p-16` would
+render 64px. Every scale in this project (type, radius, spacing) is defined
+as literal pixel values used directly as class numbers, so `--spacing` was
+redefined to `1px`: `p-16` now means 16px, consistently with `--radius-card:
+8px` and `--text-32: 32px`. The marketing-only spacing extension (80/96/128/
+160, §1) is reachable through this base unit automatically, and is also
+declared explicitly as named `--spacing-80/96/128/160` tokens so the
+sanctioned upper bound is visible in `globals.css` rather than tribal
+knowledge.
+
+> **Superseded by §7:** the raw palette described above as living in
+> `globals.css`'s first `@theme` block has since moved to `src/styles/
+palette.css`, outside any `@theme` block. The reasoning in "why semantic
+> tokens sit in front of raw palette values" still holds — only the file
+> location and the exact raw token names changed.
+
+---
+
+## 7. Palette / tokens split — rebranding as a one-file change
+
+**Decision:** Split the raw colour palette out of `globals.css` entirely,
+into two files with a strict one-way dependency: `src/styles/palette.css`
+(raw hex values, no logic) → `src/styles/tokens.css` (semantic mapping +
+static scales, zero hex) → `src/app/globals.css` (wiring: imports,
+`@custom-variant dark`, `@theme inline`, base styles).
+
+**Rationale:** §6 already put raw values in front of semantic ones, but both
+lived in the same file and the same `@theme` block, so a rebrand still meant
+reading mapping logic to find which lines were "the palette" versus "the
+wiring." Splitting into dedicated files makes the boundary physical: to
+rebrand, edit `palette.css` and nothing else. `tokens.css` and `globals.css`
+never change for a colour swap, and neither does any component.
+
+`palette.css` is deliberately **not** wrapped in `@theme` — a plain `:root`
+block means Tailwind never generates utilities from it (no `bg-brand-500`
+ever exists), so there is no way for a component to reach for a raw palette
+value even by accident. Only `tokens.css`'s semantic names, mapped through
+`globals.css`'s `@theme inline`, are ever exposed to components.
+
+**Naming rule: hue and step, never role.** Raw entries are named
+`--palette-<hue>-<step>` (`--palette-brand-500`, `--palette-neutral-900`,
+...), never `--palette-primary` or `--palette-cta`. A rebrand from violet to
+teal means editing the hex value on the `--palette-brand-*` lines; if those
+variables were named after the role they play today, a rebrand would leave
+`--palette-violet-500` holding a teal value — a lie baked into the variable
+name. The rule applies to any hue added later: name it by what it _is_, not
+by what currently uses it.
+
+**New raw families introduced by the split:** `--palette-brand-*` replaces
+the old `--color-violet-*` naming. `--palette-neutral-*` and `--palette-
+light-*` replace the old single `--color-neutral-*` scale, split by which
+theme each value belongs to rather than by absolute lightness (both were
+already a single monotonic scale spanning both themes; this only renames
+and re-groups them, no hex changed). One entry, `--palette-brand-550`
+(Secondary's light-mode value, §6), isn't part of the brand-400/500/600/700
+set given at the start of this refactor — it's preserved as its own step
+because dropping it would have changed a rendered colour, which this
+refactor is explicitly not allowed to do.
+
+**Deliberate light-mode primary offset:** `--primary` maps to
+`--palette-brand-600` in light mode but `--palette-brand-500` in dark mode —
+one hue-step darker in light mode, on purpose, because `--palette-brand-500`
+(`#5E6AD2`) fails AA body-text contrast on white (§2). This is called out as
+a comment directly on the mapping in `tokens.css` so it isn't "corrected"
+into consistency later at the cost of contrast.
+
+**Rejected alternatives:**
+
+- Keeping raw and semantic tokens in one file, better-commented — rejected;
+  a comment doesn't stop someone editing the wrong line under time pressure,
+  and doesn't stop Tailwind generating raw-palette utility classes that
+  tempt a component to bypass the semantic layer.
+- Wrapping `palette.css` in `@theme` for consistency with `tokens.css` —
+  rejected; that would make every raw hue-step directly usable as a Tailwind
+  utility class (`bg-brand-500`), undermining the rule that components only
+  ever consume semantic tokens.
+
+**Verification:** rebuilt after changing only `--palette-brand-500`
+(`#5E6AD2` → `#2A9D8F`) and confirmed via the compiled CSS that only the
+dark-theme `--primary` (and anything chained from it) picked up the new
+value, then reverted and re-ran the Phase 1 contrast table — every ratio
+matched exactly, confirming the split is visually a no-op.

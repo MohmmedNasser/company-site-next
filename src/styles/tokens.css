@@ -1,0 +1,102 @@
+/*
+ * Mapping only. Every colour value below is a `var()` into palette.css —
+ * a hex literal appearing anywhere in this file is a bug, not a shortcut.
+ * This is the property that makes a rebrand a one-file change: nothing
+ * here needs to be touched when palette.css changes, because nothing
+ * here holds a colour value of its own.
+ *
+ * Also carries the static, theme-independent scales (type, spacing,
+ * radius, duration, fonts) — these have no palette.css equivalent to
+ * point at (they're not colours), so they're just declared directly.
+ */
+@theme {
+  /* Spacing — Tailwind's default base unit is 0.25rem, so `p-16` would
+     render 64px. This project's scale is literal pixel values used
+     directly as class numbers, so the base unit is redefined to 1px:
+     `p-16` now means 16px, matching the type/radius tokens below. */
+  --spacing: 1px;
+  /* Marketing-only extension (design-decisions.md §1) — already reachable
+     through the 1px base above; restated here so the sanctioned upper
+     bound is visible instead of tribal knowledge. Section-level rhythm
+     only — never component padding. */
+  --spacing-80: 80px;
+  --spacing-96: 96px;
+  --spacing-128: 128px;
+  --spacing-160: 160px;
+
+  /* Type scale — 11–40 is the original Violet Issue scale; 48/64/80 are
+     the marketing-only extension (design-decisions.md §1). Admin UI
+     stays within 11–40. */
+  --text-11: 11px; /* shortcut hints, overline labels */
+  --text-12: 12px; /* metadata, small labels */
+  --text-13: 13px; /* small body text, nav items */
+  --text-14: 14px; /* body text, list-item titles */
+  --text-16: 16px; /* h5, panel titles */
+  --text-20: 20px; /* h4, card/view titles */
+  --text-24: 24px; /* h3, page titles */
+  --text-32: 32px; /* h2, section headings */
+  --text-40: 40px; /* h1, admin landing headers */
+  --text-48: 48px; /* marketing subsection headline */
+  --text-64: 64px; /* marketing hero headline (desktop) */
+  --text-80: 80px; /* marketing hero headline (large desktop / display) */
+
+  /* Radius */
+  --radius-chip: 4px; /* chips, inline labels, small badges */
+  --radius-control: 6px; /* buttons, inputs, dropdown items */
+  --radius-card: 8px; /* cards, panels, sidebar nav items, dropdown menus */
+  --radius-modal: 12px; /* modals, command palette, settings panels */
+  --radius-full: 9999px; /* status circles, avatar circles, shortcut containers */
+
+  /* Duration */
+  --duration-micro: 150ms; /* hover, focus, buttons — every micro-interaction */
+  --duration-reveal: 500ms; /* scroll-reveal entrances */
+  --duration-reveal-slow: 700ms; /* larger/slower scroll-reveal entrances */
+
+  /* Fonts — Latin-first stack; Noto Kufi Arabic is the fallback so Arabic
+     glyphs inside an otherwise-English string still resolve correctly.
+     `[lang="ar"]` in globals.css flips the priority for Arabic content. */
+  --font-sans: var(--font-inter), var(--font-noto-kufi), sans-serif;
+  --font-mono: var(--font-jetbrains), monospace;
+}
+
+/*
+ * Semantic colour tokens — runtime values that change with `.dark`.
+ * Bare names (no `--color-` prefix) — the `@theme inline` block in
+ * globals.css maps these to the Tailwind colour namespace components
+ * actually use. Every value here is a `var()` into palette.css.
+ */
+:root {
+  --bg: var(--palette-light-50);
+  --card: var(--palette-light-0);
+  --surface: var(--palette-light-100);
+  --surface-raised: var(--palette-light-200);
+  --border: var(--palette-light-300);
+  --text-primary: var(--palette-light-950);
+  --text-secondary: var(--palette-light-600);
+  /* Light mode maps one brand step darker than dark mode ON PURPOSE:
+     brand-500 (#5E6AD2) fails AA body-text contrast on white, so light
+     mode uses brand-600 instead. Do not "fix" this to use brand-500 in
+     both themes for consistency — that would silently break AA. */
+  --primary: var(--palette-brand-600);
+  --primary-hover: var(--palette-brand-700);
+  --secondary: var(--palette-brand-550);
+  --success: var(--palette-success-light);
+  --warning: var(--palette-warning-light);
+  --error: var(--palette-error-light);
+}
+
+.dark {
+  --bg: var(--palette-neutral-950);
+  --card: var(--palette-neutral-900);
+  --surface: var(--palette-neutral-850);
+  --surface-raised: var(--palette-neutral-800);
+  --border: var(--palette-neutral-700);
+  --text-primary: var(--palette-neutral-50);
+  --text-secondary: var(--palette-neutral-400);
+  --primary: var(--palette-brand-500);
+  --primary-hover: var(--palette-brand-600);
+  --secondary: var(--palette-brand-400);
+  --success: var(--palette-success);
+  --warning: var(--palette-warning);
+  --error: var(--palette-error);
+}

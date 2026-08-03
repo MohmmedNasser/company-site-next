@@ -1,0 +1,55 @@
+/*
+ * This is the ONLY file to edit when changing the site's identity.
+ *
+ * Raw colour values only — no semantic meaning, no theme logic, no Tailwind
+ * directives (deliberately not wrapped in `@theme`: a plain `:root` block
+ * here means Tailwind never generates utilities like `bg-brand-500` from
+ * these, so there is no way to reach for a raw palette value from a
+ * component even by accident — see tokens.css for the mapping layer that
+ * actually feeds Tailwind).
+ *
+ * Naming rule: every entry is named by HUE and STEP, never by role. A
+ * rebrand from violet to teal means editing the six lines below and
+ * nothing else — `--palette-brand-500` must stay truthful about being
+ * "the brand colour, step 500" whatever hue it holds, so it never ends up
+ * named "violet" while holding a green value. The same rule applies to any
+ * hue added later (a new accent, a new status colour, etc.).
+ */
+
+:root {
+  /* Brand — source: violet-issue-DESIGN.md / design-decisions.md §2, §6.
+     --palette-brand-550 is a derived step not in the original spec: the
+     AA-safe light-mode counterpart to brand-400 (Secondary), derived with
+     the same per-channel ratio used to derive brand-600 from brand-500. */
+  --palette-brand-400: #6e79d6;
+  --palette-brand-500: #5e6ad2;
+  --palette-brand-550: #5b68c3;
+  --palette-brand-600: #4e5bbf;
+  --palette-brand-700: #404ba5;
+
+  /* Neutral — dark-theme surfaces/text. Source: design-decisions.md §2. */
+  --palette-neutral-950: #101014;
+  --palette-neutral-900: #1b1b25;
+  --palette-neutral-850: #1f1f2e;
+  --palette-neutral-800: #252536;
+  --palette-neutral-700: #2c2c3a;
+  --palette-neutral-400: #8a8f98;
+  --palette-neutral-50: #f1f1f4;
+
+  /* Light — light-theme surfaces/text. Source: design-decisions.md §2. */
+  --palette-light-0: #ffffff;
+  --palette-light-50: #fafafc;
+  --palette-light-100: #f3f3f7;
+  --palette-light-200: #ebebf2;
+  --palette-light-300: #e2e2ea;
+  --palette-light-600: #61656e;
+  --palette-light-950: #16161c;
+
+  /* Status hues — named per violet-issue-DESIGN.md's own hue names. */
+  --palette-success: #3dd68c;
+  --palette-success-light: #1fa968;
+  --palette-warning: #f0c000;
+  --palette-warning-light: #b88a00;
+  --palette-error: #eb5757;
+  --palette-error-light: #d13b3b;
+}
