@@ -6,7 +6,7 @@
 // back to `middleware.ts`; that convention is deprecated as of Next 16, and
 // any guide referencing `middleware.ts` predates the rename.
 import createMiddleware from "next-intl/middleware";
-import { routing } from "@/i18n/routing";
+import { routing } from "./i18n/routing";
 
 export default createMiddleware(routing);
 
