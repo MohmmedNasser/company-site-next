@@ -155,3 +155,28 @@ digits are the norm on Arabic tech/software marketing sites in this sector.
 - Numeral system following the OS/browser locale automatically — rejected;
   unpredictable rendering across environments and untestable as a fixed
   design decision.
+
+## Translation ownership
+
+Two sources, split by nature of the string:
+
+1. **UI chrome → messages/{ar,en}.json**, changed only by deploy.
+   Nav, buttons, form labels, validation, empty states, 404, aria-labels.
+2. **Content → database, edited in the admin panel**, stored as
+   {ar, en} JSON columns.
+   Services, projects, testimonials, clients, posts, contact details, plus a
+   fixed whitelist of section copy in the settings table (hero title/subtitle/
+   CTAs, and heading + description for each home section).
+
+Rule: "would the client change this themselves?" → database.
+"would changing this be a bug?" → code.
+
+Rejected: making every string editable. Each editable string costs two admin
+form fields and forfeits compile-time type safety for a CMS nobody asked for.
+
+Consequence for Phase 2: section copy lives in
+src/lib/content/mock/settings.json shaped as {ar, en} from day one — never in
+messages/*.json. Phase 14 swaps the source, not the shape.
+
+Fallback: empty `ar` falls back to `en` at render time. The admin flags
+incomplete translations rather than hiding them.
