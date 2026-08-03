@@ -1,9 +1,10 @@
+// src/app/[locale]/styleguide/styleguide-client.tsx
 "use client";
 
-import { useState } from "react";
-
-type Theme = "light" | "dark";
-type Lang = "en" | "ar";
+import { useEffect, useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
+import { useTheme } from "next-themes";
+import { usePathname, useRouter } from "@/i18n/navigation";
 
 type SemanticToken = {
   cssVar: `--color-${string}`;
@@ -183,6 +184,12 @@ const FONT_SAMPLES: {
 const MIXED_SCRIPT_PARAGRAPH =
   "نحن نبني واجهات API سريعة باستخدام Next.js، مع تركيز خاص على تحسين SEO حتى يظهر موقعك بوضوح في نتائج البحث دون أي تنازل عن الأداء.";
 
+const RTL_PARAGRAPH_EN =
+  "Every section on this site is built with logical CSS properties, so the whole layout mirrors correctly when a visitor switches from English to Arabic — padding, alignment, and icon direction all flip together instead of being fixed by hand for each language.";
+
+const RTL_PARAGRAPH_AR =
+  "كل قسم في هذا الموقع مبني باستخدام خصائص CSS منطقية، بحيث ينعكس التخطيط بالكامل بشكل صحيح عند تبديل الزائر من الإنجليزية إلى العربية — المسافات والمحاذاة واتجاه الأيقونات تنعكس جميعها تلقائيًا بدلاً من ضبطها يدويًا لكل لغة.";
+
 function hexToRgb(hex: string): [number, number, number] | null {
   const clean = hex.trim().replace("#", "");
   if (clean.length !== 6) return null;
@@ -223,49 +230,123 @@ function readResolvedTokens(): Record<string, string> {
   return next;
 }
 
-export function StyleguideClient() {
-  const [theme, setTheme] = useState<Theme>("light");
-  const [lang, setLang] = useState<Lang>("en");
-  const [resolved, setResolved] = useState<Record<string, string>>(() =>
-    readResolvedTokens(),
+function ArrowIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="20"
+      height="20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      className={className}
+      aria-hidden="true"
+    >
+      <path
+        d="M5 12h14M13 6l6 6-6 6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
   );
+}
 
-  // Plain state + direct DOM writes (Phase 2 brings next-themes/next-intl).
-  // The class/attribute mutation and the token re-read both happen here,
-  // synchronously, in the event handler — not in an effect — since the
-  // re-read only makes sense once the mutation it depends on has happened.
-  function toggleTheme() {
-    const next: Theme = theme === "light" ? "dark" : "light";
-    document.documentElement.classList.toggle("dark", next === "dark");
-    setTheme(next);
-    setResolved(readResolvedTokens());
-  }
+function CheckIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="20"
+      height="20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
 
-  function toggleLang() {
-    const next: Lang = lang === "en" ? "ar" : "en";
-    document.documentElement.lang = next;
-    document.documentElement.dir = next === "ar" ? "rtl" : "ltr";
-    setLang(next);
-  }
+function ThemeToggle() {
+  const { resolvedTheme, setTheme } = useTheme();
+  const t = useTranslations("common");
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    // Deliberate hydration guard: the client re-render after mount is the
+    // point of this effect, so react-hooks/set-state-in-effect is a
+    // false positive here.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
+  }, []);
+
+  const current = mounted ? resolvedTheme : undefined;
+  const label = current === "dark" ? t("theme.dark") : t("theme.light");
+
+  return (
+    <button
+      type="button"
+      onClick={() => setTheme(current === "dark" ? "light" : "dark")}
+      aria-label={t("a11y.toggleTheme")}
+      className="rounded-control border-border text-14 text-text-primary hover:bg-surface border px-16 py-8"
+    >
+      {t("theme.system") === label
+        ? label
+        : `${t("a11y.toggleTheme")}: ${label}`}
+    </button>
+  );
+}
+
+function LocaleSwitcher() {
+  const locale = useLocale();
+  const pathname = usePathname();
+  const router = useRouter();
+  const t = useTranslations("common.locale");
+  const target = locale === "ar" ? "en" : "ar";
+  const label = locale === "ar" ? t("switchToEnglish") : t("switchToArabic");
+
+  return (
+    <button
+      type="button"
+      onClick={() => router.replace(pathname, { locale: target })}
+      className="rounded-control border-border text-14 text-text-primary hover:bg-surface border px-16 py-8"
+    >
+      {label}
+    </button>
+  );
+}
+
+export function StyleguideClient() {
+  const locale = useLocale();
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  const [resolved, setResolved] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    // Deliberate hydration guard: the client re-render after mount is the
+    // point of this effect, so react-hooks/set-state-in-effect is a
+    // false positive here.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (mounted) {
+      // Deliberate: re-reads the CSSOM once the DOM has actually been
+      // painted with the current theme/mount state, so the flagged
+      // setState is the intended synchronization, not an anti-pattern.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setResolved(readResolvedTokens());
+    }
+  }, [mounted, resolvedTheme]);
 
   return (
     <main className="mx-auto max-w-[1280px] px-24 py-48">
       <div className="border-border mb-40 flex flex-wrap items-center gap-16 border-b pb-24">
         <h1 className="text-32 text-text-primary font-semibold">Styleguide</h1>
-        <button
-          type="button"
-          onClick={toggleTheme}
-          className="rounded-control border-border text-14 text-text-primary hover:bg-surface border px-16 py-8"
-        >
-          Theme: {theme}
-        </button>
-        <button
-          type="button"
-          onClick={toggleLang}
-          className="rounded-control border-border text-14 text-text-primary hover:bg-surface border px-16 py-8"
-        >
-          Language: {lang}
-        </button>
+        <ThemeToggle />
+        <LocaleSwitcher />
       </div>
 
       {/* 1. Colour */}
@@ -451,12 +532,84 @@ export function StyleguideClient() {
       <Section title="8. Overline utility">
         <div className="flex flex-col gap-8">
           <p className="text-12 text-text-secondary overline">
-            {lang === "ar" ? "الأعمال المختارة" : "Selected work"}
+            {locale === "ar" ? "الأعمال المختارة" : "Selected work"}
           </p>
           <p className="text-13 text-text-secondary">
-            Uppercases only under :lang(en) — current language is {lang}, so
-            this {lang === "en" ? "IS" : "is NOT"} rendered uppercase.
+            Uppercases only under :lang(en) — current locale is {locale}, so
+            this {locale === "en" ? "IS" : "is NOT"} rendered uppercase.
           </p>
+        </div>
+      </Section>
+
+      {/* 9. RTL */}
+      <Section title="9. RTL">
+        <div className="flex flex-col gap-32">
+          <div>
+            <p className="text-13 text-text-secondary mb-8">
+              Logical spacing — ps-32/pe-8/border-s should sit at the
+              reading-start edge in both directions
+            </p>
+            <div className="border-border bg-surface border">
+              <div className="bg-primary/10 border-primary text-14 text-text-primary border-s-4 py-8 ps-32 pe-8">
+                ps-32 pe-8 border-s-4 (padding-inline-start/end,
+                border-inline-start)
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
+            <p className="border-border text-14 text-text-primary border p-12 text-start">
+              text-start (aligns to the reading-start edge)
+            </p>
+            <p className="border-border text-14 text-text-primary border p-12 text-end">
+              text-end (aligns to the reading-end edge)
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-24">
+            <span className="text-14 text-text-primary flex items-center gap-8">
+              <ArrowIcon className="text-primary rtl:-scale-x-100" />
+              Directional — mirrors in RTL
+            </span>
+            <span className="text-14 text-text-primary flex items-center gap-8">
+              <CheckIcon className="text-success" />
+              Non-directional — must NOT mirror
+            </span>
+          </div>
+
+          <div className="relative h-64 overflow-hidden">
+            <div className="border-primary text-primary bg-primary/10 text-11 absolute start-0 top-0 border px-8 py-4">
+              start-0 (flips with direction)
+            </div>
+            <div className="border-error text-error bg-error/10 text-11 absolute top-32 left-0 border px-8 py-4">
+              left-0 (never flips — wrong for RTL)
+            </div>
+          </div>
+
+          <div>
+            <p className="text-13 text-text-secondary mb-8">
+              flex-row — items should read in reading order automatically
+            </p>
+            <div className="flex flex-row gap-8">
+              {["1", "2", "3"].map((n) => (
+                <div
+                  key={n}
+                  className="bg-surface border-border text-14 text-text-primary flex size-40 items-center justify-center border"
+                >
+                  {n}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 gap-24 sm:grid-cols-2">
+            <p dir="ltr" lang="en" className="text-16 text-text-primary">
+              {RTL_PARAGRAPH_EN}
+            </p>
+            <p dir="rtl" lang="ar" className="text-16 text-text-primary">
+              {RTL_PARAGRAPH_AR}
+            </p>
+          </div>
         </div>
       </Section>
     </main>
