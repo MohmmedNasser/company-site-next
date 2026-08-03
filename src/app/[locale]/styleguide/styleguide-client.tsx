@@ -1,6 +1,7 @@
 // src/app/[locale]/styleguide/styleguide-client.tsx
 "use client";
 
+import { useSyncExternalStore } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 import { usePathname, useRouter } from "@/i18n/navigation";
@@ -230,6 +231,47 @@ function readResolvedTokens(): Record<string, string> {
   return next;
 }
 
+// next-themes flips the `.dark` class on <html> inside its own passive
+// effect, AFTER the React state change that triggers a theme-consuming
+// component to re-render. Reacting to the theme *state* (e.g. via
+// useTheme()) therefore reads the CSSOM one render too early — before the
+// class attribute has actually changed. Subscribing to the class attribute
+// itself via useSyncExternalStore + MutationObserver instead means the
+// snapshot only updates (and only triggers a re-render) once the DOM
+// mutation next-themes performs has actually happened.
+//
+// The snapshot is cached and only recomputed when the observed class
+// string changes, so repeated getSnapshot() calls from unrelated re-renders
+// return a referentially stable object — required by useSyncExternalStore
+// to avoid tearing/infinite-loop warnings.
+let cachedHtmlClass: string | null = null;
+let cachedResolvedTokens: Record<string, string> = {};
+
+function getResolvedTokensSnapshot(): Record<string, string> {
+  if (typeof document === "undefined") return cachedResolvedTokens;
+  const currentClass = document.documentElement.className;
+  if (currentClass !== cachedHtmlClass) {
+    cachedHtmlClass = currentClass;
+    cachedResolvedTokens = readResolvedTokens();
+  }
+  return cachedResolvedTokens;
+}
+
+function getResolvedTokensServerSnapshot(): Record<string, string> {
+  // No tokens resolved yet during SSR — matches prior "not mounted" state.
+  return {};
+}
+
+function subscribeToHtmlClassChanges(callback: () => void): () => void {
+  if (typeof document === "undefined") return () => {};
+  const observer = new MutationObserver(callback);
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+  return () => observer.disconnect();
+}
+
 function ArrowIcon({ className }: { className?: string }) {
   return (
     <svg
@@ -311,15 +353,14 @@ function LocaleSwitcher() {
 
 export function StyleguideClient() {
   const locale = useLocale();
-  // Subscribing via useTheme() re-renders this component whenever the
-  // resolved theme changes, even though the value itself isn't read here.
-  useTheme();
-  const mounted = useIsMounted();
-  // Pure, side-effect-free read of already-computed CSSOM values — no
-  // state/effect needed. The useTheme() subscription above already causes
-  // a re-render on every theme change, so recomputing this inline on each
-  // render keeps it in sync without an effect.
-  const resolved = mounted ? readResolvedTokens() : {};
+  // Re-renders only once the <html> class attribute has actually changed
+  // (see subscribeToHtmlClassChanges above) — not on the earlier React
+  // theme-state change next-themes' own effect hasn't applied yet.
+  const resolved = useSyncExternalStore(
+    subscribeToHtmlClassChanges,
+    getResolvedTokensSnapshot,
+    getResolvedTokensServerSnapshot,
+  );
 
   return (
     <main className="mx-auto max-w-[1280px] px-24 py-48">
