@@ -25,8 +25,8 @@ Software agency website. Goals in priority order:
 
 ## Current State
 
-Phase: 0
-Branch: main
+Phase: 3 — App Shell
+Branch: master
 
 ## Commit Convention
 
