@@ -1,3 +1,5 @@
+import "server-only";
+
 import { apiRepository } from "./api/api-repository";
 import { mockRepository } from "./mock/mock-repository";
 import type { ContentRepository } from "./repository";
