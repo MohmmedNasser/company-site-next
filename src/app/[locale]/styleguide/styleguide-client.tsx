@@ -1,10 +1,26 @@
 // src/app/[locale]/styleguide/styleguide-client.tsx
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 import { usePathname, useRouter } from "@/i18n/navigation";
+
+// Reports whether the component has hydrated on the client. Implemented
+// with useSyncExternalStore (server snapshot false, client snapshot true)
+// rather than a useState + useEffect(() => setState(true), []) pair, so
+// there is no setState call inside an effect to trip
+// react-hooks/set-state-in-effect — the store never actually changes, we
+// only need the snapshot to differ between server and client renders.
+const emptySubscribe = () => () => {};
+
+function useHydrated() {
+  return useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false,
+  );
+}
 
 type SemanticToken = {
   cssVar: `--color-${string}`;
@@ -271,15 +287,7 @@ function CheckIcon({ className }: { className?: string }) {
 function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
   const t = useTranslations("common");
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    // Deliberate hydration guard: the client re-render after mount is the
-    // point of this effect, so react-hooks/set-state-in-effect is a
-    // false positive here.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setMounted(true);
-  }, []);
+  const mounted = useHydrated();
 
   const current = mounted ? resolvedTheme : undefined;
   const label = current === "dark" ? t("theme.dark") : t("theme.light");
@@ -319,27 +327,15 @@ function LocaleSwitcher() {
 
 export function StyleguideClient() {
   const locale = useLocale();
-  const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-  const [resolved, setResolved] = useState<Record<string, string>>({});
-
-  useEffect(() => {
-    // Deliberate hydration guard: the client re-render after mount is the
-    // point of this effect, so react-hooks/set-state-in-effect is a
-    // false positive here.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (mounted) {
-      // Deliberate: re-reads the CSSOM once the DOM has actually been
-      // painted with the current theme/mount state, so the flagged
-      // setState is the intended synchronization, not an anti-pattern.
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setResolved(readResolvedTokens());
-    }
-  }, [mounted, resolvedTheme]);
+  // Subscribing via useTheme() re-renders this component whenever the
+  // resolved theme changes, even though the value itself isn't read here.
+  useTheme();
+  const mounted = useHydrated();
+  // Pure, side-effect-free read of already-computed CSSOM values — no
+  // state/effect needed. The useTheme() subscription above already causes
+  // a re-render on every theme change, so recomputing this inline on each
+  // render keeps it in sync without an effect.
+  const resolved = mounted ? readResolvedTokens() : {};
 
   return (
     <main className="mx-auto max-w-[1280px] px-24 py-48">
