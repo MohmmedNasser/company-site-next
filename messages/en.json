@@ -1,0 +1,46 @@
+{
+  "common": {
+    "nav": {
+      "home": "Home",
+      "about": "About",
+      "services": "Services",
+      "portfolio": "Portfolio",
+      "blog": "Blog",
+      "contact": "Contact"
+    },
+    "actions": {
+      "readMore": "Read more",
+      "viewAll": "View all",
+      "submit": "Submit",
+      "sending": "Sending…",
+      "backToTop": "Back to top",
+      "learnMore": "Learn more"
+    },
+    "theme": {
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
+    "locale": {
+      "switchToArabic": "Switch to Arabic",
+      "switchToEnglish": "Switch to English"
+    },
+    "errors": {
+      "required": "This field is required",
+      "invalidEmail": "Enter a valid email address",
+      "tooShort": "This is too short",
+      "somethingWentWrong": "Something went wrong. Please try again."
+    },
+    "a11y": {
+      "skipToContent": "Skip to content",
+      "openMenu": "Open menu",
+      "closeMenu": "Close menu",
+      "toggleTheme": "Toggle theme"
+    }
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "The page you're looking for doesn't exist or has moved.",
+    "backHome": "Back to home"
+  }
+}
