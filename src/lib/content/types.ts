@@ -1,0 +1,84 @@
+// src/lib/content/types.ts
+
+export type Localized = { ar: string; en: string };
+
+export interface Service {
+  id: string;
+  slug: string;
+  icon: string; // lucide-react icon name, installed in Phase 3
+  order: number;
+  title: Localized;
+  excerpt: Localized;
+  body: Localized;
+}
+
+export interface Project {
+  id: string;
+  slug: string;
+  category: string;
+  status: "shipped" | "in-development";
+  client: string; // Client.id
+  coverImage: string;
+  order: number;
+  title: Localized;
+  summary: Localized;
+  description: Localized;
+}
+
+export interface Testimonial {
+  id: string;
+  clientId: string; // Client.id
+  avatar: string;
+  order: number;
+  author: Localized;
+  role: Localized;
+  quote: Localized;
+}
+
+export interface Client {
+  id: string;
+  logo: string;
+  url: string;
+  order: number;
+  name: Localized;
+}
+
+export interface Post {
+  id: string;
+  slug: string;
+  coverImage: string;
+  publishedAt: string; // ISO date
+  order: number;
+  author: Localized;
+  title: Localized;
+  excerpt: Localized;
+  body: Localized;
+}
+
+interface SectionCopy {
+  heading: Localized;
+  description: Localized;
+}
+
+export interface SiteSettings {
+  hero: {
+    title: Localized;
+    subtitle: Localized;
+    ctaPrimary: Localized;
+    ctaSecondary: Localized;
+  };
+  sections: {
+    about: SectionCopy;
+    services: SectionCopy;
+    portfolio: SectionCopy;
+    testimonials: SectionCopy;
+    clients: SectionCopy;
+    contact: SectionCopy;
+  };
+  contact: {
+    email: string;
+    phone: string;
+    address: Localized;
+  };
+  social: { platform: string; url: string }[];
+}
