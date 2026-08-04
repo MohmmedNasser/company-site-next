@@ -25,7 +25,7 @@ Software agency website. Goals in priority order:
 
 ## Current State
 
-Phase: 3 — App Shell
+Phase: 4 — Hero: Interactive Background + Parallax
 Branch: master
 
 ## Commit Convention

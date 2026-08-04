@@ -396,3 +396,14 @@ fully green — not `ea7a723`.
 only after every deliverable-checklist item has been re-verified against
 that exact commit — never a commit made mid-fix-wave in anticipation of
 verification passing.
+
+**Branch naming: this repo uses `master`, not `main`.** §0.1's frontend
+branch table names the client-demo branch `main`; the actual repo (created
+in Phase 0) uses `master` as its only trunk, and `CLAUDE.md`'s Current
+State has recorded `Branch: master` since Phase 2. Phase 3 was executed on
+a short-lived feature branch (`feat/phase-3-app-shell`) per its own prompt —
+merging it into `master` is left for review rather than done automatically,
+since merges weren't part of the authorized scope. Treat `main` in §0.1 as
+the plan's original assumption, not this repo's reality — don't rename the
+trunk branch to match the plan; future Current State entries should keep
+saying `master`.
