@@ -6,6 +6,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { useIsMounted } from "@/lib/hooks/use-is-mounted";
+import { Phase3Demos } from "./phase-3-demos";
 
 type SemanticToken = {
   cssVar: `--color-${string}`;
@@ -247,6 +248,13 @@ function readResolvedTokens(): Record<string, string> {
 let cachedHtmlClass: string | null = null;
 let cachedResolvedTokens: Record<string, string> = {};
 
+// Module-level constant, not a `{}` literal returned fresh per call — Phase
+// 3 testing surfaced "The result of getServerSnapshot should be cached" in
+// the console here, because a new object identity on every call fails
+// useSyncExternalStore's referential-stability check and risks the
+// infinite-loop warning it exists to prevent. A stable reference fixes it.
+const EMPTY_TOKENS: Record<string, string> = {};
+
 function getResolvedTokensSnapshot(): Record<string, string> {
   if (typeof document === "undefined") return cachedResolvedTokens;
   const currentClass = document.documentElement.className;
@@ -259,7 +267,7 @@ function getResolvedTokensSnapshot(): Record<string, string> {
 
 function getResolvedTokensServerSnapshot(): Record<string, string> {
   // No tokens resolved yet during SSR — matches prior "not mounted" state.
-  return {};
+  return EMPTY_TOKENS;
 }
 
 function subscribeToHtmlClassChanges(callback: () => void): () => void {
@@ -633,6 +641,8 @@ export function StyleguideClient() {
           </div>
         </div>
       </Section>
+
+      <Phase3Demos />
     </main>
   );
 }
