@@ -83,7 +83,12 @@ export default async function LocaleLayout({
             Bypasses Header's nav entirely for keyboard users. */}
         <a
           href="#main-content"
-          className="bg-primary text-on-primary rounded-control sr-only px-16 py-8 focus:not-sr-only focus:fixed focus:inset-s-16 focus:top-16 focus:z-60"
+          // top-96, not top-16: Header is now a floating pill fixed at
+          // top-16 (up to 64px tall) — top-16 here would land the skip
+          // link directly under/over it. 96px clears the pill plus a
+          // margin regardless of its condensed (52px) or expanded (64px)
+          // height.
+          className="bg-primary text-on-primary rounded-control sr-only px-16 py-8 focus:not-sr-only focus:fixed focus:inset-s-16 focus:top-96 focus:z-60"
         >
           {t("a11y.skipToContent")}
         </a>

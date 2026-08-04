@@ -1,4 +1,9 @@
 {
+  "home": {
+    "hero": {
+      "scrollCue": "Scroll to explore"
+    }
+  },
   "common": {
     "nav": {
       "home": "Home",

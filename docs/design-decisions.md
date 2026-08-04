@@ -114,6 +114,12 @@ applies regardless of route structure.
 
 ## 4. Hero background
 
+> **Superseded by §11:** `Threads` was replaced with reactbits `MoltenMetal`.
+> This entry is kept as the historical record of the original choice — the
+> gating architecture (mobile/reduced-motion fallback, viewport pause,
+> mouse interaction) it established still applies unchanged to the new
+> background; only the specific reactbits component changed.
+
 **Decision:** reactbits `Threads`, with a static CSS gradient fallback for
 mobile and `prefers-reduced-motion`.
 
@@ -373,6 +379,257 @@ theme-flipped foreground — white reads correctly against it either way.
   raw-palette-in-a-component pattern the design-system skill forbids, and
   the styleguide's own comment already called it out as a stopgap, not a
   pattern to repeat.
+
+---
+
+## 9. Glass / backdrop-blur — scoped exception
+
+**Decision:** Extend `violet-issue-DESIGN.md`'s existing backdrop-blur
+treatment — modals ("a subtle `0 24px 48px rgba(0,0,0,0.4)` shadow combined
+with a backdrop blur of 4px") and the command palette (same shadow + blur) —
+to floating overlay surfaces generally, not just those two.
+
+**Allowed (floating surfaces only):**
+
+- Sticky header, once condensed/scrolled
+- Dropdown menus (language switcher, nav submenus)
+- Modals (already in the original spec)
+- Command palette (already in the original spec)
+- Mobile nav overlay
+
+**Never allowed (still banned everywhere else):**
+
+- Content cards (service cards, project cards, testimonial cards)
+- Section backgrounds
+- Any stacked/nested translucent panel used as decoration
+- Anything in the admin panel beyond what the original Linear-style spec
+  already allows
+
+**Rationale:** floating surfaces need to show contextual continuity with
+what's behind them while staying legible — that's a functional use of blur
+(helping the user track that the header/dropdown/modal is layered above
+scrolling content), not a decorative genre applied for its own sake. Content
+cards sitting in blur is exactly the pattern the Claude Design brief
+rejected, and that rejection still stands — this amendment does not reopen
+it.
+
+**Token implementation:** background uses the existing surface token at
+reduced opacity — `color-mix(in srgb, var(--color-surface-raised)
+var(--overlay-surface-opacity), transparent)`, not a new hardcoded rgba
+value; `backdrop-filter: blur(var(--blur-overlay))`, a new token sourced
+from violet-issue-DESIGN.md's existing 4px modal baseline; border stays
+`--color-border`. No hex literal — same rule as everywhere else in the
+token contract. `--overlay-surface-opacity` is itself a token (not a magic
+number picked ad hoc per component) precisely because the header's own
+worst-case contrast check (below) is what determines its value, not
+aesthetic taste alone — see the header condense implementation for the
+verification.
+
+**Rejected alternatives:**
+
+- A separate, higher blur value for marketing chrome vs. the original 4px
+  admin spec — rejected; one blur value keeps the floating-surface language
+  visually identical between marketing and admin, and 4px is already
+  established as correct for this system's density.
+- Applying glass to hero/section backgrounds too, since the benchmarked
+  reference site did — rejected explicitly; those are content surfaces, not
+  floating ones. The exception is scoped to elements that visually float
+  above other content, not to decorative texture.
+
+---
+
+## 10. Hero brand mark — raster exception (dark mode only)
+
+> **Removed — see §11.** The raster asset, `HeroBrandMark`, and its
+> Threads density mask were all removed when the hero background was
+> swapped to `MoltenMetal`. This entry is kept as the historical record of
+> why the exception existed and how it was scoped, in case a future hero
+> decoration revives the question of raster assets vs. token-driven shapes.
+> The asset files themselves (`public/brand/codexa-hero-mark-3d.webp` /
+> `.png`) were deleted, not just unreferenced — do not resurrect this
+> section's decision by re-adding them without re-deriving the exception.
+
+**Decision:** Render `public/brand/codexa-hero-mark-3d.webp` (a 710×814
+AI-generated 3D glass rendering of the Codexa mark's arc geometry,
+background-removed — confirmed genuinely alpha-transparent in both the
+`.webp` and `.png` copies via their file headers, not merely appearing so
+against a light preview background) as the hero's decorative signature
+element, in dark mode only. Light mode renders a flat, token-driven CSS
+ambient arc instead (`HeroBrandMark`'s `AmbientArc`, a blurred
+`--color-primary`-at-reduced-opacity ring stroke — an accent, not a large
+fill, per the design-system skill's rule 2).
+
+Unlike every other visual in this project, this asset's colours are baked
+at generation time — it does **not** follow a future `palette.css` rebrand
+like everything else in the token system does. Its interior colour
+(~`#190F27`) approximates `--color-bg` closely enough to read as intentional
+against a dark background, but does not track it exactly, and looks broken
+against a light one. This is a known, accepted, one-off exception, scoped to
+this single hero decoration only. **If the brand palette changes
+significantly later, this asset must be regenerated or retired — flag it as
+tech debt, do not let it silently look "wrong" after a rebrand.**
+
+**Why conditional rendering, not CSS `display`/`visibility`:** the theme
+check (`useTheme` + `useIsMounted`, the same mount-gated pattern
+`Header`'s `ThemeToggle` already uses) decides whether `<Image>` exists in
+the tree at all. A visitor resolved to light mode never has the `<Image>`
+element mounted, so the browser never requests the asset — hiding it with
+CSS instead would still pay for the download on every light-mode visit for
+an image that can never be seen.
+
+**Positioning is anchored to the same `max-w-7xl` frame `Container` (and
+therefore the headline's 12-column grid) uses, not the full-bleed section.**
+The mark is sized in `vw` (responsive), and the container caps at 1280px —
+if the mark were positioned against the raw viewport instead, a wide enough
+monitor would let it drift left independently of the headline's own capped
+column boundary until the two overlapped. Anchoring both to the same capped
+frame keeps the gap between them constant regardless of viewport width.
+Sized to stay within columns 8-12's own share of that frame (max 520px
+against their ~539px), so it doesn't compete with column 7 for space even
+before accounting for its `-14%` end-margin bleed off-canvas.
+
+**Motion:** position/scale only, tied to the same Lenis-synced scroll value
+as the rest of the hero — never a rotation. A full rotation of a flat
+raster render with fixed baked-in highlights would visibly not track real
+lighting as it turned, unlike an actual 3D scene; a slow scroll-linked
+drift plus a slight idle scale pulse reads as "alive" without that tell.
+
+**Rejected alternatives:**
+
+- Serving the `.png` fallback via `<picture>` — rejected in favour of
+  passing the `.webp` `src` straight to `next/image` and letting its own
+  format-negotiation pipeline handle the rest, since the task's own
+  instructions named this as an equally acceptable approach and it keeps
+  next/image's sizing/lazy-loading benefits intact (a hand-rolled
+  `<picture>` would bypass them). Known limitation: a browser with zero
+  WebP support gets served the source WebP unchanged rather than a
+  guaranteed-decodable PNG — accepted given this is a demo/portfolio site,
+  not one with hard legacy-browser requirements.
+- Reusing `--blur-overlay` (design-decisions.md §9) for the light-mode
+  ambient arc's soft-glow blur — rejected; that token is scoped to floating
+  overlay chrome at a 4px baseline, which would be imperceptible at this
+  shape's much larger scale. The arc uses a plain `blur(64px)` filter
+  instead, documented in `hero-brand-mark.tsx` as a deliberately different,
+  one-off decorative value, not a reusable token.
+
+---
+
+## 11. Hero background swap — MoltenMetal replaces Threads; brand mark removed
+
+**Decision:** Replace the hero's Threads canvas with reactbits `MoltenMetal`
+(same source-acquisition method as Threads — reactbits.dev's `jsrepo`
+manifest endpoint still doesn't serve valid JSON, so it's copied by hand
+from the same GitHub source `jsrepo` would fetch), and remove the dark-mode-
+only 3D raster brand mark (§10) entirely — the hero background is now the
+only visual element behind the headline.
+
+**Rationale:** requested directly. `MoltenMetal` renders a slow, organic,
+mouse-reactive plasma/flow effect. Task 1's original gating architecture
+(mobile/reduced-motion fallback in `hero-background.tsx`, mount/unmount
+pause on scroll-out, mouse interaction) carries over unchanged from §4 —
+only the specific reactbits component swapped, not the surrounding rules.
+
+**Colour mapping is worst-case-preserving, not re-derived.** `MoltenMetal`
+takes three arbitrary hex colours (`color1`/`color2`/`color3`) that blend
+by pixel intensity, with `color3` as the terminal colour at the brightest,
+most-opaque pixels (see `molten-metal-background.tsx`'s fragment shader —
+alpha reaches 1 exactly where the colour mix has fully resolved to
+`color3`). The sourced component's own defaults are a violet/pink/white
+trio — pink has no place in this cool-toned system (design-system rule 3:
+"no warm colours enter the palette"), so all three are remapped to the
+already-defined `--palette-brand-*` family: `--palette-brand-700` →
+`--palette-brand-600` → `--palette-brand-500`. `color3` is deliberately
+pinned to the EXACT value (`--palette-brand-500`) Threads' own worst case
+used, so `hero-scrim.tsx`'s already-verified contrast numbers (dark theme
+4.05:1 unprotected / >8:1 with the scrim; light theme 3.95:1 unprotected /
+similar margin with the scrim) carry over without re-deriving them for a
+different worst-case colour — the scrim's job (protect text against a
+single fully-opaque brand-500 pixel) is unchanged by which shader produces
+that pixel.
+
+**Brand mark removal, downstream effects:** with the mark gone, the Threads
+density mask that faded the background's opacity toward the inline-end
+third of the viewport — added in §10's era specifically so Threads and the
+3D mark wouldn't visually compete — no longer has a purpose and was removed
+with it. `HeroBackground` no longer takes a `dir` prop as a result;
+`HeroScrim` still does, for its own, unrelated text-contrast gradient
+direction. `public/brand/codexa-hero-mark-3d.webp`/`.png` were deleted, not
+left unreferenced.
+
+**Rejected alternatives:**
+
+- Keeping the brand mark and layering `MoltenMetal` behind or around it —
+  rejected; the request was to remove the 3D image, not relocate it, and
+  §10's decision record is moot without a mark left to scope.
+- Re-deriving hero-scrim contrast from scratch for `MoltenMetal`'s actual
+  worst case — rejected as unnecessary rigor for its own sake: pinning
+  `color3` to the identical value Threads already used makes the two
+  shaders' worst cases identical by construction, so the existing verified
+  numbers are still correct, not merely "probably still fine."
+
+---
+
+## 12. Header restructure — floating pill, fixed positioning
+
+**Decision:** Restructure the header from a full-width `sticky` bar into a
+floating, fully-rounded (`rounded-full`) pill: `fixed` positioning with
+equal inset margins on narrow viewports, capped at `max-w-5xl` and centered
+on wider ones, sitting `top-16` from the viewport edge rather than flush
+against it. Requested directly, from a reference screenshot of a personal-
+portfolio-style floating capsule nav.
+
+**What carried over unchanged:** the glass treatment (design-decisions.md
+§9) and its condensed-state trigger, the `EASE_DECELERATE` transition, the
+contrast-driven all-`text-primary` nav text, and the shared-layout active-
+nav indicator. Only the container shape and positioning changed — the
+glass-onset _logic_ (transparent at the very top, fades in once scrolling
+begins) is the same `isCondensed` boolean as before, chosen explicitly over
+alternatives (hide-on-scroll-down, or a bare shrink with permanent glass)
+because it was the closest match to the header's existing, already-verified
+behavior.
+
+**What did not carry over from the reference image:** the avatar photo and
+personal name ("Mohammed Nasser" — coincidentally this repo's own git
+identity, but not this product's confirmed brand per PRODUCT.md) and its
+nav items (Home/About/Projects/Skills/Experience/Contact) were **not**
+copied. Codexa's existing `LogoMark` (wrapped in a circular badge to echo
+the reference's avatar-in-a-circle treatment) and this project's own nav
+items stand in for them — PRODUCT.md's confirmed brand identity overrides a
+purely visual/structural reference.
+
+**Layout consequence:** `fixed` removes the header from normal document
+flow, so it no longer reserves space the way `sticky` did. The home page
+absorbs this for free — the hero is a full-bleed `min-h-screen` background
+specifically composed to sit _behind_ a floating header (see
+`hero-section.tsx`), matching the reference image's own composition (a
+pill floating over a full-bleed dark background). **This is not yet solved
+for any non-hero page** — none exist yet (Phase 6 territory per
+PROJECT-PLAN.md) — future page templates need their own top clearance
+(padding roughly equal to the pill's `top-16` offset plus its up-to-64px
+height) since the header no longer pushes content down on its own. Flag
+this explicitly when Phase 5/6 pages are built, don't rediscover it as a
+bug.
+
+**Consequential change:** the skip-to-content link in `layout.tsx`
+(`focus:fixed focus:inset-s-16 focus:top-16`) shared the exact same
+`top-16` anchor as the old sticky header's top edge, which was fine when
+both were flush against the viewport top. Now that the header floats as a
+pill at that same offset, the skip link's focus position was moved to
+`focus:top-96` so a keyboard user tabbing to it doesn't land it visually
+underneath/behind the header pill.
+
+**Rejected alternatives:**
+
+- Compensating with global top padding on `<main>` now, before any non-hero
+  page exists to need it — rejected; padding tuned against a hero that
+  doesn't need it risks getting the number wrong for content that does,
+  and would need re-deriving anyway once a real page defines what "content
+  starts here" looks like without a full-bleed background behind it.
+- Keeping the CTA button's visibility breakpoint at `md:` (its previous
+  value) — rejected; six nav items plus locale switcher, theme toggle, CTA,
+  and the logo badge inside a `max-w-5xl` pill crowds well before `lg:`,
+  so the CTA now waits for `lg:inline-flex` to give the pill room to
+  breathe at medium widths.
 
 ---
 

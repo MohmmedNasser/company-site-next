@@ -52,6 +52,32 @@
   --duration-reveal: 500ms; /* scroll-reveal entrances */
   --duration-reveal-slow: 700ms; /* larger/slower scroll-reveal entrances */
 
+  /* Easing — one shared, deliberate deceleration curve for every non-
+     scroll-scrubbed UI transition (design-decisions.md's glass/header
+     revision), so motion reads as one considered system instead of each
+     component inlining its own curve. Mirrors the JS constant in
+     src/lib/motion/easing.ts (EASE_DECELERATE) — keep both in sync if this
+     ever changes. Not used for scroll-scrubbed values (those track scroll
+     position directly and have no independent "easing" of their own). */
+  --ease-decelerate: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Glass / backdrop-blur — design-decisions.md §9. Scoped to floating
+     overlay surfaces only (condensed header, dropdowns, modals, command
+     palette, mobile nav overlay) — never content cards or section
+     backgrounds. */
+  --blur-overlay: 4px; /* violet-issue-DESIGN.md's modal/command-palette baseline */
+  /* The condensed header sits directly over the Threads hero for a long
+     scroll range, so text painted on this surface must still clear 4.5:1
+     against the shader's worst-case fully-saturated frame (a single opaque
+     --palette-brand-500 pixel — see threads-background.tsx's colorVal
+     comment), not just its average colour. Verified numerically at this
+     value, composited onto --color-surface-raised, against
+     --color-text-primary (header.tsx uses text-primary for ALL nav text,
+     not text-secondary — text-secondary fails this check even at 90%
+     opacity): dark theme 9.81:1, light theme 10.87:1 — both clear AA with
+     large margin. Lower this only alongside re-running that check. */
+  --overlay-surface-opacity: 72%;
+
   /* Fonts — Latin-first stack; Noto Kufi Arabic is the fallback so Arabic
      glyphs inside an otherwise-English string still resolve correctly.
      `[lang="ar"]` in globals.css flips the priority for Arabic content. */
