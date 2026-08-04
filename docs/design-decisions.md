@@ -345,6 +345,37 @@ matched exactly, confirming the split is visually a no-op.
 
 ---
 
+## 8. `--color-on-primary` — Phase 3
+
+**Decision:** Add a semantic token for text/icons painted directly on
+`--color-primary` or `--color-primary-hover` (the primary `Button` variant's
+label), mapped to `--palette-light-0` (`#FFFFFF`) in **both** themes.
+
+**Rationale:** The styleguide's own contrast table (Phase 2) already flagged
+this gap in its `WHITE_RAW` comment: "white on primary" had no dedicated
+semantic token, so the demo reached for the raw `--palette-light-0` variable
+directly — acceptable in styleguide code auditing the token system itself,
+never acceptable in a production component per the design-system skill's
+token contract. `--color-primary` is a saturated brand colour in both dark
+and light mode, so unlike every other semantic token it does not need a
+theme-flipped foreground — white reads correctly against it either way.
+
+**Verification:** white (`#FFFFFF`) against dark-mode `--color-primary`
+(`#5E6AD2`) is 4.70:1; against light-mode `--color-primary` (`#4E5BBF`) is
+5.88:1. Both clear the WCAG AA 4.5:1 body-text bar.
+
+**Rejected alternatives:**
+
+- Reusing `--color-text-primary` — rejected; it's theme-flipped (light text
+  in dark mode, dark text in light mode) and would render near-invisible
+  dark text on the light-mode primary button.
+- Inlining `--palette-light-0` per-component — rejected; it's exactly the
+  raw-palette-in-a-component pattern the design-system skill forbids, and
+  the styleguide's own comment already called it out as a stopgap, not a
+  pattern to repeat.
+
+---
+
 ## Process notes
 
 Not design decisions — workflow corrections worth keeping so they aren't

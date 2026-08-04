@@ -15,21 +15,22 @@ description: Use whenever writing or editing CSS, Tailwind classes, component st
 
 Semantic variable names only — never the raw violet-issue-DESIGN.md hex values directly, and never the raw palette tokens (`--palette-brand-500`, `--palette-neutral-950`, etc.) either. Raw palette values live once, grouped by hue, in `src/styles/palette.css`; every semantic token below is mapped to one of them in `src/styles/tokens.css` — see `docs/design-decisions.md` §6–7 for the full raw→semantic map and the reasoning behind the split.
 
-| Token                    | Dark      | Light     | Role                                                    |
-| ------------------------ | --------- | --------- | ------------------------------------------------------- |
-| `--color-bg`             | `#101014` | `#FAFAFC` | App/page background, deepest layer                      |
-| `--color-card`           | `#1B1B25` | `#FFFFFF` | Card backgrounds ("Neutral / Card")                     |
-| `--color-surface`        | `#1F1F2E` | `#F3F3F7` | Elevated panels, distinct from card                     |
-| `--color-surface-raised` | `#252536` | `#EBEBF2` | Dropdowns, modals, popovers, command palette            |
-| `--color-border`         | `#2C2C3A` | `#E2E2EA` | Dividers, input borders, panel edges                    |
-| `--color-text-primary`   | `#F1F1F4` | `#16161C` | Headings, primary body text                             |
-| `--color-text-secondary` | `#8A8F98` | `#61656E` | Descriptions, metadata, placeholders                    |
-| `--color-primary`        | `#5E6AD2` | `#4E5BBF` | Primary actions, selected states, focus rings           |
-| `--color-primary-hover`  | `#4E5BBF` | `#404BA5` | Hover/pressed state for primary interactions            |
-| `--color-secondary`      | `#6E79D6` | `#5B68C3` | Secondary highlights, hover accents, gradient endpoints |
-| `--color-success`        | `#3DD68C` | `#1FA968` | Completed/passing states                                |
-| `--color-warning`        | `#F0C000` | `#B88A00` | In-progress/attention states                            |
-| `--color-error`          | `#EB5757` | `#D13B3B` | Urgent/error/destructive states                         |
+| Token                    | Dark      | Light     | Role                                                                                                                                                                                |
+| ------------------------ | --------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--color-bg`             | `#101014` | `#FAFAFC` | App/page background, deepest layer                                                                                                                                                  |
+| `--color-card`           | `#1B1B25` | `#FFFFFF` | Card backgrounds ("Neutral / Card")                                                                                                                                                 |
+| `--color-surface`        | `#1F1F2E` | `#F3F3F7` | Elevated panels, distinct from card                                                                                                                                                 |
+| `--color-surface-raised` | `#252536` | `#EBEBF2` | Dropdowns, modals, popovers, command palette                                                                                                                                        |
+| `--color-border`         | `#2C2C3A` | `#E2E2EA` | Dividers, input borders, panel edges                                                                                                                                                |
+| `--color-text-primary`   | `#F1F1F4` | `#16161C` | Headings, primary body text                                                                                                                                                         |
+| `--color-text-secondary` | `#8A8F98` | `#61656E` | Descriptions, metadata, placeholders                                                                                                                                                |
+| `--color-primary`        | `#5E6AD2` | `#4E5BBF` | Primary actions, selected states, focus rings                                                                                                                                       |
+| `--color-primary-hover`  | `#4E5BBF` | `#404BA5` | Hover/pressed state for primary interactions                                                                                                                                        |
+| `--color-on-primary`     | `#FFFFFF` | `#FFFFFF` | Text/icons painted directly on `--color-primary` or `--color-primary-hover` (e.g. primary Button label) — same value both themes, since primary is a saturated brand colour in both |
+| `--color-secondary`      | `#6E79D6` | `#5B68C3` | Secondary highlights, hover accents, gradient endpoints                                                                                                                             |
+| `--color-success`        | `#3DD68C` | `#1FA968` | Completed/passing states                                                                                                                                                            |
+| `--color-warning`        | `#F0C000` | `#B88A00` | In-progress/attention states                                                                                                                                                        |
+| `--color-error`          | `#EB5757` | `#D13B3B` | Urgent/error/destructive states                                                                                                                                                     |
 
 `--color-primary` is darkened in light mode versus the source violet — the raw `#5E6AD2` fails AA body-text contrast on white. `--color-secondary`'s light value is derived the same way (violet-issue-DESIGN.md only defines Secondary for dark). See `docs/design-decisions.md` §2 and §6 for both derivations.
 

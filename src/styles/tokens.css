@@ -83,6 +83,14 @@
   --success: var(--palette-success-light);
   --warning: var(--palette-warning-light);
   --error: var(--palette-error-light);
+  /* Text/icon colour for content painted directly on --primary or
+     --primary-hover (e.g. the primary Button variant). Deliberately the
+     same raw value in both themes — --primary is a saturated brand colour
+     in both, so it always needs a light foreground, not a theme-flipped
+     one. Fills a gap the styleguide's contrast table already flagged
+     (see docs/design-decisions.md §8): white/4.70:1 on dark --primary and
+     white/5.88:1 on light --primary both clear WCAG AA body text (4.5:1). */
+  --on-primary: var(--palette-light-0);
 }
 
 .dark {
@@ -99,4 +107,6 @@
   --success: var(--palette-success);
   --warning: var(--palette-warning);
   --error: var(--palette-error);
+  /* See :root's --on-primary comment — same raw value on purpose. */
+  --on-primary: var(--palette-light-0);
 }

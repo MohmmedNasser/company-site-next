@@ -32,6 +32,7 @@
   --color-text-secondary: var(--text-secondary);
   --color-primary: var(--primary);
   --color-primary-hover: var(--primary-hover);
+  --color-on-primary: var(--on-primary);
   --color-secondary: var(--secondary);
   --color-success: var(--success);
   --color-warning: var(--warning);
