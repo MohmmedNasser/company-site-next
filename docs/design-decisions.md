@@ -342,3 +342,26 @@ into consistency later at the cost of contrast.
 dark-theme `--primary` (and anything chained from it) picked up the new
 value, then reverted and re-ran the Phase 1 contrast table — every ratio
 matched exactly, confirming the split is visually a no-op.
+
+---
+
+## Process notes
+
+Not design decisions — workflow corrections worth keeping so they aren't
+repeated.
+
+**Phase 2 acceptance was declared one commit too early.** `CLAUDE.md`'s
+Current State was advanced to Phase 3 at `ea7a723`, but three more commits
+still had to land after it to make Phase 2's own deliverable checklist pass:
+`db6d354` (a real bug — the styleguide's contrast table could read a stale
+theme's computed values for one render after toggling), `40aa665` (hardened
+`src/lib/content` against ever being pulled into a client bundle), and
+`55b5c4c` (a pnpm config fix needed before `build`/`lint`/`typecheck` could
+even run). `55b5c4c` is the commit where Phase 2's checklist was actually
+fully green — not `ea7a723`.
+
+**Rule going forward:** the phase-completion commit (the one that advances
+`CLAUDE.md`'s Current State) must be the _last_ commit of the phase, made
+only after every deliverable-checklist item has been re-verified against
+that exact commit — never a commit made mid-fix-wave in anticipation of
+verification passing.
