@@ -58,7 +58,8 @@
   "contact": {
     "email": "hello@company-site.example",
     "phone": "+20 100 000 0000",
-    "address": { "en": "Cairo, Egypt", "ar": "القاهرة، مصر" }
+    "address": { "en": "Cairo, Egypt", "ar": "القاهرة، مصر" },
+    "city": { "en": "Cairo", "ar": "القاهرة" }
   },
   "social": [
     {

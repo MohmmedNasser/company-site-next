@@ -79,6 +79,10 @@ export interface SiteSettings {
     email: string;
     phone: string;
     address: Localized;
+    // Just the city, distinct from the full `address` — Footer's "Built in
+    // <city>" line (Phase 3) needs this on its own rather than parsing it
+    // back out of the full address string.
+    city: Localized;
   };
   social: { platform: string; url: string }[];
 }
