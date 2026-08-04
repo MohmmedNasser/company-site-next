@@ -14,7 +14,8 @@
       "submit": "Submit",
       "sending": "Sending…",
       "backToTop": "Back to top",
-      "learnMore": "Learn more"
+      "learnMore": "Learn more",
+      "startProject": "Start a project"
     },
     "theme": {
       "light": "Light",
@@ -35,7 +36,21 @@
       "skipToContent": "Skip to content",
       "openMenu": "Open menu",
       "closeMenu": "Close menu",
-      "toggleTheme": "Toggle theme"
+      "toggleTheme": "Toggle theme",
+      "primaryNav": "Primary navigation",
+      "followOn": "Follow us on {platform}"
+    },
+    "footer": {
+      "description": "A software agency for teams who need a product built right the first time.",
+      "columns": {
+        "company": "Company",
+        "services": "Services",
+        "resources": "Resources"
+      },
+      "copyright": "© {year} Codexa. All rights reserved.",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "builtIn": "Built in {city}"
     }
   },
   "notFound": {

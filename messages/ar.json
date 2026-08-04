@@ -14,7 +14,8 @@
       "submit": "إرسال",
       "sending": "جارٍ الإرسال…",
       "backToTop": "العودة للأعلى",
-      "learnMore": "تعرف أكثر"
+      "learnMore": "تعرف أكثر",
+      "startProject": "ابدأ مشروعك"
     },
     "theme": {
       "light": "فاتح",
@@ -35,7 +36,21 @@
       "skipToContent": "تخطَّ إلى المحتوى",
       "openMenu": "فتح القائمة",
       "closeMenu": "إغلاق القائمة",
-      "toggleTheme": "تبديل المظهر"
+      "toggleTheme": "تبديل المظهر",
+      "primaryNav": "التنقل الرئيسي",
+      "followOn": "تابعنا على {platform}"
+    },
+    "footer": {
+      "description": "نبني منتجات برمجية جاهزة للإنتاج من أول مرة.",
+      "columns": {
+        "company": "الشركة",
+        "services": "الخدمات",
+        "resources": "الموارد"
+      },
+      "copyright": "© {year} Codexa. جميع الحقوق محفوظة.",
+      "privacy": "سياسة الخصوصية",
+      "terms": "شروط الخدمة",
+      "builtIn": "صُنع في {city}"
     }
   },
   "notFound": {
