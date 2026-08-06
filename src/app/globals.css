@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @import "../styles/palette.css";
 @import "../styles/tokens.css";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
 /* Class-driven dark mode. Tailwind v4 defaults `dark:` to
    `prefers-color-scheme`; this custom variant switches it to key off
@@ -37,6 +39,33 @@
   --color-success: var(--success);
   --color-warning: var(--warning);
   --color-error: var(--error);
+  --animate-marquee: marquee var(--duration) infinite linear;
+  --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
+  /* `translateX` is physical, but the marquee's travel has to follow the
+     writing direction: under `dir="rtl"` the flex copies lay out
+     right-to-left and overflow off the INLINE-start (left) edge, so a
+     leftward translate pushes them further off-screen with nothing behind
+     to fill the right — the row renders blank. --marquee-direction flips
+     the sign (see the [dir="rtl"] rule below) so RTL travels the mirrored
+     way and the off-screen copies feed in from the correct edge. */
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(
+        calc((-100% - var(--gap)) * var(--marquee-direction, 1))
+      );
+    }
+  }
+  @keyframes marquee-vertical {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(calc(-100% - var(--gap)));
+    }
+  }
 }
 
 /* Base reset */
@@ -64,7 +93,7 @@ body {
  * regardless of where in the tree `lang="ar"` is set.
  */
 [lang="ar"] {
-  font-family: var(--font-noto-kufi), var(--font-inter), sans-serif;
+  font-family: var(--font-noto-kufi), var(--font-sans-latin), sans-serif;
   letter-spacing: 0; /* negative Latin tracking damages connected Arabic letterforms */
   line-height: 1.8; /* Kufi ascenders/descenders and diacritics need vertical room */
   /* Kufi renders visually larger at the same px value. Applied ONCE here,
@@ -91,4 +120,14 @@ body {
 
 :lang(en) .overline {
   text-transform: uppercase;
+}
+
+/* Mirrors the horizontal marquee's travel for right-to-left layouts — see
+   the @keyframes marquee comment above for why the physical translateX
+   has to flip. Selects on [dir="rtl"] (set on <html> by the locale
+   layout), not :lang(ar), because this tracks layout direction rather
+   than language. The vertical marquee is deliberately not flipped:
+   block-axis motion doesn't mirror with writing direction. */
+[dir="rtl"] {
+  --marquee-direction: -1;
 }

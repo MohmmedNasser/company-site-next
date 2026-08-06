@@ -4,7 +4,7 @@
 **Design system:** `violet-issue-DESIGN.md`
 **Goals, in order:** (1) a modern, distinctive design · (2) learn Laravel — every file, route, and function must be explained.
 
-> All project documentation, plans, prompts, code comments, and commit messages are written in **English**. Site *content* is bilingual (Arabic + English).
+> All project documentation, plans, prompts, code comments, and commit messages are written in **English**. Site _content_ is bilingual (Arabic + English).
 
 ---
 
@@ -21,10 +21,10 @@ company-site-api/     ← standalone repo (Laravel + Inertia)    → VPS / Forge
 
 **Frontend branches:**
 
-| Branch | Purpose |
-|---|---|
-| `main` | Client-demo build — local mock data, runs with zero backend |
-| `feat/api-integration` | Backend wiring. Merged into `main` after verification |
+| Branch                 | Purpose                                                     |
+| ---------------------- | ----------------------------------------------------------- |
+| `main`                 | Client-demo build — local mock data, runs with zero backend |
+| `feat/api-integration` | Backend wiring. Merged into `main` after verification       |
 
 **Hard rule:** `main` must build and deploy on Vercel at any moment with no API environment variable set. This is the URL you show on freelance platforms.
 
@@ -40,7 +40,7 @@ company-site-api/
                          session auth, CSRF, no JSON contract
 ```
 
-Both surfaces share the same Models, Policies, and Services. They differ only in the response layer: `JsonResource` for the API, `Inertia::render()` for the admin. Understanding this split *is* the Laravel lesson — write it up in `docs/learning/`.
+Both surfaces share the same Models, Policies, and Services. They differ only in the response layer: `JsonResource` for the API, `Inertia::render()` for the admin. Understanding this split _is_ the Laravel lesson — write it up in `docs/learning/`.
 
 ### 0.3 Content repository layer — the single most important frontend decision
 
@@ -64,7 +64,9 @@ import { mockRepository } from "./mock/mock-repository";
 import { apiRepository } from "./api/api-repository";
 
 export const content =
-  process.env.NEXT_PUBLIC_DATA_SOURCE === "api" ? apiRepository : mockRepository;
+  process.env.NEXT_PUBLIC_DATA_SOURCE === "api"
+    ? apiRepository
+    : mockRepository;
 ```
 
 Result: connecting the backend touches one file and one env var. No UI component changes.
@@ -79,7 +81,7 @@ type Localized = { ar: string; en: string };
 interface Service {
   id: string;
   slug: string;
-  icon: string;          // lucide-react icon name
+  icon: string; // lucide-react icon name
   title: Localized;
   excerpt: Localized;
   body: Localized;
@@ -105,34 +107,34 @@ interface Service {
 
 ### 1.2 Extend, and document the deviation ⚠️
 
-| Item | Original spec | Marketing adaptation | Why |
-|---|---|---|---|
-| Type scale | 11–40px | add 48 / 64 / 80px | 40px cannot carry a hero |
-| Spacing | up to 64px | add 80 / 96 / 128 / 160px | section rhythm |
-| Motion duration | ≤150ms | **150ms for micro-interactions** (hover, focus, buttons); **400–700ms for scroll reveals** | the original rule targets micro-interactions, not section entrances |
-| Container | full viewport | `max-w-[1280px]` with gutters | readable measure |
-| Shadows | forbidden on cards | still forbidden in dark; subtle in light | light mode needs edge definition |
+| Item            | Original spec      | Marketing adaptation                                                                       | Why                                                                 |
+| --------------- | ------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------- |
+| Type scale      | 11–40px            | add 48 / 64 / 80px                                                                         | 40px cannot carry a hero                                            |
+| Spacing         | up to 64px         | add 80 / 96 / 128 / 160px                                                                  | section rhythm                                                      |
+| Motion duration | ≤150ms             | **150ms for micro-interactions** (hover, focus, buttons); **400–700ms for scroll reveals** | the original rule targets micro-interactions, not section entrances |
+| Container       | full viewport      | `max-w-[1280px]` with gutters                                                              | readable measure                                                    |
+| Shadows         | forbidden on cards | still forbidden in dark; subtle in light                                                   | light mode needs edge definition                                    |
 
 Record every deviation in `docs/design-decisions.md` so it is not relitigated in a later session.
 
-> **The admin panel is the exception.** The dashboard is exactly the kind of UI this design system was written for. Build it against the *original* spec — 32px controls, 36px rows, 150ms motion, command palette. Do not apply the marketing adaptations there.
+> **The admin panel is the exception.** The dashboard is exactly the kind of UI this design system was written for. Build it against the _original_ spec — 32px controls, 36px rows, 150ms motion, command palette. Do not apply the marketing adaptations there.
 
 ### 1.3 Light mode — not in the source file, must be derived
 
-| Role | Dark (from spec) | Light (derived) |
-|---|---|---|
-| Background | `#101014` | `#FAFAFC` |
-| Neutral / Card | `#1B1B25` | `#FFFFFF` |
-| Surface | `#1F1F2E` | `#F3F3F7` |
-| Surface Raised | `#252536` | `#EBEBF2` |
-| Border | `#2C2C3A` | `#E2E2EA` |
-| Text Primary | `#F1F1F4` | `#16161C` |
-| Text Secondary | `#8A8F98` | `#61656E` |
-| Primary | `#5E6AD2` | `#4E5BBF` ← darkened for AA on white |
-| Primary Hover | `#4E5BBF` | `#404BA5` |
-| Success | `#3DD68C` | `#1FA968` |
-| Warning | `#F0C000` | `#B88A00` |
-| Error | `#EB5757` | `#D13B3B` |
+| Role           | Dark (from spec) | Light (derived)                      |
+| -------------- | ---------------- | ------------------------------------ |
+| Background     | `#101014`        | `#FAFAFC`                            |
+| Neutral / Card | `#1B1B25`        | `#FFFFFF`                            |
+| Surface        | `#1F1F2E`        | `#F3F3F7`                            |
+| Surface Raised | `#252536`        | `#EBEBF2`                            |
+| Border         | `#2C2C3A`        | `#E2E2EA`                            |
+| Text Primary   | `#F1F1F4`        | `#16161C`                            |
+| Text Secondary | `#8A8F98`        | `#61656E`                            |
+| Primary        | `#5E6AD2`        | `#4E5BBF` ← darkened for AA on white |
+| Primary Hover  | `#4E5BBF`        | `#404BA5`                            |
+| Success        | `#3DD68C`        | `#1FA968`                            |
+| Warning        | `#F0C000`        | `#B88A00`                            |
+| Error          | `#EB5757`        | `#D13B3B`                            |
 
 Verify every text/background pair against WCAG AA (4.5:1 body, 3:1 large text) before locking these in.
 
@@ -168,12 +170,12 @@ export const jetbrains = JetBrains_Mono({
 
 **Noto Kufi Arabic behaves differently from Inter — compensate for it:**
 
-| Property | Latin (Inter) | Arabic (Noto Kufi) | Reason |
-|---|---|---|---|
-| `letter-spacing` on headings | `-0.03em` | `0` | negative tracking damages connected Arabic letterforms |
-| `line-height` body | `1.5` | `1.8` | Kufi ascenders/descenders and diacritics need vertical room |
-| Optical size | baseline | `0.95em` relative | Kufi renders visually larger at the same px value |
-| Uppercase transforms | allowed | **never** | Arabic has no case; `text-transform` is a no-op that only breaks Latin fallbacks in mixed strings |
+| Property                     | Latin (Inter) | Arabic (Noto Kufi) | Reason                                                                                            |
+| ---------------------------- | ------------- | ------------------ | ------------------------------------------------------------------------------------------------- |
+| `letter-spacing` on headings | `-0.03em`     | `0`                | negative tracking damages connected Arabic letterforms                                            |
+| `line-height` body           | `1.5`         | `1.8`              | Kufi ascenders/descenders and diacritics need vertical room                                       |
+| Optical size                 | baseline      | `0.95em` relative  | Kufi renders visually larger at the same px value                                                 |
+| Uppercase transforms         | allowed       | **never**          | Arabic has no case; `text-transform` is a no-op that only breaks Latin fallbacks in mixed strings |
 
 ```css
 :lang(ar) {
@@ -182,7 +184,9 @@ export const jetbrains = JetBrains_Mono({
   line-height: 1.8;
 }
 
-:lang(ar) h1, :lang(ar) h2, :lang(ar) h3 {
+:lang(ar) h1,
+:lang(ar) h2,
+:lang(ar) h3 {
   letter-spacing: 0;
   line-height: 1.4;
 }
@@ -210,23 +214,27 @@ This ties the site to a developer-tooling identity instead of a generic agency t
 npx create-next-app@latest company-site-web --typescript --tailwind --eslint --app
 ```
 
-| Package | Purpose |
-|---|---|
-| `next` 16.x | App Router, Turbopack by default, React 19.2 |
-| `tailwindcss` v4 | CSS-first config via `@theme` — **no `tailwind.config.js`** |
-| `next-intl` | i18n with a `[locale]` segment |
-| `motion` | Framer Motion (current package name) |
-| `lenis` | smooth scroll — use `lenis/react` |
-| `lucide-react` | icons |
-| `next-themes` | light/dark without FOUC |
-| `react-hook-form` + `zod` | contact form validation |
-| `ogl` | required by most reactbits WebGL backgrounds |
+| Package                   | Purpose                                                     |
+| ------------------------- | ----------------------------------------------------------- |
+| `next` 16.x               | App Router, Turbopack by default, React 19.2                |
+| `tailwindcss` v4          | CSS-first config via `@theme` — **no `tailwind.config.js`** |
+| `next-intl`               | i18n with a `[locale]` segment                              |
+| `motion`                  | Framer Motion (current package name)                        |
+| `lenis`                   | smooth scroll — use `lenis/react`                           |
+| `lucide-react`            | icons                                                       |
+| `next-themes`             | light/dark without FOUC                                     |
+| `react-hook-form` + `zod` | contact form validation                                     |
+| `ogl`                     | required by most reactbits WebGL backgrounds                |
 
 ### Next.js 16 breaking changes that invalidate older examples
 
 1. **`params` and `searchParams` are Promises:**
    ```tsx
-   export default async function Page({ params }: { params: Promise<{ locale: string }> }) {
+   export default async function Page({
+     params,
+   }: {
+     params: Promise<{ locale: string }>;
+   }) {
      const { locale } = await params;
    }
    ```
@@ -238,15 +246,15 @@ npx create-next-app@latest company-site-web --typescript --tailwind --eslint --a
 
 ### Backend
 
-| Package | Purpose |
-|---|---|
-| `laravel/framework` 12 | core |
-| `inertiajs/inertia-laravel` | server adapter |
-| `@inertiajs/react` | client adapter |
-| `laravel/breeze` (React + Inertia preset) | scaffolds auth + Inertia + Vite in one command |
-| `tightenco/ziggy` | exposes named routes to React |
-| `intervention/image` | thumbnails |
-| `laravel/sanctum` | tokens if a public write endpoint ever needs them |
+| Package                                   | Purpose                                           |
+| ----------------------------------------- | ------------------------------------------------- |
+| `laravel/framework` 12                    | core                                              |
+| `inertiajs/inertia-laravel`               | server adapter                                    |
+| `@inertiajs/react`                        | client adapter                                    |
+| `laravel/breeze` (React + Inertia preset) | scaffolds auth + Inertia + Vite in one command    |
+| `tightenco/ziggy`                         | exposes named routes to React                     |
+| `intervention/image`                      | thumbnails                                        |
+| `laravel/sanctum`                         | tokens if a public write endpoint ever needs them |
 
 ---
 
@@ -254,16 +262,16 @@ npx create-next-app@latest company-site-web --typescript --tailwind --eslint --a
 
 All candidates verified against the reactbits source. Only these props actually exist:
 
-| Component | Mouse prop | Dependency | Assessment |
-|---|---|---|---|
-| **Iridescence** | `mouseReact` (default `true`) | `ogl` | Cursor shifts the UV field — smooth, subtle, cheap. Takes `color: [r,g,b]`. **First choice** |
-| **Threads** | `enableMouseInteraction` | `ogl` | Thin animated lines that bend toward the cursor. Reads as "precision engineering", keeps text legible. Takes `color: [r,g,b]`, `amplitude`, `distance`. **Second choice** |
-| **LiquidEther** | `mouseForce`, `cursorSize` | `three` | Genuine fluid simulation following the cursor. The strongest "wow", the heaviest cost. Has `autoDemo` so it animates before the first mouse move — important for mobile and for screenshots |
-| **LineWaves** | `enableMouseInteraction`, `mouseInfluence` | `ogl` | Takes `color1/2/3` as hex. Good for an interior section |
-| **SoftAurora** | `enableMouseInteraction`, `mouseInfluence` | `ogl` | Soft and light. Best **mobile fallback** |
-| **Plasma** | `mouseInteractive` | `ogl` | Has real perf controls (`renderScale`, `maxDpr`, `targetFps`) but competes with the headline for attention |
-| **GradientBlinds** | `mouseDampening` + spotlight props | `ogl` | Cursor-follow spotlight. Sharp geometry may fight the type |
-| **Orb** | `hoverIntensity`, `rotateOnHover` | `ogl` | Centered object, not a background. Use as a secondary element |
+| Component          | Mouse prop                                 | Dependency | Assessment                                                                                                                                                                                  |
+| ------------------ | ------------------------------------------ | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Iridescence**    | `mouseReact` (default `true`)              | `ogl`      | Cursor shifts the UV field — smooth, subtle, cheap. Takes `color: [r,g,b]`. **First choice**                                                                                                |
+| **Threads**        | `enableMouseInteraction`                   | `ogl`      | Thin animated lines that bend toward the cursor. Reads as "precision engineering", keeps text legible. Takes `color: [r,g,b]`, `amplitude`, `distance`. **Second choice**                   |
+| **LiquidEther**    | `mouseForce`, `cursorSize`                 | `three`    | Genuine fluid simulation following the cursor. The strongest "wow", the heaviest cost. Has `autoDemo` so it animates before the first mouse move — important for mobile and for screenshots |
+| **LineWaves**      | `enableMouseInteraction`, `mouseInfluence` | `ogl`      | Takes `color1/2/3` as hex. Good for an interior section                                                                                                                                     |
+| **SoftAurora**     | `enableMouseInteraction`, `mouseInfluence` | `ogl`      | Soft and light. Best **mobile fallback**                                                                                                                                                    |
+| **Plasma**         | `mouseInteractive`                         | `ogl`      | Has real perf controls (`renderScale`, `maxDpr`, `targetFps`) but competes with the headline for attention                                                                                  |
+| **GradientBlinds** | `mouseDampening` + spotlight props         | `ogl`      | Cursor-follow spotlight. Sharp geometry may fight the type                                                                                                                                  |
+| **Orb**            | `hoverIntensity`, `rotateOnHover`          | `ogl`      | Centered object, not a background. Use as a secondary element                                                                                                                               |
 
 **Recommendation:** `Threads` for the hero (mouse-reactive, on-brand, text stays readable), `SoftAurora` as the reduced-cost mobile fallback. If the demo needs more impact for freelance-platform screenshots, swap in `LiquidEther` with `autoDemo` enabled.
 
@@ -291,6 +299,7 @@ License note: reactbits is MIT + Commons Clause — commercial use is permitted,
 #### Phase 0 — Foundation and Discipline
 
 **Deliverables**
+
 - `company-site-web` repo, Next 16, TypeScript `strict`, Tailwind v4
 - `CLAUDE.md` at the root (content in §5)
 - `.claude/skills/` created, priority skills authored
@@ -305,6 +314,7 @@ License note: reactbits is MIT + Commons Clause — commercial use is permitted,
 #### Phase 1 — Design Tokens
 
 **Deliverables**
+
 - All tokens in `globals.css` under `@theme` (Tailwind v4 CSS-first)
 - Semantic variables, not raw ones: `--color-bg`, `--color-surface`, `--color-text-primary`, flipped by `.dark`
 - Inter + Noto Kufi Arabic + JetBrains Mono wired through `next/font`
@@ -315,9 +325,9 @@ License note: reactbits is MIT + Commons Clause — commercial use is permitted,
 @import "tailwindcss";
 
 @theme {
-  --color-violet-400: #6E79D6;
-  --color-violet-500: #5E6AD2;
-  --color-violet-600: #4E5BBF;
+  --color-violet-400: #6e79d6;
+  --color-violet-500: #5e6ad2;
+  --color-violet-600: #4e5bbf;
   --radius-chip: 4px;
   --radius-control: 6px;
   --radius-card: 8px;
@@ -327,15 +337,15 @@ License note: reactbits is MIT + Commons Clause — commercial use is permitted,
 }
 
 :root {
-  --color-bg: #FAFAFC;
-  --color-surface: #F3F3F7;
-  --color-text-primary: #16161C;
+  --color-bg: #fafafc;
+  --color-surface: #f3f3f7;
+  --color-text-primary: #16161c;
 }
 
 .dark {
   --color-bg: #101014;
-  --color-surface: #1F1F2E;
-  --color-text-primary: #F1F1F4;
+  --color-surface: #1f1f2e;
+  --color-text-primary: #f1f1f4;
 }
 ```
 
@@ -348,6 +358,7 @@ License note: reactbits is MIT + Commons Clause — commercial use is permitted,
 #### Phase 2 — Bilingual, RTL, and Theme
 
 **Deliverables**
+
 - `src/app/[locale]/` structure with `next-intl`
 - `proxy.ts` for locale routing (not `middleware.ts`)
 - `messages/ar.json` and `messages/en.json`, namespaced (`home.hero.title`)
@@ -367,6 +378,7 @@ License note: reactbits is MIT + Commons Clause — commercial use is permitted,
 #### Phase 3 — App Shell
 
 **Deliverables**
+
 - Sticky header that condenses on scroll, plus a mobile menu
 - Footer with contact and social links
 - Lenis mounted via `<ReactLenis root>` in the layout
@@ -383,6 +395,7 @@ License note: reactbits is MIT + Commons Clause — commercial use is permitted,
 #### Phase 4 — Hero: Interactive Background + Parallax
 
 **Deliverables**
+
 - Chosen reactbits background integrated with every §3 rule applied
 - Cursor interaction verified on desktop; graceful no-op on touch
 - Multi-layer parallax driven by `useScroll` + `useTransform`
@@ -401,6 +414,7 @@ License note: reactbits is MIT + Commons Clause — commercial use is permitted,
 Order: About (short) → Services → Selected Work → Testimonials → Clients → Contact.
 
 **Deliverables**
+
 - One component per section under `src/components/sections/`
 - All data via the `content` repository — no hardcoded copy in components
 - Shared `Reveal` wrapper for scroll animations
@@ -408,8 +422,6 @@ Order: About (short) → Services → Selected Work → Testimonials → Clients
 - Draggable testimonial carousel
 
 **Done when:** editing one JSON file changes the whole section, and every string exists in both languages.
-
-**⚙️ Skill:** `section-component`
 
 ---
 
@@ -430,6 +442,7 @@ Reference for blog structure and depth: `https://apex.ps/en/blog`.
 #### Phase 7 — Contact Form (no backend yet)
 
 **Deliverables**
+
 - `react-hook-form` + `zod` with translated error messages
 - A Server Action that logs and returns success — replaced in Phase 14
 - Honeypot field and client-side rate limiting
@@ -442,6 +455,7 @@ Reference for blog structure and depth: `https://apex.ps/en/blog`.
 #### Phase 8 — Polish and Deploy ⭐ Client-demo milestone
 
 **Deliverables**
+
 - Metadata, dynamic OG images, `sitemap.ts`, `robots.ts`
 - JSON-LD: `Organization`, `WebSite`, `BreadcrumbList`, `Article`
 - Lighthouse ≥ 95 across all four categories
@@ -466,6 +480,7 @@ Reference for blog structure and depth: `https://apex.ps/en/blog`.
 #### Phase 9 — Laravel Foundations
 
 **Deliverables**
+
 - `company-site-api` repo, Laravel 12, local MySQL
 - Directory structure understood; `php artisan serve` running
 - `.env` and configuration
@@ -481,6 +496,7 @@ Reference for blog structure and depth: `https://apex.ps/en/blog`.
 #### Phase 10 — Data Modeling
 
 **Deliverables**
+
 - Migrations: `services` `projects` `testimonials` `clients` `posts` `categories` `contact_messages` `settings` `users`
 - Models with relationships, `$fillable`, `casts`
 - Factories and seeders loaded with the same data as the frontend mock files
@@ -495,6 +511,7 @@ Reference for blog structure and depth: `https://apex.ps/en/blog`.
 #### Phase 11 — Public JSON API
 
 **Deliverables**
+
 - An API Resource per model
 - Form Requests for validation
 - Versioned routes under `/api/v1`
@@ -525,6 +542,7 @@ POST /api/v1/contact
 #### Phase 12 — Inertia + React Admin Setup
 
 **Deliverables**
+
 - `laravel/breeze` with the React + Inertia preset — gives auth, Inertia, and Vite in one step
 - `HandleInertiaRequests` middleware configured with shared props (authenticated user, flash messages, locale)
 - Admin layout built against the **original** Violet Issue spec: 220px collapsible sidebar, 32px controls, 36px rows, 150ms transitions
@@ -542,6 +560,7 @@ POST /api/v1/contact
 #### Phase 13 — Admin CRUD, Media, and Inbox
 
 **Deliverables**
+
 - Full CRUD for every resource: index with filters, sort, pagination; create/edit forms; delete confirmation
 - Bilingual field editing — an `ar` / `en` tab pair on every translatable input
 - Image upload: `storage:link`, validation, thumbnails, drag-to-reorder galleries
@@ -562,6 +581,7 @@ POST /api/v1/contact
 All of this happens on `feat/api-integration` in the frontend repo.
 
 **Deliverables**
+
 - `api-repository.ts` implementing the exact interface in `repository.ts`
 - `NEXT_PUBLIC_DATA_SOURCE=api` and `API_URL` configured
 - Caching: `"use cache"` + `cacheTag('services')`, invalidated by a webhook that the admin panel calls on every save via `revalidateTag`
@@ -593,31 +613,30 @@ Location: `.claude/skills/<name>/SKILL.md`. The goal is that no prompt is ever w
 
 ### Priority 1 — author these first
 
-| # | Name | Triggers on | Contains |
-|---|---|---|---|
-| 1 | `design-system` | any CSS or component work | all tokens, light/dark map, do's and don'ts from the design file, documented deviations, marketing-vs-admin density rule, **no raw hex** |
-| 2 | `laravel-teach` | any Laravel file created | the mandatory explanation template (what / why / alternative / what breaks), path convention `docs/learning/`, assumed reader knows PHP but not Laravel |
-| 3 | `section-component` | new marketing section | folder layout, `Reveal` wrapper, data via `content`, translation keys, RTL check, a11y requirements |
-| 4 | `i18n-keys` | any new string | key naming, edit `ar.json` and `en.json` together, logical-properties rule, Noto Kufi line-height and tracking rules |
+| #   | Name            | Triggers on               | Contains                                                                                                                                                |
+| --- | --------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | `design-system` | any CSS or component work | all tokens, light/dark map, do's and don'ts from the design file, documented deviations, marketing-vs-admin density rule, **no raw hex**                |
+| 2   | `laravel-teach` | any Laravel file created  | the mandatory explanation template (what / why / alternative / what breaks), path convention `docs/learning/`, assumed reader knows PHP but not Laravel |
+| 3   | `i18n-keys`     | any new string            | key naming, edit `ar.json` and `en.json` together, logical-properties rule, Noto Kufi line-height and tracking rules                                    |
 
 ### Priority 2
 
-| # | Name | Contains |
-|---|---|---|
-| 5 | `laravel-resource` | full checklist for a new resource: migration → model → factory → seeder → FormRequest → controller → API Resource → policy → route → test, each step explained |
-| 6 | `motion-patterns` | shared variants, duration rules (150ms micro / 400–700ms reveal), Lenis↔motion wiring, mandatory `prefers-reduced-motion` |
-| 7 | `inertia-page` | anatomy of an Inertia page: controller → `Inertia::render` → props → React page component → layout, plus shared-props access |
-| 8 | `inertia-crud` | full admin CRUD template: index table with filters and pagination, `useForm` create/edit, validation error display, delete confirmation, flash messages — in Violet Issue admin styling |
-| 9 | `api-contract` | keeping TypeScript types and API Resources identical; update `docs/api-contract.md` on every change |
-| 10 | `content-repository` | adding new content: type in `types.ts` → method on `repository.ts` → mock JSON → mock impl → (later) api impl |
+| #   | Name                 | Contains                                                                                                                                                                                |
+| --- | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 5   | `laravel-resource`   | full checklist for a new resource: migration → model → factory → seeder → FormRequest → controller → API Resource → policy → route → test, each step explained                          |
+| 6   | `motion-patterns`    | shared variants, duration rules (150ms micro / 400–700ms reveal), Lenis↔motion wiring, mandatory `prefers-reduced-motion`                                                               |
+| 7   | `inertia-page`       | anatomy of an Inertia page: controller → `Inertia::render` → props → React page component → layout, plus shared-props access                                                            |
+| 8   | `inertia-crud`       | full admin CRUD template: index table with filters and pagination, `useForm` create/edit, validation error display, delete confirmation, flash messages — in Violet Issue admin styling |
+| 9   | `api-contract`       | keeping TypeScript types and API Resources identical; update `docs/api-contract.md` on every change                                                                                     |
+| 10  | `content-repository` | adding new content: type in `types.ts` → method on `repository.ts` → mock JSON → mock impl → (later) api impl                                                                           |
 
 ### Priority 3
 
-| # | Name | Contains |
-|---|---|---|
-| 11 | `reactbits-background` | safe integration: `ssr:false`, IntersectionObserver pause, reduced-motion and mobile fallbacks, theme-color props, rAF-throttled pointer handling |
-| 12 | `seo-page` | metadata, hreflang, OG, JSON-LD, sitemap registration |
-| 13 | `rtl-check` | pre-commit checklist: no physical properties, directional icons mirrored, numerals and dates, form alignment, Arabic typography rules applied |
+| #   | Name                   | Contains                                                                                                                                          |
+| --- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 11  | `reactbits-background` | safe integration: `ssr:false`, IntersectionObserver pause, reduced-motion and mobile fallbacks, theme-color props, rAF-throttled pointer handling |
+| 12  | `seo-page`             | metadata, hreflang, OG, JSON-LD, sitemap registration                                                                                             |
+| 13  | `rtl-check`            | pre-commit checklist: no physical properties, directional icons mirrored, numerals and dates, form alignment, Arabic typography rules applied     |
 
 ### Bootstrap prompt for Claude Code
 
@@ -640,10 +659,12 @@ Do not write any project code until I approve the skills.
 # Project Context
 
 Software agency website. Goals in priority order:
+
 1. Modern, distinctive design
 2. Learn Laravel — everything gets explained
 
 ## Standing Rules
+
 - Full plan lives in PROJECT-PLAN.md — read it before any task
 - Design system: violet-issue-DESIGN.md + docs/design-decisions.md
 - All docs, comments, and commits in English. Site content is bilingual.
@@ -658,6 +679,7 @@ Software agency website. Goals in priority order:
   the original dense Violet Issue spec
 
 ## Current State
+
 Phase: 0
 Branch: main
 ```
@@ -666,11 +688,11 @@ Branch: main
 
 ## 7. Timeline Estimate
 
-| Track | Phases | At 2–3 hrs/day |
-|---|---|---|
-| Frontend | 0 → 8 | 3–4 weeks |
-| Laravel + Inertia admin | 9 → 13 | 5–7 weeks (longer by design — it is the learning track) |
-| Integration and deploy | 14 → 15 | 1 week |
+| Track                   | Phases  | At 2–3 hrs/day                                          |
+| ----------------------- | ------- | ------------------------------------------------------- |
+| Frontend                | 0 → 8   | 3–4 weeks                                               |
+| Laravel + Inertia admin | 9 → 13  | 5–7 weeks (longer by design — it is the learning track) |
+| Integration and deploy  | 14 → 15 | 1 week                                                  |
 
 **Sequencing rule:** do not start Laravel until the Vercel URL is live and presentable. That guarantees a shippable artifact even if the backend stalls.
 

@@ -2,5 +2,5 @@
   <title id="codexa-lockup-title">Codexa</title>
   <path d="M35.49 14.36 A15 15 0 1 0 35.49 33.64" fill="none" stroke="#5E6AD2" stroke-width="4.5" stroke-linecap="butt"/>
   <path d="M18.25 28.82 A7.5 7.5 0 1 0 18.25 19.18" fill="none" stroke="#6E79D6" stroke-width="4.5" stroke-linecap="butt"/>
-  <text x="64" y="33" font-family="Inter, system-ui, sans-serif" font-size="27" font-weight="600" letter-spacing="-0.81" fill="currentColor">Codexa</text>
+  <text x="64" y="33" font-family="Inter Display, system-ui, sans-serif" font-size="27" font-weight="600" letter-spacing="-0.81" fill="currentColor">Codexa</text>
 </svg>

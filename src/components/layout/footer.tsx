@@ -2,7 +2,6 @@ import type { ComponentType } from "react";
 import { getLocale, getTranslations } from "next-intl/server";
 import { pick, type SiteSettings } from "@/lib/content";
 import { NAV_ITEMS } from "@/lib/nav";
-import { LogoMark } from "@/components/icons/logo";
 import {
   GitHubIcon,
   InstagramIcon,
@@ -11,6 +10,7 @@ import {
 } from "@/components/icons/social-icons";
 import Container from "@/components/ui/container";
 import { Link } from "@/i18n/navigation";
+import Image from "next/image";
 
 // No "use client" — Footer has no interactive/stateful behaviour, so it
 // stays a Server Component. Content settings (social links, city) are
@@ -54,12 +54,18 @@ export default async function Footer({ settings }: FooterProps) {
           <Link
             href="/"
             aria-label={t("nav.home")}
-            className="inline-flex items-center gap-8"
+            className="inline-flex items-center gap-4"
           >
-            <LogoMark className="text-primary" />
+            <Image
+              src="/brand/codexa-mark.svg"
+              alt="logo"
+              width={30}
+              height={30}
+            />
+
             <span
               lang="en"
-              style={{ fontFamily: "var(--font-inter), sans-serif" }}
+              style={{ fontFamily: "var(--font-sans-latin), sans-serif" }}
               className="text-text-primary text-16 leading-none font-semibold tracking-[-0.03em]"
             >
               Codexa

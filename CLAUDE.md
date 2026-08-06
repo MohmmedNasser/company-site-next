@@ -38,3 +38,26 @@ Conventional Commits, in English:
 
 Types used in this project: `feat`, `fix`, `chore`, `docs`, `refactor`, `style`, `test`.
 Example: `chore(tooling): add prettier, eslint flat config, and husky pre-commit hook`
+
+## Workflow — effective now
+
+The developer designs and builds every marketing section by hand from this
+point forward (Services, Portfolio, Testimonials, Clients, Contact, and all
+inner pages). Header, Footer, and Hero remain as already built in Phase 3-4
+and are not rebuilt.
+
+Claude Code's role going forward is LIMITED to:
+
+1. Foundation and infrastructure work, only when explicitly requested
+2. Fixing specific bugs the developer reports
+3. Answering specific technical questions
+4. Reviewing hand-written code against the design-system and i18n-keys
+   skills WHEN ASKED — not proactively rewriting it
+
+Claude Code must NOT generate a full section component, full page, or design
+a UI layout unless explicitly asked to. If a request is ambiguous about
+whether it wants a full build or targeted help, ask before generating a
+complete section.
+
+The design-system and i18n-keys skills remain the contract — they now apply
+to hand-written code too, not just AI-generated code.

@@ -135,8 +135,8 @@ mkdir -p .claude/skills/i18n-keys
 cp ~/Downloads/i18n-keys-SKILL.md .claude/skills/i18n-keys/SKILL.md
 ```
 
-Note for skill 1 (`design-system`) and skill 2 (`section-component`): any shell
-command they contain must use pnpm.
+Note for skill 1 (`design-system`): any shell command it contains must use
+pnpm.
 
 Then, in a **new chat**:
 
@@ -144,7 +144,7 @@ Then, in a **new chat**:
 Read docs/PROJECT-PLAN.md section 5, and read .claude/skills/i18n-keys/SKILL.md
 as the reference for format and depth. This is Phase 0.2.
 
-Create three skills. Skill 4 (i18n-keys) already exists — review it and report
+Create two skills. Skill 3 (i18n-keys) already exists — review it and report
 any conflict with the plan, but do not rewrite it without asking.
 
 FORMAT — every skill follows this shape
@@ -177,24 +177,7 @@ Must contain:
     uses background layering instead of shadows
   - How to verify contrast before committing a new colour pairing
 
-SKILL 2 — section-component
-Triggers on creating or modifying any marketing section or page block.
-Must contain:
-  - File layout: one component per file in src/components/sections/, named
-    <SectionName>Section, default export, typed props
-  - Data rule: all content comes from the content repository at src/lib/content.
-    Never fetch inside a component, never hardcode copy. Show the correct import.
-  - Every string goes through next-intl — cross-reference the i18n-keys skill
-  - Wrap animated content in the shared Reveal component (built in Phase 3),
-    400-700ms duration, stagger children, never animate on initial paint above
-    the fold
-  - Accessibility floor: one h2 per section, semantic landmarks, visible focus
-    ring, prefers-reduced-motion respected, decorative images get empty alt
-  - Responsive floor: works at 360px, no horizontal scroll, no fixed heights on
-    text containers
-  - A pre-commit checklist covering both LTR and RTL rendering
-
-SKILL 3 — laravel-teach
+SKILL 2 — laravel-teach
 Triggers on creating or modifying any file in the Laravel repository.
 This project's second goal is learning Laravel, so this skill is what enforces it.
 Must contain:
@@ -233,6 +216,7 @@ Update the state block at the bottom of `CLAUDE.md`:
 
 ```markdown
 ## Current State
+
 Phase: 1 — Design Tokens
 Branch: main
 ```

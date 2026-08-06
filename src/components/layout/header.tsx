@@ -12,9 +12,9 @@ import { lenisScrollY } from "@/lib/motion/lenis-scroll";
 import { EASE_DECELERATE } from "@/lib/motion/easing";
 import { NAV_ITEMS, isNavItemActive } from "@/lib/nav";
 import { cn } from "@/lib/utils/cn";
-import { LogoMark } from "@/components/icons/logo";
 import { buttonClassNames } from "@/components/ui/button";
 import MobileNav from "@/components/layout/mobile-nav";
+import Image from "next/image";
 
 const CTA_HREF = "/contact";
 
@@ -121,17 +121,18 @@ function HeaderContent({ ctaLabel }: { ctaLabel: string }) {
       <Link
         href="/"
         aria-label={t("nav.home")}
-        className="duration-micro hover:bg-surface inline-flex shrink-0 items-center gap-8 rounded-full py-4 ps-4 pe-12 transition-colors"
+        className="duration-micro inline-flex shrink-0 items-center gap-8 py-4 ps-4 pe-12"
       >
-        {/* Circular badge around the mark, echoing an avatar treatment —
-            this project's actual logo, not a photo, since Codexa is the
-            confirmed product identity (PRODUCT.md), not a personal brand. */}
-        <span className="bg-surface-raised border-border inline-flex size-40 shrink-0 items-center justify-center rounded-full border">
-          <LogoMark className="text-primary" />
-        </span>
+        <Image
+          src="/brand/white/codexa-mark-white.svg"
+          loading="eager"
+          alt="logo"
+          width={40}
+          height={40}
+        />
         <span
           lang="en"
-          style={{ fontFamily: "var(--font-inter), sans-serif" }}
+          style={{ fontFamily: "var(--font-sans-latin), sans-serif" }}
           className="text-text-primary text-16 leading-none font-semibold tracking-[-0.03em]"
         >
           Codexa

@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { ThemeProvider } from "next-themes";
 import { routing } from "@/i18n/routing";
 import { content, pick } from "@/lib/content";
 import { SmoothScrollProvider } from "@/components/providers/smooth-scroll-provider";
+import { ThemeProvider } from "@/components/providers/theme-provider";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
-import { inter, jetbrainsMono, notoKufi } from "../fonts";
+import { sansLatin, jetbrainsMono, notoKufi } from "../fonts";
 import "../globals.css";
 
 export function generateStaticParams() {
@@ -74,7 +74,7 @@ export default async function LocaleLayout({
     <html
       lang={locale}
       dir={locale === "ar" ? "rtl" : "ltr"}
-      className={`${inter.variable} ${notoKufi.variable} ${jetbrainsMono.variable}`}
+      className={`${sansLatin.variable} ${notoKufi.variable} ${jetbrainsMono.variable}`}
       suppressHydrationWarning
     >
       <body>

@@ -25,7 +25,9 @@
   --spacing-160: 160px;
 
   /* Type scale — 11–40 is the original Violet Issue scale; 48/64/80 are
-     the marketing-only extension (design-decisions.md §1). Admin UI
+     the marketing-only extension (design-decisions.md §1). 96/120 are a
+     second, later extension for a one-word-per-line mega headline
+     treatment that 80px cannot carry (design-decisions.md §14). Admin UI
      stays within 11–40. */
   --text-11: 11px; /* shortcut hints, overline labels */
   --text-12: 12px; /* metadata, small labels */
@@ -39,6 +41,9 @@
   --text-48: 48px; /* marketing subsection headline */
   --text-64: 64px; /* marketing hero headline (desktop) */
   --text-80: 80px; /* marketing hero headline (large desktop / display) */
+  --text-90: 90px; /* mega headline, tablet/mid-desktop step */
+  --text-96: 96px; /* mega headline, tablet/mid-desktop step */
+  --text-120: 120px; /* mega headline, large desktop — one word per line */
 
   /* Radius */
   --radius-chip: 4px; /* chips, inline labels, small badges */
@@ -81,7 +86,7 @@
   /* Fonts — Latin-first stack; Noto Kufi Arabic is the fallback so Arabic
      glyphs inside an otherwise-English string still resolve correctly.
      `[lang="ar"]` in globals.css flips the priority for Arabic content. */
-  --font-sans: var(--font-inter), var(--font-noto-kufi), sans-serif;
+  --font-sans: var(--font-sans-latin), var(--font-noto-kufi), sans-serif;
   --font-mono: var(--font-jetbrains), monospace;
 }
 

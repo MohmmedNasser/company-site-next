@@ -164,8 +164,8 @@ const FONT_SAMPLES: {
   sample: string;
 }[] = [
   {
-    label: "Inter",
-    cssVar: "--font-inter",
+    label: "Inter Display",
+    cssVar: "--font-sans-latin",
     weights: [400, 500, 600],
     sample: "The quick brown fox — Aa Bb Cc 123",
   },
@@ -456,7 +456,7 @@ export function StyleguideClient() {
                   style={{
                     fontSize: step.px,
                     fontWeight: step.weight,
-                    fontFamily: "var(--font-inter)",
+                    fontFamily: "var(--font-sans-latin)",
                   }}
                   className="text-text-primary"
                 >

@@ -15,13 +15,13 @@
 // landing here (a mistyped locale prefix) may read only Arabic.
 import Link from "next/link";
 import "./globals.css";
-import { inter, jetbrainsMono, notoKufi } from "./fonts";
+import { sansLatin, jetbrainsMono, notoKufi } from "./fonts";
 
 export default function RootNotFound() {
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${notoKufi.variable} ${jetbrainsMono.variable}`}
+      className={`${sansLatin.variable} ${notoKufi.variable} ${jetbrainsMono.variable}`}
     >
       <body className="bg-bg text-text-primary flex min-h-screen flex-col items-center justify-center gap-16 px-24 text-center">
         <p className="text-primary text-14 font-mono">404</p>

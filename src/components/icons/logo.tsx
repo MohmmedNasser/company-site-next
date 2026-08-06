@@ -40,13 +40,13 @@ export default function Logo({ className }: LogoProps) {
     >
       <LogoMark />
       {/* Codexa is a Latin-script proper noun kept identical in both
-          locales — lang="en" plus an explicit Inter font-family override
-          stop it inheriting globals.css's [lang="ar"] typography block
-          (Noto Kufi font-family/letter-spacing/line-height), which would
-          otherwise cascade onto every descendant of <html lang="ar">. */}
+          locales — lang="en" plus an explicit Inter Display font-family
+          override stop it inheriting globals.css's [lang="ar"] typography
+          block (Noto Kufi font-family/letter-spacing/line-height), which
+          would otherwise cascade onto every descendant of <html lang="ar">. */}
       <span
         lang="en"
-        style={{ fontFamily: "var(--font-inter), sans-serif" }}
+        style={{ fontFamily: "var(--font-sans-latin), sans-serif" }}
         className="text-text-primary text-16 leading-none font-semibold tracking-[-0.03em]"
       >
         Codexa

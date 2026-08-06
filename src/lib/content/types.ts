@@ -66,6 +66,14 @@ export interface SiteSettings {
     subtitle: Localized;
     ctaPrimary: Localized;
     ctaSecondary: Localized;
+    // Numerals are plain strings, not localized — design-decisions.md §5:
+    // Western digits in both locales, so there's no {ar, en} split to make.
+    trust: {
+      rating: string;
+      ratingScale: string;
+      clientsCount: string;
+      clientsLabel: Localized;
+    };
   };
   sections: {
     about: SectionCopy;

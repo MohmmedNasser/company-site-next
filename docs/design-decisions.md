@@ -276,12 +276,6 @@ declared explicitly as named `--spacing-80/96/128/160` tokens so the
 sanctioned upper bound is visible in `globals.css` rather than tribal
 knowledge.
 
-> **Superseded by §7:** the raw palette described above as living in
-> `globals.css`'s first `@theme` block has since moved to `src/styles/
-palette.css`, outside any `@theme` block. The reasoning in "why semantic
-> tokens sit in front of raw palette values" still holds — only the file
-> location and the exact raw token names changed.
-
 ---
 
 ## 7. Palette / tokens split — rebranding as a one-file change
@@ -633,34 +627,142 @@ underneath/behind the header pill.
 
 ---
 
-## Process notes
+## 13. Typography — Inter replaced with Inter Display everywhere (added 2026-08-05)
 
-Not design decisions — workflow corrections worth keeping so they aren't
-repeated.
+**Decision:** Inter Display replaces Inter as the site's sole Latin sans-serif,
+for every text size — headlines, body text, and UI chrome (11–14px included),
+no exception. Loaded locally via `next/font/local` (`InterDisplay-Regular
+/-Medium/-SemiBold.woff2`, weights 400/500/600) instead of `next/font/google`,
+since Inter Display isn't published on Google Fonts. Noto Kufi Arabic is
+unchanged.
 
-**Phase 2 acceptance was declared one commit too early.** `CLAUDE.md`'s
-Current State was advanced to Phase 3 at `ea7a723`, but three more commits
-still had to land after it to make Phase 2's own deliverable checklist pass:
-`db6d354` (a real bug — the styleguide's contrast table could read a stale
-theme's computed values for one render after toggling), `40aa665` (hardened
-`src/lib/content` against ever being pulled into a client bundle), and
-`55b5c4c` (a pnpm config fix needed before `build`/`lint`/`typecheck` could
-even run). `55b5c4c` is the commit where Phase 2's checklist was actually
-fully green — not `ea7a723`.
+The CSS variable and export were renamed from the Inter-specific
+`--font-inter`/`inter` to `--font-sans-latin`/`sansLatin`, since the token now
+names its role (the Latin sans) rather than one specific typeface — matching
+`--font-noto-kufi`'s script-based naming rather than reusing a brand name that
+no longer matches what's loaded.
 
-**Rule going forward:** the phase-completion commit (the one that advances
-`CLAUDE.md`'s Current State) must be the _last_ commit of the phase, made
-only after every deliverable-checklist item has been re-verified against
-that exact commit — never a commit made mid-fix-wave in anticipation of
-verification passing.
+**Source verification:** the three `.woff2` files (from a third-party font
+aggregator, not Google Fonts or rsms/inter's GitHub releases) were inspected
+via `fonttools`/`ttx` before use. Distinct file sizes (134,036 / 138,856 /
+139,316 bytes) and distinct SHA-256 hashes ruled out the same file renamed
+three times. Each file's `name` table correctly identifies it as "Inter
+Display" (family) at the right weight, with copyright/designer/license
+records matching the genuine typeface (`Copyright 2016 The Inter Project
+Authors`, Rasmus Andersson/rsms, SIL OFL 1.1, version `4.000;git-a52131595`).
+Shared low-level tables (`GDEF`, `GSUB`, `fpgm`, `prep`) have identical
+checksums across all three weights, while weight-specific tables (`glyf`,
+`hmtx`, `OS/2`, `name`) differ correctly per file — the signature of genuine
+sibling weight builds, not tampered or duplicated files.
 
-**Branch naming: this repo uses `master`, not `main`.** §0.1's frontend
-branch table names the client-demo branch `main`; the actual repo (created
-in Phase 0) uses `master` as its only trunk, and `CLAUDE.md`'s Current
-State has recorded `Branch: master` since Phase 2. Phase 3 was executed on
-a short-lived feature branch (`feat/phase-3-app-shell`) per its own prompt —
-merging it into `master` is left for review rather than done automatically,
-since merges weren't part of the authorized scope. Treat `main` in §0.1 as
-the plan's original assumption, not this repo's reality — don't rename the
-trunk branch to match the plan; future Current State entries should keep
-saying `master`.
+**Deliberate tradeoff, made with it understood:** Inter Display is optically
+tuned for large sizes (~20px+) — it carries tighter tracking and higher
+stroke contrast than regular Inter, which has its own optical-size variants
+for small text. Using it at 11–14px (shortcut hints, metadata, body, nav,
+buttons) is a known deviation from its intended use, not an oversight.
+Rendered on `/styleguide`'s full type scale in both themes: at 11–14px the
+font stays legible with clear x-height and no rendering artifacts: no
+established legibility failure was observed at the sizes checked, on the
+screens checked. This is not a blanket clearance for every device/DPI
+combination — if a specific screen or accessibility report surfaces a
+problem later, revisit this tradeoff then rather than treating this
+verification as exhaustive.
+
+**Arabic pairing re-checked, not re-derived:** the `[lang="ar"]` overrides
+(§3 — `letter-spacing: 0`, `line-height: 1.8`/`1.4`, `0.95em` optical-size
+adjustment) were calibrated against standard Inter's metrics, not Inter
+Display's. Rendered `/styleguide`'s mixed-script paragraph (Arabic text with
+inline Latin terms — "Next.js", "API", "SEO" — falling back from Noto Kufi to
+`--font-sans-latin` per-glyph) in both themes: baseline alignment between the
+Latin fallback runs and the surrounding Noto Kufi Arabic held, with no visible
+vertical jump or size mismatch. The existing §3 values were kept as-is — no
+retuning performed, since nothing visibly broke.
+
+**Rejected alternatives:**
+
+- Keeping the `--font-inter` name and only swapping the loaded font — rejected;
+  the variable name would actively lie about what's loaded, and any future
+  reader grepping for "Inter" to understand the token would find a name that
+  no longer matches the file.
+- Re-deriving the Arabic pairing's calibrated values pre-emptively — rejected;
+  nothing observed broke, so retuning would be unverified churn against
+  numbers that are still working, not a fix for an actual problem.
+
+---
+
+## 14. Hero redesign — mega headline, end-aligned subtitle (added 2026-08-05)
+
+**Decision:** Override the "Header/Footer/Hero are not rebuilt" workflow rule
+for this one change, at the developer's explicit request (reference: a
+one-word-per-line hero screenshot). The hero headline copy changes from a
+full sentence to a fixed 2-3 word phrase ("Shaping Digital Futures" /
+"صنع مستقبلك الرقمي"), rendered one word per block-level line at a new
+96/120px type-scale extension (§1, §14 table in the design-system skill).
+The subtitle + CTA group moves out of the headline's column and is pushed to
+the inline-end edge (`self-end`, `text-end`, `justify-end` — all logical,
+RTL-safe by construction since flexbox's end/start already follow direction)
+below the headline, capped at `max-w-lg`, instead of stacking directly
+beneath the headline in a shared 7-column block.
+
+**Binding constraint this creates:** the hero title is no longer free-form —
+it must stay to 2-3 short words. `HeroHeadline` renders one `block`-level
+line per word at up to 120px; a longer sentence would stack into an
+unreasonably tall block rather than wrapping gracefully. This is now a
+content constraint on `settings.json`'s `hero.title`, not just a styling
+choice — flag it if a future content edit tries to put a full sentence back
+in that field.
+
+**Rationale:** requested directly, matching a specific reference composition
+(dominant huge-type headline, secondary text/CTA anchored opposite it) that
+the existing sentence-style 64/80px headline and same-column subhead layout
+could not produce.
+
+**Rejected alternatives:**
+
+- Reaching for an arbitrary Tailwind bracket value (e.g. `text-[120px]`)
+  instead of a real token — rejected; the design-system skill's token
+  contract applies here exactly as it does everywhere else, so 96px/120px
+  were added to the type scale the same way 48/64/80 were, not inlined.
+- A rigid 2-column grid (headline column + subtitle column, same row) —
+  rejected; at up to 120px a wide headline column crowds a same-row subtitle
+  column on mid-size viewports. A single-column flow with the subtitle
+  block self-aligned to the end edge reproduces the reference's composition
+  without that crowding.
+- Removing the CTA buttons — not requested; the reference crop only showed
+  subtitle text, not the full section, so CTAs were kept and end-aligned
+  alongside the subtitle rather than dropped.
+
+---
+
+## Workflow — manual section design (added 2026-08-05)
+
+**Decision:** Starting now, every marketing section and inner page
+(Services, Portfolio, Testimonials, Clients, Contact, About, Blog, and all
+other pages not yet built) is designed and implemented by hand by the
+developer. AI is no longer used to generate full sections, pages, or
+layouts by default.
+
+Header, Footer, and Hero — already built in Phase 3 and Phase 4 — are
+UNCHANGED by this decision and remain as AI-built. They may be manually
+revised later at the developer's discretion, but are not being rebuilt now.
+
+**Scope of AI involvement going forward:**
+
+- Foundation and infrastructure work, only when explicitly requested
+- Fixing specific, reported bugs
+- Answering specific technical questions
+- Reviewing hand-written code against the design-system and i18n-keys
+  skills, when asked — not proactively rewriting it
+
+The design-system and i18n-keys skills remain the binding contract. They
+now govern hand-written code exactly as they governed AI-generated code —
+token usage, logical CSS properties, RTL rules, and accessibility floor all
+still apply regardless of who writes the code.
+
+**Rationale:** Full manual control over section design and layout, rather
+than approving/revising AI-generated proposals turn by turn.
+
+**Rejected alternative:** Also rebuilding Header/Footer/Hero by hand as
+part of this same transition. Rejected because they are already functional
+and already certified — manual effort is better spent on sections that
+haven't been built yet.

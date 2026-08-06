@@ -38,22 +38,24 @@ Semantic variable names only — never the raw violet-issue-DESIGN.md hex values
 
 ## Type scale
 
-11px through 40px is the original Violet Issue scale; 48/64/80px are a marketing-only extension (§1.2 deviation — 40px cannot carry a hero). Admin UI must stay within 11–40px.
+11px through 40px is the original Violet Issue scale; 48/64/80px are a marketing-only extension (§1.2 deviation — 40px cannot carry a hero). 96/120px are a second, later marketing-only extension for a one-word-per-line mega headline treatment (design-decisions.md §14) — reserve them for that treatment specifically, not as general-purpose bigger headings. Admin UI must stay within 11–40px.
 
-| Size | Role                                                   |
-| ---- | ------------------------------------------------------ |
-| 11px | Shortcut hints, overline labels                        |
-| 12px | Metadata, small labels                                 |
-| 13px | Small body text, nav items                             |
-| 14px | Body text, issue/list-item titles                      |
-| 16px | h5, panel titles                                       |
-| 20px | h4, view titles                                        |
-| 24px | h3, page titles                                        |
-| 32px | h2, settings headers                                   |
-| 40px | h1, admin landing headers                              |
-| 48px | Marketing subsection headline                          |
-| 64px | Marketing hero headline (desktop)                      |
-| 80px | Marketing hero headline (large desktop / display only) |
+| Size  | Role                                                       |
+| ----- | ---------------------------------------------------------- |
+| 11px  | Shortcut hints, overline labels                            |
+| 12px  | Metadata, small labels                                     |
+| 13px  | Small body text, nav items                                 |
+| 14px  | Body text, issue/list-item titles                          |
+| 16px  | h5, panel titles                                           |
+| 20px  | h4, view titles                                            |
+| 24px  | h3, page titles                                            |
+| 32px  | h2, settings headers                                       |
+| 40px  | h1, admin landing headers                                  |
+| 48px  | Marketing subsection headline                              |
+| 64px  | Marketing hero headline (desktop)                          |
+| 80px  | Marketing hero headline (large desktop / display only)     |
+| 96px  | Mega headline, one word per line (tablet/mid-desktop step) |
+| 120px | Mega headline, one word per line (large desktop)           |
 
 ## Spacing scale
 

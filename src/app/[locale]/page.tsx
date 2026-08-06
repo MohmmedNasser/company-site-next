@@ -1,6 +1,7 @@
 import { content, pick } from "@/lib/content";
 import Container from "@/components/ui/container";
 import HeroSection from "@/components/hero/hero-section";
+import MarqueeSection from "@/components/sections/marquee-section";
 
 // The placeholder <Container> below is Phase 3's — Phase 5 replaces it with
 // the real home page sections. HeroSection (Phase 4) reads its copy from
@@ -24,7 +25,14 @@ export default async function Home({
         subtitle={pick(settings.hero.subtitle, locale)}
         ctaPrimaryLabel={pick(settings.hero.ctaPrimary, locale)}
         ctaSecondaryLabel={pick(settings.hero.ctaSecondary, locale)}
+        trustRating={settings.hero.trust.rating}
+        trustRatingScale={settings.hero.trust.ratingScale}
+        trustClientsCount={settings.hero.trust.clientsCount}
+        trustClientsLabel={pick(settings.hero.trust.clientsLabel, locale)}
       />
+
+      <MarqueeSection />
+
       <Container className="py-96">
         <p className="text-24 text-text-primary max-w-640 font-semibold">
           {pick(settings.hero.title, locale)}

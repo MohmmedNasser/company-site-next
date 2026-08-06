@@ -1,15 +1,21 @@
 {
   "hero": {
     "title": {
-      "en": "We build software that ships.",
-      "ar": "نبني برمجيات تصل فعلًا إلى الإنتاج."
+      "en": "Shaping Digital Futures",
+      "ar": "نصنع مستقبلك الرقمي"
     },
     "subtitle": {
-      "en": "A software agency for teams who need a product built right the first time — web, mobile, and the backend that holds it together.",
-      "ar": "وكالة برمجية للفرق التي تريد منتجًا مبنيًا بشكل صحيح من أول مرة — مواقع، تطبيقات جوال، والخلفية البرمجية التي تربط كل ذلك."
+      "en": "We skip the fluff, pitch decks, and endless meetings. Just high-performing websites, scalable software, and stunning social media designs built by senior experts to grow your brand.",
+      "ar": "نتجاوز العروض الطويلة والاجتماعات غير المنتجة. نقدم لك مواقع فائقة الأداء، برمجيات قابلة للتوسع، وتصاميم ابتكارية ينفذها خبراء ليكونوا امتداداً حقيقياً لفريقك.."
     },
     "ctaPrimary": { "en": "Start a project", "ar": "ابدأ مشروعك" },
-    "ctaSecondary": { "en": "See our work", "ar": "شاهد أعمالنا" }
+    "ctaSecondary": { "en": "See our work", "ar": "شاهد أعمالنا" },
+    "trust": {
+      "rating": "4.9",
+      "ratingScale": "5",
+      "clientsCount": "100+",
+      "clientsLabel": { "en": "Happy clients", "ar": "عميل سعيد" }
+    }
   },
   "sections": {
     "about": {
