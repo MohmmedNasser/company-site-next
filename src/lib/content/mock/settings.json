@@ -25,6 +25,16 @@
         "ar": "فريق صغير يسلّم برمجيات جاهزة للإنتاج، لا نماذج أولية."
       }
     },
+    "approach": {
+      "heading": {
+        "en": "We don't start with code. We start with the one constraint that actually decides the product — a deadline, a budget, a workflow that cannot break. Everything we build after that answers to it.",
+        "ar": "لا نبدأ بالكود. نبدأ بالقيد الذي يحدد المنتج فعلاً — موعد تسليم، ميزانية، أو خطوة عمل لا تحتمل الخطأ. وكل ما نبنيه بعد ذلك يخدم هذا القيد."
+      },
+      "description": {
+        "en": "Discovery, architecture, and delivery run as one track — the same senior team from the first call to the production deploy.",
+        "ar": "الاستكشاف والتصميم والتسليم مسار واحد — نفس الفريق من أول مكالمة حتى الإطلاق."
+      }
+    },
     "services": {
       "heading": { "en": "What we do", "ar": "ماذا نقدم" },
       "description": {

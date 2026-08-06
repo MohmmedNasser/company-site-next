@@ -3,6 +3,7 @@
 import { type Variants, useTransform } from "motion/react";
 import { Link } from "@/i18n/navigation";
 import { usePrefersReducedMotion } from "@/lib/hooks/use-prefers-reduced-motion";
+import { SILK_TOKEN_NAMES, useTokenColors } from "@/lib/hooks/use-token-colors";
 import { lenisScrollY } from "@/lib/motion/lenis-scroll";
 import { EASE_DECELERATE } from "@/lib/motion/easing";
 import { buttonClassNames } from "@/components/ui/button";
@@ -10,6 +11,7 @@ import Container from "@/components/ui/container";
 import MotionLayer from "@/components/motion/motion-layer";
 import MotionItem from "@/components/motion/motion-item";
 import HeroScrim from "@/components/hero/hero-scrim";
+import HeroBackground from "@/components/hero/hero-background";
 import HeroHeadline from "@/components/hero/hero-headline";
 import HeroTrustBadge from "@/components/hero/hero-trust-badge";
 import { getHeadlineSettleDelay } from "@/components/hero/hero-motion";
@@ -52,6 +54,12 @@ export default function HeroSection({
 }: HeroSectionProps) {
   const prefersReducedMotion = usePrefersReducedMotion();
   const dir = locale === "ar" ? "rtl" : "ltr";
+
+  // Silk's endpoint colours come from the token layer, resolved to literal
+  // hex here because a WebGL uniform cannot read a CSS var(). Null until the
+  // first client read, and re-resolved when the theme class flips — see
+  // use-token-colors.ts.
+  const silkColors = useTokenColors(SILK_TOKEN_NAMES);
 
   // Reads the same Lenis-synced MotionValue Header already reads (see
   // lib/motion/lenis-scroll.ts) — not motion's own useScroll(), which
@@ -184,16 +192,24 @@ export default function HeroSection({
         className="absolute inset-0"
         motionStyle={{ y: backgroundY }}
       >
-        {/* <HeroBackground /> */}
-        <div style={{ width: "100%", height: "100%", position: "relative" }}>
-          <Silk
-            speed={5}
-            scale={1}
-            color="#7B7481"
-            noiseIntensity={1.5}
-            rotation={0}
-          />
-        </div>
+        {/* Base layer, always painted: the token-driven gradient. It covers
+            the window before Silk's tokens resolve (useTokenColors has no
+            server value by design) and stays as the fallback for anything
+            that never gets a WebGL context. Silk paints opaquely on top
+            whenever it can. */}
+        <HeroBackground />
+        {silkColors && (
+          <div style={{ width: "100%", height: "100%", position: "relative" }}>
+            <Silk
+              speed={5}
+              scale={1}
+              colorLow={silkColors["--hero-silk-low"]}
+              colorHigh={silkColors["--hero-silk-high"]}
+              noiseIntensity={1.5}
+              rotation={0}
+            />
+          </div>
+        )}
       </MotionLayer>
 
       {/* Contrast scrim (Task 3, Phase 4) — static, never parallaxed, so

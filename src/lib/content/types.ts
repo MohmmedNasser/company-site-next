@@ -77,6 +77,12 @@ export interface SiteSettings {
   };
   sections: {
     about: SectionCopy;
+    // Approach reads the shared SectionCopy shape rather than inventing its
+    // own: `heading` is the large scroll-revealed statement and
+    // `description` the supporting line under it. Keeping the shape uniform
+    // means the Phase 14 admin form for section copy covers this section
+    // with no extra fields.
+    approach: SectionCopy;
     services: SectionCopy;
     portfolio: SectionCopy;
     testimonials: SectionCopy;

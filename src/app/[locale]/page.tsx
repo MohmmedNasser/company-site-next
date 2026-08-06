@@ -2,6 +2,7 @@ import { content, pick } from "@/lib/content";
 import Container from "@/components/ui/container";
 import HeroSection from "@/components/hero/hero-section";
 import MarqueeSection from "@/components/sections/marquee-section";
+import ApproachSection from "@/components/sections/approach-section";
 
 // The placeholder <Container> below is Phase 3's — Phase 5 replaces it with
 // the real home page sections. HeroSection (Phase 4) reads its copy from
@@ -32,6 +33,11 @@ export default async function Home({
       />
 
       <MarqueeSection />
+
+      <ApproachSection
+        statement={pick(settings.sections.approach.heading, locale)}
+        detail={pick(settings.sections.approach.description, locale)}
+      />
 
       <Container className="py-96">
         <p className="text-24 text-text-primary max-w-640 font-semibold">

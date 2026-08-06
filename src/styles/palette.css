@@ -21,6 +21,12 @@
      --palette-brand-550 is a derived step not in the original spec: the
      AA-safe light-mode counterpart to brand-400 (Secondary), derived with
      the same per-channel ratio used to derive brand-600 from brand-500. */
+  /* --palette-brand-50 is a derived tint, not in the original spec: an 18%
+     mix of brand-500 into light-0, added for the light theme's hero silk,
+     which needs a violet-family value bright enough that a near-black
+     headline still clears AA on top of it. Rebranding to another hue means
+     re-deriving this the same way (18% of the new brand-500 into white). */
+  --palette-brand-50: #e2e4f7;
   --palette-brand-400: #6e79d6;
   --palette-brand-500: #5e6ad2;
   --palette-brand-550: #5b68c3;
@@ -34,6 +40,11 @@
   --palette-neutral-800: #252536;
   --palette-neutral-700: #2c2c3a;
   --palette-neutral-400: #8a8f98;
+  /* --palette-neutral-500 is a derived step, not in the original spec: the
+     dark theme's hero-silk ceiling. Matched in lightness to the #7B7481 it
+     replaces (so the dark hero keeps the look it already had) but on the
+     neutral hue rather than that value's warm mauve. */
+  --palette-neutral-500: #747880;
   --palette-neutral-50: #f1f1f4;
 
   /* Light — light-theme surfaces/text. Source: design-decisions.md §2. */

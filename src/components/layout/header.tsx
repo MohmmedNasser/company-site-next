@@ -115,6 +115,20 @@ function NavLinks() {
 
 function HeaderContent({ ctaLabel }: { ctaLabel: string }) {
   const t = useTranslations("common");
+  // codexa-mark-white.svg is a hardcoded #FFFFFF stroke — unreadable on the
+  // light theme's near-white background. Swapping to the mono mark (a plain
+  // dark stroke) fixes light mode; dark mode keeps the white mark it always
+  // had. Gated on `mounted`, same as ThemeToggle above: layout.tsx's
+  // <ThemeProvider defaultTheme="dark"> means the server-rendered/first-paint
+  // markup is always the dark-mode logo, so resolving the real theme only
+  // after mount avoids a hydration mismatch for a visitor whose system/saved
+  // preference is actually light.
+  const { resolvedTheme } = useTheme();
+  const mounted = useIsMounted();
+  const logoSrc =
+    mounted && resolvedTheme === "light"
+      ? "/brand/codexa-mark-mono.svg"
+      : "/brand/white/codexa-mark-white.svg";
 
   return (
     <div className="flex h-full items-center justify-between gap-24 ps-8 pe-8">
@@ -124,7 +138,7 @@ function HeaderContent({ ctaLabel }: { ctaLabel: string }) {
         className="duration-micro inline-flex shrink-0 items-center gap-8 py-4 ps-4 pe-12"
       >
         <Image
-          src="/brand/white/codexa-mark-white.svg"
+          src={logoSrc}
           loading="eager"
           alt="logo"
           width={40}

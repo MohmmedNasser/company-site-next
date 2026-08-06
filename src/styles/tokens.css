@@ -122,6 +122,19 @@
      (see docs/design-decisions.md §8): white/4.70:1 on dark --primary and
      white/5.88:1 on light --primary both clear WCAG AA body text (4.5:1). */
   --on-primary: var(--palette-light-0);
+
+  /* Hero silk endpoints — the two ends of the shader's tonal ramp (see
+     components/Silk.jsx). Unlike every other token here these are read from
+     JS rather than used as CSS: a WebGL uniform needs literal channel
+     values, so use-token-colors.ts resolves them through getComputedStyle.
+     That keeps palette.css authoritative even for the shader.
+
+     Light mode ramps between two near-white tones — white crests, a pale
+     violet in the folds. It must NOT bottom out dark: the headline painted
+     over this is --text-primary (#16161C), and the previous single-colour
+     multiply put it at 1.01:1 in the pattern's dark bands. */
+  --hero-silk-low: var(--palette-brand-50);
+  --hero-silk-high: var(--palette-light-0);
 }
 
 .dark {
@@ -140,4 +153,15 @@
   --error: var(--palette-error);
   /* See :root's --on-primary comment — same raw value on purpose. */
   --on-primary: var(--palette-light-0);
+
+  /* Dark mode keeps the ramp it already had visually — floor at the page
+     background, ceiling at a mid neutral — but the ceiling is now
+     neutral-500 rather than the old hardcoded #7B7481, which was both a raw
+     hex in a component and a warm mauve in a deliberately cool palette.
+     neutral-500 is lightness-matched to it: the headline measures 3.93:1 on
+     bare silk against the old value's 4.00:1, so the dark hero is unchanged
+     to the eye. Do NOT lighten this to neutral-400 (#8A8F98) — that was
+     tried and drops the headline to 2.88:1, under the 3:1 large-text bar. */
+  --hero-silk-low: var(--palette-neutral-950);
+  --hero-silk-high: var(--palette-neutral-500);
 }
