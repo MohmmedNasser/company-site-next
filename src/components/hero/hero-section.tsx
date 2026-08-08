@@ -163,6 +163,9 @@ export default function HeroSection({
           variants={followOnItem}
           className="flex flex-wrap items-center justify-end gap-16"
         >
+          {/* <SlidingTextButton>
+            <Link href="/contact">{ctaPrimaryLabel}</Link>
+          </SlidingTextButton> */}
           <Link
             href="/contact"
             className={buttonClassNames({ variant: "primary" })}
