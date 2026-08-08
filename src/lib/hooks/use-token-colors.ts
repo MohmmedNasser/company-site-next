@@ -32,7 +32,7 @@ export function useTokenColors<Name extends string>(
         const styles = getComputedStyle(root);
         // getPropertyValue returns the COMPUTED value of a custom property,
         // which means the whole var() chain (--hero-silk-low ->
-        // --palette-brand-50 -> #e2e4f7) is already substituted. No manual
+        // --palette-mono-25 -> #fafafa) is already substituted. No manual
         // dereferencing needed.
         const next = {} as Record<Name, string>;
         for (const name of names) {

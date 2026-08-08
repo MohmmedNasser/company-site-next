@@ -39,6 +39,7 @@
   --color-success: var(--success);
   --color-warning: var(--warning);
   --color-error: var(--error);
+  --color-text-decorative: var(--text-decorative);
   --animate-marquee: marquee var(--duration) infinite linear;
   --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
   /* `translateX` is physical, but the marquee's travel has to follow the
@@ -78,8 +79,10 @@ body {
   color: var(--color-text-primary);
 }
 
-/* Never remove focus outlines. Ring built from --color-primary, matching
-   the soft violet glow in violet-issue-DESIGN.md's Elevation section. */
+/* Never remove focus outlines. Ring built from --color-primary — now a
+   high-contrast neutral (white in dark mode, near-black in light), not a
+   coloured glow, per the monochrome system's "focus rings are neutral"
+   rule. See docs/design-decisions.md's Colour system section. */
 :focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
@@ -88,7 +91,9 @@ body {
 }
 
 /*
- * Bilingual typography — see docs/design-decisions.md §3. Selecting on
+ * Bilingual typography — Noto Kufi Arabic needs different letter-spacing,
+ * line-height, and optical sizing than Inter Display at the same pixel
+ * values (see docs/design-decisions.md's Typography section). Selecting on
  * `[lang="ar"]` (not a route/locale check) means the rule applies
  * regardless of where in the tree `lang="ar"` is set.
  */

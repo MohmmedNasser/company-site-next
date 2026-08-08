@@ -115,20 +115,6 @@ function NavLinks() {
 
 function HeaderContent({ ctaLabel }: { ctaLabel: string }) {
   const t = useTranslations("common");
-  // codexa-mark-white.svg is a hardcoded #FFFFFF stroke — unreadable on the
-  // light theme's near-white background. Swapping to the mono mark (a plain
-  // dark stroke) fixes light mode; dark mode keeps the white mark it always
-  // had. Gated on `mounted`, same as ThemeToggle above: layout.tsx's
-  // <ThemeProvider defaultTheme="dark"> means the server-rendered/first-paint
-  // markup is always the dark-mode logo, so resolving the real theme only
-  // after mount avoids a hydration mismatch for a visitor whose system/saved
-  // preference is actually light.
-  const { resolvedTheme } = useTheme();
-  const mounted = useIsMounted();
-  const logoSrc =
-    mounted && resolvedTheme === "light"
-      ? "/brand/codexa-mark-mono.svg"
-      : "/brand/white/codexa-mark-white.svg";
 
   return (
     <div className="flex h-full items-center justify-between gap-24 ps-8 pe-8">
@@ -137,8 +123,14 @@ function HeaderContent({ ctaLabel }: { ctaLabel: string }) {
         aria-label={t("nav.home")}
         className="duration-micro inline-flex shrink-0 items-center gap-8 py-4 ps-4 pe-12"
       >
+        {/* Fixed violet mark, same asset Footer already uses — the one
+            place colour survives (docs/design-decisions.md, "The one
+            exception"). Unlike the old mono/white theme-conditional
+            variants this replaces, it never changes with theme, so there's
+            no mount-gated branch and no hydration-mismatch risk to guard
+            against. */}
         <Image
-          src={logoSrc}
+          src="/brand/codexa-mark.svg"
           loading="eager"
           alt="logo"
           width={40}
@@ -174,7 +166,7 @@ function HeaderContent({ ctaLabel }: { ctaLabel: string }) {
 }
 
 // Shared with both the animated and reduced-motion render paths so the
-// glass treatment (design-decisions.md §9) can't drift between them.
+// glass treatment can't drift between them.
 const GLASS_TRANSITION_CLASSES =
   "transition-[height,background-color,backdrop-filter,border-color] duration-micro ease-decelerate";
 

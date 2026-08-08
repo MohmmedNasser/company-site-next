@@ -2,6 +2,11 @@
   "home": {
     "hero": {
       "scrollCue": "مرر للأسفل للاستكشاف"
+    },
+    "process": {
+      "mockups": {
+        "launchLabel": "إطلاق"
+      }
     }
   },
   "common": {

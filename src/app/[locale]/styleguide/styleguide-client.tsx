@@ -6,6 +6,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { useIsMounted } from "@/lib/hooks/use-is-mounted";
+import SectionLabel from "@/components/ui/section-label";
 import { Phase3Demos } from "./phase-3-demos";
 
 type SemanticToken = {
@@ -36,15 +37,15 @@ const SEMANTIC_TOKENS: SemanticToken[] = [
   { cssVar: "--color-success", role: "Completed / passing states" },
   { cssVar: "--color-warning", role: "In-progress / attention states" },
   { cssVar: "--color-error", role: "Urgent / error / destructive states" },
+  {
+    cssVar: "--color-on-primary",
+    role: "Text/icons painted directly on --color-primary",
+  },
 ];
-
-// "white on primary" has no dedicated semantic token — --palette-light-0 is
-// the raw palette entry that already resolves to pure white in both themes.
-const WHITE_RAW = "--palette-light-0";
 
 const CONTRAST_PAIRS: {
   label: string;
-  fg: SemanticToken["cssVar"] | typeof WHITE_RAW;
+  fg: SemanticToken["cssVar"];
   bg: SemanticToken["cssVar"];
 }[] = [
   {
@@ -58,7 +59,20 @@ const CONTRAST_PAIRS: {
     bg: "--color-card",
   },
   { label: "text-primary on bg", fg: "--color-text-primary", bg: "--color-bg" },
-  { label: "white on primary", fg: WHITE_RAW, bg: "--color-primary" },
+  {
+    // Monochrome system: --primary flips per theme (white in dark, near-
+    // black in light), so its foreground (--color-on-primary) flips with
+    // it too — there is no theme-invariant "white on primary" pairing to
+    // hardcode any more, unlike the old saturated-violet system.
+    label: "on-primary on primary",
+    fg: "--color-on-primary",
+    bg: "--color-primary",
+  },
+  {
+    label: "on-primary on primary-hover",
+    fg: "--color-on-primary",
+    bg: "--color-primary-hover",
+  },
   {
     label: "text-primary on surface",
     fg: "--color-text-primary",
@@ -193,7 +207,17 @@ const RTL_PARAGRAPH_AR =
   "كل قسم في هذا الموقع مبني باستخدام خصائص CSS منطقية، بحيث ينعكس التخطيط بالكامل بشكل صحيح عند تبديل الزائر من الإنجليزية إلى العربية — المسافات والمحاذاة واتجاه الأيقونات تنعكس جميعها تلقائيًا بدلاً من ضبطها يدويًا لكل لغة.";
 
 function hexToRgb(hex: string): [number, number, number] | null {
-  const clean = hex.trim().replace("#", "");
+  let clean = hex.trim().replace("#", "");
+  // Browsers are free to serialize a resolved custom property's colour as
+  // 3-digit shorthand even when the source declared 6 (confirmed live:
+  // mono-0 is declared as #ffffff in palette.css but getComputedStyle()
+  // returns "#fff" for it) — same expansion Silk.jsx's hexToNormalizedRGB
+  // already needs for the same reason. Without this, every pure-white
+  // pairing in the monochrome system silently fails to parse and the
+  // contrast table renders "…" instead of a ratio.
+  if (clean.length === 3) {
+    clean = [...clean].map((c) => c + c).join("");
+  }
   if (clean.length !== 6) return null;
   const value = Number.parseInt(clean, 16);
   if (Number.isNaN(value)) return null;
@@ -228,7 +252,6 @@ function readResolvedTokens(): Record<string, string> {
   for (const token of SEMANTIC_TOKENS) {
     next[token.cssVar] = styles.getPropertyValue(token.cssVar).trim();
   }
-  next[WHITE_RAW] = styles.getPropertyValue(WHITE_RAW).trim();
   return next;
 }
 
@@ -643,6 +666,24 @@ export function StyleguideClient() {
       </Section>
 
       <Phase3Demos />
+
+      {/* 18. Section label — numbered after Phase3Demos's 10-17 above, not
+          restarting the sequence. */}
+      <Section title="18. Section label">
+        <div className="flex flex-col gap-24">
+          <SectionLabel number={1}>
+            {locale === "ar" ? "الخدمات" : "Services"}
+          </SectionLabel>
+          <SectionLabel number={12}>
+            {locale === "ar" ? "الأعمال" : "Work"}
+          </SectionLabel>
+          <p className="text-13 text-text-secondary max-w-560">
+            The bracketed index, the section name, and the divider are one
+            `flex` row — no `rtl:` variant needed, it reorders with the
+            page&apos;s own `dir`. Switch locale/direction above to confirm.
+          </p>
+        </div>
+      </Section>
     </main>
   );
 }

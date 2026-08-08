@@ -35,6 +35,20 @@
         "ar": "الاستكشاف والتصميم والتسليم مسار واحد — نفس الفريق من أول مكالمة حتى الإطلاق."
       }
     },
+    "process": {
+      "heading": {
+        "en": "Creating brands that connect beyond visuals",
+        "ar": "نصنع علامات تجارية تتواصل بما هو أبعد من المظهر"
+      },
+      "description": {
+        "en": "A structured approach that blends strategy, design, and execution to create websites that connect with audiences and support real business goals.",
+        "ar": "نهج منظم يجمع بين الاستراتيجية والتصميم والتنفيذ لبناء مواقع تتواصل مع الجمهور وتدعم أهداف العمل الحقيقية."
+      },
+      "ctaLabel": {
+        "en": "Discuss about Website",
+        "ar": "ناقش موقعك معنا"
+      }
+    },
     "services": {
       "heading": { "en": "What we do", "ar": "ماذا نقدم" },
       "description": {

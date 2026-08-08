@@ -7,6 +7,7 @@ import type {
 import type {
   Client,
   Post,
+  ProcessStep,
   Project,
   Service,
   SiteSettings,
@@ -15,6 +16,7 @@ import type {
 
 import clientsData from "./clients.json";
 import postsData from "./posts.json";
+import processStepsData from "./process-steps.json";
 import projectsData from "./projects.json";
 import servicesData from "./services.json";
 import settingsData from "./settings.json";
@@ -27,6 +29,7 @@ const projects = projectsData as unknown as Project[];
 const testimonials = testimonialsData as Testimonial[];
 const clients = clientsData as Client[];
 const posts = postsData as Post[];
+const processSteps = processStepsData as ProcessStep[];
 const settings = settingsData as SiteSettings;
 
 const POSTS_PER_PAGE = 6;
@@ -55,6 +58,9 @@ export const mockRepository: ContentRepository = {
   },
   async getClients() {
     return byOrder(clients);
+  },
+  async getProcessSteps() {
+    return byOrder(processSteps);
   },
   async getPosts(page = 1) {
     const sorted = byOrder(posts);

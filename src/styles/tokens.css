@@ -15,20 +15,20 @@
      directly as class numbers, so the base unit is redefined to 1px:
      `p-16` now means 16px, matching the type/radius tokens below. */
   --spacing: 1px;
-  /* Marketing-only extension (design-decisions.md §1) — already reachable
-     through the 1px base above; restated here so the sanctioned upper
-     bound is visible instead of tribal knowledge. Section-level rhythm
-     only — never component padding. */
+  /* Marketing-only extension — already reachable through the 1px base
+     above; restated here so the sanctioned upper bound is visible instead
+     of tribal knowledge. Section-level rhythm only — never component
+     padding. */
   --spacing-80: 80px;
   --spacing-96: 96px;
   --spacing-128: 128px;
   --spacing-160: 160px;
 
-  /* Type scale — 11–40 is the original Violet Issue scale; 48/64/80 are
-     the marketing-only extension (design-decisions.md §1). 96/120 are a
-     second, later extension for a one-word-per-line mega headline
-     treatment that 80px cannot carry (design-decisions.md §14). Admin UI
-     stays within 11–40. */
+  /* Type scale — 11–40 is the original dense-UI scale; 48/64/80 are the
+     marketing-only extension. 96/120 are a second, later extension for a
+     one-word-per-line mega headline treatment that 80px cannot carry.
+     Admin UI stays within 11–40 (see docs/design-decisions.md's open
+     question on whether the admin panel adopts this system at all). */
   --text-11: 11px; /* shortcut hints, overline labels */
   --text-12: 12px; /* metadata, small labels */
   --text-13: 13px; /* small body text, nav items */
@@ -58,29 +58,25 @@
   --duration-reveal-slow: 700ms; /* larger/slower scroll-reveal entrances */
 
   /* Easing — one shared, deliberate deceleration curve for every non-
-     scroll-scrubbed UI transition (design-decisions.md's glass/header
-     revision), so motion reads as one considered system instead of each
-     component inlining its own curve. Mirrors the JS constant in
-     src/lib/motion/easing.ts (EASE_DECELERATE) — keep both in sync if this
-     ever changes. Not used for scroll-scrubbed values (those track scroll
-     position directly and have no independent "easing" of their own). */
+     scroll-scrubbed UI transition, so motion reads as one considered
+     system instead of each component inlining its own feel. Mirrors the
+     JS constant in src/lib/motion/easing.ts (EASE_DECELERATE) — keep both
+     in sync if this ever changes. Not used for scroll-scrubbed values
+     (those track scroll position directly and have no independent
+     "easing" of their own). */
   --ease-decelerate: cubic-bezier(0.22, 1, 0.36, 1);
 
-  /* Glass / backdrop-blur — design-decisions.md §9. Scoped to floating
-     overlay surfaces only (condensed header, dropdowns, modals, command
-     palette, mobile nav overlay) — never content cards or section
-     backgrounds. */
-  --blur-overlay: 4px; /* violet-issue-DESIGN.md's modal/command-palette baseline */
-  /* The condensed header sits directly over the Threads hero for a long
-     scroll range, so text painted on this surface must still clear 4.5:1
-     against the shader's worst-case fully-saturated frame (a single opaque
-     --palette-brand-500 pixel — see threads-background.tsx's colorVal
-     comment), not just its average colour. Verified numerically at this
-     value, composited onto --color-surface-raised, against
-     --color-text-primary (header.tsx uses text-primary for ALL nav text,
-     not text-secondary — text-secondary fails this check even at 90%
-     opacity): dark theme 9.81:1, light theme 10.87:1 — both clear AA with
-     large margin. Lower this only alongside re-running that check. */
+  /* Glass / backdrop-blur — scoped to floating overlay surfaces only
+     (condensed header, dropdowns, modals, command palette, mobile nav
+     overlay) — never content cards or section backgrounds. */
+  --blur-overlay: 4px;
+  /* The condensed header sits directly over the hero's Silk shader for a
+     long scroll range, so text painted on this surface must clear 4.5:1
+     against the shader's worst-case fully-opaque pixel, not just its
+     average colour. Re-verified for the monochrome ramp (mono-950/
+     mono-500 dark, mono-25/mono-0 light — see the hero-silk tokens below):
+     see docs/design-decisions.md's Colour system section for the current
+     numbers. Lower this only alongside re-running that check. */
   --overlay-surface-opacity: 72%;
 
   /* Fonts — Latin-first stack; Noto Kufi Arabic is the fallback so Arabic
@@ -97,71 +93,87 @@
  * actually use. Every value here is a `var()` into palette.css.
  */
 :root {
-  --bg: var(--palette-light-50);
-  --card: var(--palette-light-0);
-  --surface: var(--palette-light-100);
-  --surface-raised: var(--palette-light-200);
-  --border: var(--palette-light-300);
-  --text-primary: var(--palette-light-950);
-  --text-secondary: var(--palette-light-600);
-  /* Light mode maps one brand step darker than dark mode ON PURPOSE:
-     brand-500 (#5E6AD2) fails AA body-text contrast on white, so light
-     mode uses brand-600 instead. Do not "fix" this to use brand-500 in
-     both themes for consistency — that would silently break AA. */
-  --primary: var(--palette-brand-600);
-  --primary-hover: var(--palette-brand-700);
-  --secondary: var(--palette-brand-550);
+  --bg: var(--palette-mono-25);
+  --card: var(--palette-mono-0);
+  --surface: var(--palette-mono-0);
+  /* No third "raised" tier: DESIGN.md's source only distinguishes two
+     levels (page background, and cards/surfaces separated from it by a
+     border) — there is no measured basis for a further step for
+     dropdowns/modals. Those already get extra visual weight from the
+     glass/blur treatment (--blur-overlay above) and from literally
+     occluding whatever is behind them, so reusing --surface here doesn't
+     leave them illegible, just not a distinct fill. */
+  --surface-raised: var(--palette-mono-0);
+  --border: var(--palette-border-light-mode);
+  --text-primary: var(--palette-mono-950);
+  --text-secondary: var(--palette-mono-600);
+  /* The CTA fill inverts per theme to whichever extreme reads as "solid
+     button" against that theme's background — near-black on light,
+     covered in .dark below with white. This is a real behaviour change
+     from the old violet system, where --primary was the same saturated
+     hue in both themes: a true monochrome ramp's "maximum contrast" end
+     is a DIFFERENT physical colour per theme, so --primary must flip
+     instead of just re-deriving one hue for AA. */
+  --primary: var(--palette-mono-950);
+  --primary-hover: var(--palette-mono-900);
+  --secondary: var(--palette-mono-600);
   --success: var(--palette-success-light);
   --warning: var(--palette-warning-light);
   --error: var(--palette-error-light);
   /* Text/icon colour for content painted directly on --primary or
-     --primary-hover (e.g. the primary Button variant). Deliberately the
-     same raw value in both themes — --primary is a saturated brand colour
-     in both, so it always needs a light foreground, not a theme-flipped
-     one. Fills a gap the styleguide's contrast table already flagged
-     (see docs/design-decisions.md §8): white/4.70:1 on dark --primary and
-     white/5.88:1 on light --primary both clear WCAG AA body text (4.5:1). */
-  --on-primary: var(--palette-light-0);
+     --primary-hover (e.g. the primary Button variant's label). Unlike the
+     old system, this is NOT the same raw value in both themes — --primary
+     itself flips per theme now (see above), so its foreground has to flip
+     with it: white text on a light-mode near-black button, near-black
+     text on a dark-mode white button. */
+  --on-primary: var(--palette-mono-0);
+  /* Decorative-only colour for large, intentionally low-contrast numbers
+     (DESIGN.md's "very faint... large inactive step numbers"). Deliberately
+     NOT named --text-anything — it must never be reached for as a text
+     colour that carries an AA obligation; see the design-system skill's
+     "decorative large numbers are exempt" rule. */
+  --text-decorative: var(--palette-mono-200);
 
   /* Hero silk endpoints — the two ends of the shader's tonal ramp (see
-     components/Silk.jsx). Unlike every other token here these are read from
-     JS rather than used as CSS: a WebGL uniform needs literal channel
+     components/Silk.jsx). Unlike every other token here these are read
+     from JS rather than used as CSS: a WebGL uniform needs literal channel
      values, so use-token-colors.ts resolves them through getComputedStyle.
      That keeps palette.css authoritative even for the shader.
 
-     Light mode ramps between two near-white tones — white crests, a pale
-     violet in the folds. It must NOT bottom out dark: the headline painted
-     over this is --text-primary (#16161C), and the previous single-colour
-     multiply put it at 1.01:1 in the pattern's dark bands. */
-  --hero-silk-low: var(--palette-brand-50);
-  --hero-silk-high: var(--palette-light-0);
+     Light mode ramps between two near-white tones — pure white crests, a
+     hair-off-white in the folds, mirroring --bg/--card's own relationship.
+     It must NOT bottom out dark: the headline painted over this is
+     --text-primary (near-black in light mode), and a previous version of
+     this ramp using a violet-tinted low end put contrast at risk in the
+     pattern's dark bands. */
+  --hero-silk-low: var(--palette-mono-25);
+  --hero-silk-high: var(--palette-mono-0);
 }
 
 .dark {
-  --bg: var(--palette-neutral-950);
-  --card: var(--palette-neutral-900);
-  --surface: var(--palette-neutral-850);
-  --surface-raised: var(--palette-neutral-800);
-  --border: var(--palette-neutral-700);
-  --text-primary: var(--palette-neutral-50);
-  --text-secondary: var(--palette-neutral-400);
-  --primary: var(--palette-brand-500);
-  --primary-hover: var(--palette-brand-600);
-  --secondary: var(--palette-brand-400);
+  --bg: var(--palette-mono-950);
+  --card: var(--palette-mono-975);
+  --surface: var(--palette-mono-975);
+  --surface-raised: var(--palette-mono-975);
+  --border: var(--palette-border-dark-mode);
+  --text-primary: var(--palette-mono-0);
+  --text-secondary: var(--palette-mono-450);
+  --primary: var(--palette-mono-0);
+  --primary-hover: var(--palette-mono-90);
+  --secondary: var(--palette-mono-450);
   --success: var(--palette-success);
   --warning: var(--palette-warning);
   --error: var(--palette-error);
-  /* See :root's --on-primary comment — same raw value on purpose. */
-  --on-primary: var(--palette-light-0);
+  --on-primary: var(--palette-mono-950);
+  --text-decorative: var(--palette-mono-800);
 
   /* Dark mode keeps the ramp it already had visually — floor at the page
-     background, ceiling at a mid neutral — but the ceiling is now
-     neutral-500 rather than the old hardcoded #7B7481, which was both a raw
-     hex in a component and a warm mauve in a deliberately cool palette.
-     neutral-500 is lightness-matched to it: the headline measures 3.93:1 on
-     bare silk against the old value's 4.00:1, so the dark hero is unchanged
-     to the eye. Do NOT lighten this to neutral-400 (#8A8F98) — that was
-     tried and drops the headline to 2.88:1, under the 3:1 large-text bar. */
-  --hero-silk-low: var(--palette-neutral-950);
-  --hero-silk-high: var(--palette-neutral-500);
+     background, ceiling at a mid grey — but the ceiling is now a
+     luminance-matched TRUE grey (mono-500, R=G=B) rather than the
+     previous step's slight cool tint, since this system has no colour at
+     all, not even a subtle one. The headline measures the same ~3.93:1 on
+     bare silk as before — see docs/design-decisions.md — so the dark hero
+     reads unchanged to the eye despite the purified value. */
+  --hero-silk-low: var(--palette-mono-950);
+  --hero-silk-high: var(--palette-mono-500);
 }

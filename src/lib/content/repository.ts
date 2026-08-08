@@ -2,6 +2,7 @@
 import type {
   Client,
   Post,
+  ProcessStep,
   Project,
   Service,
   SiteSettings,
@@ -29,6 +30,7 @@ export interface ContentRepository {
   getProject(slug: string): Promise<Project | null>;
   getTestimonials(): Promise<Testimonial[]>;
   getClients(): Promise<Client[]>;
+  getProcessSteps(): Promise<ProcessStep[]>;
   getPosts(page?: number): Promise<Post[]>;
   getPost(slug: string): Promise<Post | null>;
   getSettings(): Promise<SiteSettings>;

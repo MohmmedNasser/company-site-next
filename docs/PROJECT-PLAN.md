@@ -1,7 +1,7 @@
 # Software Agency Website — Project Plan
 
 **Stack:** Next.js 16 (App Router) + TypeScript + Tailwind CSS v4 · Laravel 12 + MySQL · Inertia + React admin
-**Design system:** `violet-issue-DESIGN.md`
+**Design system:** monochrome — see `docs/design-decisions.md`
 **Goals, in order:** (1) a modern, distinctive design · (2) learn Laravel — every file, route, and function must be explained.
 
 > All project documentation, plans, prompts, code comments, and commit messages are written in **English**. Site _content_ is bilingual (Arabic + English).
@@ -91,118 +91,56 @@ interface Service {
 
 ---
 
-## 1. Adapting the Violet Issue Design System
+## 1. Design system — monochrome
 
-`violet-issue-DESIGN.md` is a strong system, but it was written for a **dense, dark application UI** — 36px rows, ≤150ms motion, no shadows. A marketing site needs room to breathe and motion that reads as intentional. So:
+> **Supersedes the original "Adapting the Violet Issue Design System"
+> section.** This project ran on a violet-accented system through the
+> first build of the Process section; it has been fully replaced by a
+> monochrome one, reset from a pixel-measured analysis of a monochrome
+> reference site. The old section (violet palette, its light-mode
+> derivation, the Inter/Noto Kufi Google Fonts snippet, the circular-
+> status-indicator signature element) is not reproduced below — it's
+> recoverable via git history if needed. **`docs/design-decisions.md` is
+> the detailed source of truth for every token value, contrast number, and
+> rationale; this section only orients.**
 
-### 1.1 Keep as-is ✅
+**The shape of the system, in brief:**
 
-- The full violet palette — this is the brand
-- Inter at 400 / 500 / 600, `-0.03em` tracking on display headings
-- JetBrains Mono for numbers, identifiers, code, badges
-- Radii: 4 / 6 / 8 / 12 / 9999
-- Background layering instead of shadows in dark mode
-- **Violet is an accent only — never a large fill**
-- No warm colors enter the palette
+- **Colour:** white, black, and grey only. Elevation is a border, not a
+  lightness step — cards/surfaces sit at (or near) the page background's
+  own fill and are separated by a low-opacity 1px line, not a lighter/
+  darker tier. **One exception:** the logo mark keeps its original violet,
+  fixed and hardcoded, never `currentColor`, never from `tokens.css`.
+  Nowhere else uses colour.
+- **Typography:** unchanged from before — Inter Display (Latin, loaded
+  locally, 400/500/600) and Noto Kufi Arabic, with Arabic's own letter-
+  spacing/line-height/optical-size rules. The reference's bold/large-number/
+  gradient-text effects are reproduced with this existing type family, not
+  by sourcing the reference's own (different) geometric-grotesk font.
+- **Type scale, spacing, radii, motion:** unchanged mechanically — the
+  11–40px dense-UI scale plus the 48–120px marketing extension, the 2–160px
+  spacing scale, the 4/6/8/12/9999 radii, and the 150ms-micro/400–700ms-
+  reveal motion split all still apply exactly as before. None of that was
+  violet-specific.
+- **Signature element:** the reference's bracketed section-index pattern
+  (`[01] Services ───────`), built as `src/components/ui/section-label.tsx`
+  and required for every future hand-built section. The old circular-
+  status-indicator signature (`StatusCircle`) still exists as a component
+  but is not currently used on any built marketing page — see the open
+  question below.
 
-### 1.2 Extend, and document the deviation ⚠️
+**Still true, unrelated to colour:** the admin panel exception (build it
+dense — small controls, tight rows, fast motion — regardless of which
+palette it ends up using), and "record every deviation in
+`docs/design-decisions.md` so it isn't relitigated" as the standing
+process.
 
-| Item            | Original spec      | Marketing adaptation                                                                       | Why                                                                 |
-| --------------- | ------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------- |
-| Type scale      | 11–40px            | add 48 / 64 / 80px                                                                         | 40px cannot carry a hero                                            |
-| Spacing         | up to 64px         | add 80 / 96 / 128 / 160px                                                                  | section rhythm                                                      |
-| Motion duration | ≤150ms             | **150ms for micro-interactions** (hover, focus, buttons); **400–700ms for scroll reveals** | the original rule targets micro-interactions, not section entrances |
-| Container       | full viewport      | `max-w-[1280px]` with gutters                                                              | readable measure                                                    |
-| Shadows         | forbidden on cards | still forbidden in dark; subtle in light                                                   | light mode needs edge definition                                    |
-
-Record every deviation in `docs/design-decisions.md` so it is not relitigated in a later session.
-
-> **The admin panel is the exception.** The dashboard is exactly the kind of UI this design system was written for. Build it against the _original_ spec — 32px controls, 36px rows, 150ms motion, command palette. Do not apply the marketing adaptations there.
-
-### 1.3 Light mode — not in the source file, must be derived
-
-| Role           | Dark (from spec) | Light (derived)                      |
-| -------------- | ---------------- | ------------------------------------ |
-| Background     | `#101014`        | `#FAFAFC`                            |
-| Neutral / Card | `#1B1B25`        | `#FFFFFF`                            |
-| Surface        | `#1F1F2E`        | `#F3F3F7`                            |
-| Surface Raised | `#252536`        | `#EBEBF2`                            |
-| Border         | `#2C2C3A`        | `#E2E2EA`                            |
-| Text Primary   | `#F1F1F4`        | `#16161C`                            |
-| Text Secondary | `#8A8F98`        | `#61656E`                            |
-| Primary        | `#5E6AD2`        | `#4E5BBF` ← darkened for AA on white |
-| Primary Hover  | `#4E5BBF`        | `#404BA5`                            |
-| Success        | `#3DD68C`        | `#1FA968`                            |
-| Warning        | `#F0C000`        | `#B88A00`                            |
-| Error          | `#EB5757`        | `#D13B3B`                            |
-
-Verify every text/background pair against WCAG AA (4.5:1 body, 3:1 large text) before locking these in.
-
-### 1.4 Typography — Inter + Noto Kufi Arabic
-
-Both loaded via `next/font/google`. Inter carries Latin, Noto Kufi Arabic carries Arabic.
-
-```ts
-// src/app/fonts.ts
-import { Inter, Noto_Kufi_Arabic, JetBrains_Mono } from "next/font/google";
-
-export const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-inter",
-  display: "swap",
-});
-
-export const notoKufi = Noto_Kufi_Arabic({
-  subsets: ["arabic"],
-  weight: ["400", "500", "600"],
-  variable: "--font-noto-kufi",
-  display: "swap",
-});
-
-export const jetbrains = JetBrains_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-jetbrains",
-  display: "swap",
-});
-```
-
-**Noto Kufi Arabic behaves differently from Inter — compensate for it:**
-
-| Property                     | Latin (Inter) | Arabic (Noto Kufi) | Reason                                                                                            |
-| ---------------------------- | ------------- | ------------------ | ------------------------------------------------------------------------------------------------- |
-| `letter-spacing` on headings | `-0.03em`     | `0`                | negative tracking damages connected Arabic letterforms                                            |
-| `line-height` body           | `1.5`         | `1.8`              | Kufi ascenders/descenders and diacritics need vertical room                                       |
-| Optical size                 | baseline      | `0.95em` relative  | Kufi renders visually larger at the same px value                                                 |
-| Uppercase transforms         | allowed       | **never**          | Arabic has no case; `text-transform` is a no-op that only breaks Latin fallbacks in mixed strings |
-
-```css
-:lang(ar) {
-  font-family: var(--font-noto-kufi), sans-serif;
-  letter-spacing: 0;
-  line-height: 1.8;
-}
-
-:lang(ar) h1,
-:lang(ar) h2,
-:lang(ar) h3 {
-  letter-spacing: 0;
-  line-height: 1.4;
-}
-```
-
-Kufi is a geometric, architectural style — it actually suits the engineered feel of the violet system better than a humanist Arabic face would. Lean into it: the Arabic version of the site is allowed to feel slightly more monumental than the English one.
-
-### 1.5 Signature element
-
-The site needs one thing it is remembered by. Use the **circular status indicator** from the design system (backlog dotted / todo outline / in-progress half-filled / done filled with check) as a repeated visual language:
-
-- Process section — circles fill as the user scrolls
-- Portfolio cards — shipped / in development status
-- Contact form — step progression
-
-This ties the site to a developer-tooling identity instead of a generic agency template.
+> **Open question, not decided by the monochrome reset:** whether the
+> admin panel (Phase 12-13, not yet built) keeps a violet accent or
+> inherits the monochrome system is explicitly deferred. Bundled with it:
+> whether `--success`/`--warning`/`--error` (still colour today) stay that
+> way. See `docs/design-decisions.md`'s open-question section before
+> starting Phase 12.
 
 ---
 
@@ -260,6 +198,16 @@ npx create-next-app@latest company-site-web --typescript --tailwind --eslint --a
 
 ## 3. Hero Background — Mouse Interaction Required
 
+> **Colour note:** the actual hero background that shipped is a custom Silk
+> shader, not one of the reactbits candidates evaluated below (that pivot
+> happened separately from the monochrome reset and isn't re-litigated
+> here). What the monochrome reset DID change: Silk's tonal ramp
+> (`--hero-silk-low/high`) no longer derives from the violet brand hue —
+> it's pure grey/white in both themes now, per `docs/design-decisions.md`'s
+> Colour system section. The evaluation criteria and non-negotiable rules
+> below are unchanged and still apply to whatever background a hero ever
+> uses.
+
 All candidates verified against the reactbits source. Only these props actually exist:
 
 | Component          | Mouse prop                                 | Dependency | Assessment                                                                                                                                                                                  |
@@ -273,7 +221,7 @@ All candidates verified against the reactbits source. Only these props actually 
 | **GradientBlinds** | `mouseDampening` + spotlight props         | `ogl`      | Cursor-follow spotlight. Sharp geometry may fight the type                                                                                                                                  |
 | **Orb**            | `hoverIntensity`, `rotateOnHover`          | `ogl`      | Centered object, not a background. Use as a secondary element                                                                                                                               |
 
-**Recommendation:** `Threads` for the hero (mouse-reactive, on-brand, text stays readable), `SoftAurora` as the reduced-cost mobile fallback. If the demo needs more impact for freelance-platform screenshots, swap in `LiquidEther` with `autoDemo` enabled.
+**Recommendation (superseded by the shipped Silk shader — kept for the historical evaluation record):** `Threads` for the hero (mouse-reactive, on-brand, text stays readable), `SoftAurora` as the reduced-cost mobile fallback. If the demo needs more impact for freelance-platform screenshots, swap in `LiquidEther` with `autoDemo` enabled.
 
 ### Non-negotiable rules for any WebGL background
 
@@ -282,7 +230,7 @@ All candidates verified against the reactbits source. Only these props actually 
 - Static CSS-gradient fallback under `prefers-reduced-motion: reduce`
 - Static fallback below 768px — do not run WebGL on a mid-range phone
 - **One canvas per page, maximum**
-- Pass theme colors in as props and update them on theme change
+- Pass theme colors in as props (read from the monochrome token system, never hardcoded) and update them on theme change
 - Throttle pointer handling with `requestAnimationFrame`; never set state per `mousemove`
 - Cover the canvas with a subtle scrim so contrast stays AA-compliant regardless of animation frame
 

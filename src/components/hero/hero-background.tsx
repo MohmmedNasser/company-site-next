@@ -1,7 +1,8 @@
-// Token-driven CSS gradient — no WebGL canvas. Two soft radial blobs in the
-// brand hues read as intentional in both themes (design-decisions.md §4)
+// Token-driven CSS gradient — no WebGL canvas. Two soft radial blobs in
+// --color-primary/--color-secondary read as intentional in both themes
 // without any JS/GPU work, so every visitor gets the same background
-// regardless of device or motion preference.
+// regardless of device or motion preference. Fully monochrome since those
+// tokens are — no separate update needed when the palette changes.
 export default function HeroBackground() {
   return (
     <div

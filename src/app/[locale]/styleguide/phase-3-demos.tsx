@@ -11,6 +11,7 @@ import StatusCircle, {
   type StatusCircleState,
 } from "@/components/ui/status-circle";
 import Reveal from "@/components/motion/reveal";
+import SlidingTextButton from "@/components/ui/sliding-text-button";
 
 const STATUS_STATES: StatusCircleState[] = [
   "backlog",
@@ -59,7 +60,8 @@ export function Phase3Demos() {
               Default card
             </p>
             <p className="text-13 text-text-secondary mt-4">
-              Hover to see background-layering elevation.
+              Hover to see the border brighten — card and surface are the same
+              fill now, so elevation is border-only.
             </p>
           </Card>
           <Card>
@@ -128,7 +130,15 @@ export function Phase3Demos() {
         </div>
       </Section>
 
-      <Section title="16. Reveal">
+      <Section title="16. SlidingTextButton">
+        <div className="flex flex-wrap items-center gap-16">
+          <SlidingTextButton>Get Started</SlidingTextButton>
+          <SlidingTextButton size="compact">Learn more</SlidingTextButton>
+          <SlidingTextButton disabled>Disabled</SlidingTextButton>
+        </div>
+      </Section>
+
+      <Section title="17. Reveal">
         <Reveal className="flex flex-col gap-12" stagger={0.12}>
           <Card>
             <p className="text-14 text-text-primary">Staggered item 1</p>

@@ -9,18 +9,17 @@ import {
   WORD_STAGGER_SECONDS,
 } from "@/components/hero/hero-motion";
 
-// Mega headline, one word per line (design-decisions.md §14) — the 96/120px
-// steps only exist for this treatment, so the headline copy feeding this
-// component must stay to 2-3 short words; a longer sentence would stack
-// into an unreasonably tall block at this scale.
+// Mega headline, one word per line — the 96/120px steps only exist for
+// this treatment, so the headline copy feeding this component must stay
+// to 2-3 short words; a longer sentence would stack into an unreasonably
+// tall block at this scale.
 const HEADLINE_CLASSES =
   "text-64 sm:text-80 md:text-96 lg:text-120 text-text-primary font-semibold leading-none tracking-[-0.03em]";
 
 // Arabic renders one type-scale step down from Latin at every breakpoint
-// (design-decisions.md §15, requested directly) — Noto Kufi at the full
-// 96/120px scale overwhelmed the viewport even with the [lang="ar"] 0.95em
-// shrink globals.css already applies (design-decisions.md §3); three
-// stacked lines at that size ran well past the fold.
+// (requested directly) — Noto Kufi at the full 96/120px scale overwhelmed
+// the viewport even with the [lang="ar"] 0.95em shrink globals.css already
+// applies; three stacked lines at that size ran well past the fold.
 const HEADLINE_CLASSES_AR =
   "text-48 sm:text-64 md:text-80 lg:text-90 text-text-primary font-semibold leading-none tracking-[-0.03em]";
 

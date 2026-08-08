@@ -43,6 +43,17 @@ export interface Client {
   name: Localized;
 }
 
+// Leaner than Service on purpose: process steps have no detail page, so no
+// slug/body — just what the "how we work" cards render (design-decisions.md
+// §15).
+export interface ProcessStep {
+  id: string;
+  icon: string; // lucide-react icon name
+  order: number;
+  title: Localized;
+  description: Localized;
+}
+
 export interface Post {
   id: string;
   slug: string;
@@ -60,14 +71,23 @@ interface SectionCopy {
   description: Localized;
 }
 
+// The only home section whose CTA is settings-editable content rather than
+// UI chrome (same reasoning as hero.ctaPrimary/ctaSecondary) — every other
+// section's SectionCopy stays uniform on purpose (see the comment on
+// `approach` below), so this gets its own shape instead of widening the
+// shared one for every section.
+interface ProcessSectionCopy extends SectionCopy {
+  ctaLabel: Localized;
+}
+
 export interface SiteSettings {
   hero: {
     title: Localized;
     subtitle: Localized;
     ctaPrimary: Localized;
     ctaSecondary: Localized;
-    // Numerals are plain strings, not localized — design-decisions.md §5:
-    // Western digits in both locales, so there's no {ar, en} split to make.
+    // Numerals are plain strings, not localized — Western digits in both
+    // locales, so there's no {ar, en} split to make.
     trust: {
       rating: string;
       ratingScale: string;
@@ -83,6 +103,7 @@ export interface SiteSettings {
     // means the Phase 14 admin form for section copy covers this section
     // with no extra fields.
     approach: SectionCopy;
+    process: ProcessSectionCopy;
     services: SectionCopy;
     portfolio: SectionCopy;
     testimonials: SectionCopy;

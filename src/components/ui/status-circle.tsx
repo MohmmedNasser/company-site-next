@@ -24,9 +24,11 @@ const DEFAULT_LABEL: Record<StatusCircleState, string> = {
   cancelled: "Cancelled",
 };
 
-// Neutral/muted states (backlog, todo, cancelled) map to --color-text-secondary
-// — violet-issue-DESIGN.md's own neutral border colour (#8A8F98) is exactly
-// that token's dark-mode value.
+// Neutral/muted states (backlog, todo, cancelled) map to
+// --color-text-secondary — kept as the neutral/muted tone through the
+// monochrome migration; see docs/design-decisions.md's open question on
+// whether success/warning/error (still colour) survive the eventual
+// admin-panel decision.
 const COLOR_CLASS: Record<StatusCircleState, string> = {
   backlog: "text-text-secondary",
   todo: "text-text-secondary",
@@ -36,8 +38,8 @@ const COLOR_CLASS: Record<StatusCircleState, string> = {
 };
 
 /**
- * The design system's signature element (violet-issue-DESIGN.md's circular
- * status indicators). Reused verbatim in Phase 5 (process section), Phase 6
+ * The dense-UI design system's circular status indicators. Reused verbatim
+ * in Phase 5 (process section), Phase 6
  * (portfolio status), and Phase 7 (contact form steps) — all five states
  * are implemented now so those phases only ever choose a `state`, never add
  * a new visual treatment.

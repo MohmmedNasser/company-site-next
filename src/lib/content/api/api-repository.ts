@@ -11,6 +11,7 @@ export const apiRepository: ContentRepository = {
   getProject: notImplemented,
   getTestimonials: notImplemented,
   getClients: notImplemented,
+  getProcessSteps: notImplemented,
   getPosts: notImplemented,
   getPost: notImplemented,
   getSettings: notImplemented,

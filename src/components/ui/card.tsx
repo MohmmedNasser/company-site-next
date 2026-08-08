@@ -9,12 +9,14 @@ export default function Card({ children, className, ...rest }: CardProps) {
   return (
     <div
       className={cn(
-        // Elevation on hover is background-layering (card -> surface, one
-        // step up the dark-mode elevation scale) in both themes. Light mode
-        // additionally gets the subtle shadow design-decisions.md §1
-        // permits there; dark mode explicitly never gets a shadow, per the
-        // design system's "shadows forbidden on dark cards" rule.
-        "rounded-card border-border bg-card duration-micro hover:bg-surface border p-24 shadow-sm transition-[background-color,box-shadow] hover:shadow-md dark:shadow-none dark:hover:shadow-none",
+        // Monochrome system: --card and --surface are now the same fill in
+        // both themes (separation is by border, not a lightness step), so
+        // elevation on hover brightens the BORDER instead of shifting to a
+        // surface tier that no longer visually differs. Light mode
+        // additionally gets a subtle shadow for edge definition; dark mode
+        // explicitly never gets a shadow, per the design system's "shadows
+        // forbidden on dark cards" rule.
+        "rounded-card border-border bg-card duration-micro hover:border-text-secondary border p-24 shadow-sm transition-[border-color,box-shadow] hover:shadow-md dark:shadow-none dark:hover:shadow-none",
         className,
       )}
       {...rest}
