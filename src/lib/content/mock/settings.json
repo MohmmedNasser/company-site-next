@@ -50,10 +50,10 @@
       }
     },
     "services": {
-      "heading": { "en": "What we do", "ar": "ماذا نقدم" },
+      "heading": { "en": "Services", "ar": "الخدمات" },
       "description": {
-        "en": "From the first design file to the server it runs on.",
-        "ar": "من أول ملف تصميم إلى الخادم الذي يعمل عليه المنتج."
+        "en": "We work across the full stack, from the first line of product strategy to the infrastructure it runs on in production. Every engagement is scoped around a real business outcome, not a generic deliverables list. Six focus areas, one team that stays accountable end to end.",
+        "ar": "نعمل على المنتج بالكامل، من أول قرار استراتيجي إلى البنية التحتية التي يعمل عليها في الإنتاج. كل مشروع يُصمَّم حول هدف عمل حقيقي، لا قائمة تسليمات عامة. ستة مجالات تخصص، وفريق واحد يبقى مسؤولاً من البداية حتى النهاية."
       }
     },
     "portfolio": {

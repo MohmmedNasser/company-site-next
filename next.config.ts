@@ -20,6 +20,15 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: projectRoot,
   },
+  images: {
+    // picsum.photos is a placeholder photography source for the Services
+    // section only (see docs/design-decisions.md) — swap for real asset
+    // hosting once real photography is supplied.
+    remotePatterns: [
+      { protocol: "https", hostname: "picsum.photos" },
+      { protocol: "https", hostname: "fastly.picsum.photos" },
+    ],
+  },
 };
 
 export default withNextIntl(nextConfig);

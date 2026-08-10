@@ -7,6 +7,22 @@
       "mockups": {
         "launchLabel": "Launch"
       }
+    },
+    "services": {
+      "categoriesLabel": "Categories"
+    },
+    "portfolio": {
+      "viewProjectLabel": "View project",
+      "categories": {
+        "web": "Web",
+        "mobile": "Mobile",
+        "ecommerce": "E-commerce",
+        "saas": "SaaS"
+      },
+      "status": {
+        "shipped": "Live",
+        "inDevelopment": "In progress"
+      }
     }
   },
   "common": {

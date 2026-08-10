@@ -4,6 +4,8 @@ import HeroSection from "@/components/hero/hero-section";
 import MarqueeSection from "@/components/sections/marquee-section";
 import ApproachSection from "@/components/sections/approach-section";
 import ProcessSection from "@/components/sections/process-section";
+import ServicesSection from "@/components/sections/services-section";
+import PortfolioSection from "@/components/sections/portfolio-section";
 
 // The placeholder <Container> below is Phase 3's — Phase 5 replaces it with
 // the real home page sections. HeroSection (Phase 4) reads its copy from
@@ -17,8 +19,17 @@ export default async function Home({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const settings = await content.getSettings();
-  const processSteps = await content.getProcessSteps();
+  const [settings, processSteps, services, projects, clients] =
+    await Promise.all([
+      content.getSettings(),
+      content.getProcessSteps(),
+      content.getServices(),
+      content.getProjects(),
+      content.getClients(),
+    ]);
+  const clientNameById = new Map(
+    clients.map((client) => [client.id, pick(client.name, locale)]),
+  );
 
   return (
     <>
@@ -50,6 +61,34 @@ export default async function Home({
           icon: step.icon,
           title: pick(step.title, locale),
           description: pick(step.description, locale),
+        }))}
+      />
+
+      <PortfolioSection
+        heading={pick(settings.sections.portfolio.heading, locale)}
+        description={pick(settings.sections.portfolio.description, locale)}
+        projects={projects.map((project) => ({
+          id: project.id,
+          slug: project.slug,
+          category: project.category,
+          status: project.status,
+          coverImage: project.coverImage,
+          title: pick(project.title, locale),
+          summary: pick(project.summary, locale),
+          clientName: clientNameById.get(project.client) ?? "",
+        }))}
+      />
+
+      <ServicesSection
+        heading={pick(settings.sections.services.heading, locale)}
+        description={pick(settings.sections.services.description, locale)}
+        services={services.map((service) => ({
+          id: service.id,
+          icon: service.icon,
+          image: service.image,
+          title: pick(service.title, locale),
+          excerpt: pick(service.excerpt, locale),
+          categories: service.categories,
         }))}
       />
 

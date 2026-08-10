@@ -5,7 +5,7 @@
     "category": "web",
     "status": "shipped",
     "client": "client-ferry-logistics",
-    "coverImage": "/projects/ferry-logistics-platform.jpg",
+    "coverImage": "https://picsum.photos/seed/ferry-logistics-platform/1600/900",
     "order": 1,
     "title": {
       "en": "Ferry Logistics Tracking Platform",
@@ -26,7 +26,7 @@
     "category": "mobile",
     "status": "shipped",
     "client": "client-nour-fintech",
-    "coverImage": "/projects/nour-mobile-banking.jpg",
+    "coverImage": "https://picsum.photos/seed/nour-mobile-banking/1600/900",
     "order": 2,
     "title": {
       "en": "Nour Mobile Banking App",
@@ -47,7 +47,7 @@
     "category": "ecommerce",
     "status": "shipped",
     "client": "client-basma-retail",
-    "coverImage": "/projects/basma-storefront.jpg",
+    "coverImage": "https://picsum.photos/seed/basma-storefront/1600/900",
     "order": 3,
     "title": { "en": "Basma Retail Storefront", "ar": "متجر بسمة الإلكتروني" },
     "summary": {
@@ -65,7 +65,7 @@
     "category": "web",
     "status": "shipped",
     "client": "client-waha-health",
-    "coverImage": "/projects/waha-patient-portal.jpg",
+    "coverImage": "https://picsum.photos/seed/waha-patient-portal/1600/900",
     "order": 4,
     "title": { "en": "Waha Patient Portal", "ar": "بوابة مرضى واحة" },
     "summary": {
@@ -83,7 +83,7 @@
     "category": "mobile",
     "status": "in-development",
     "client": "client-marsa-realestate",
-    "coverImage": "/projects/marsa-listings-app.jpg",
+    "coverImage": "https://picsum.photos/seed/marsa-listings-app/1600/900",
     "order": 5,
     "title": { "en": "Marsa Listings App", "ar": "تطبيق مرسى العقاري" },
     "summary": {
@@ -101,7 +101,7 @@
     "category": "saas",
     "status": "shipped",
     "client": "client-rawaq-learning",
-    "coverImage": "/projects/rawaq-lms.jpg",
+    "coverImage": "https://picsum.photos/seed/rawaq-lms/1600/900",
     "order": 6,
     "title": {
       "en": "Rawaq Learning Platform",

@@ -7,6 +7,22 @@
       "mockups": {
         "launchLabel": "إطلاق"
       }
+    },
+    "services": {
+      "categoriesLabel": "المجالات"
+    },
+    "portfolio": {
+      "viewProjectLabel": "عرض المشروع",
+      "categories": {
+        "web": "ويب",
+        "mobile": "جوال",
+        "ecommerce": "تجارة إلكترونية",
+        "saas": "SaaS"
+      },
+      "status": {
+        "shipped": "مباشر",
+        "inDevelopment": "قيد التطوير"
+      }
     }
   },
   "common": {

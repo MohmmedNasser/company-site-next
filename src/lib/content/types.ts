@@ -6,6 +6,14 @@ export interface Service {
   id: string;
   slug: string;
   icon: string; // lucide-react icon name, installed in Phase 3
+  // Full-colour photography — a documented exception to the monochrome
+  // system, scoped to the home Services section only. Placeholder paths
+  // until real photography is supplied.
+  image: string;
+  // Short practitioner-term tags (kept in English in both locales, per the
+  // i18n-keys skill's "keep practitioner terms in English" rule — these
+  // are labels like "API"/"CI/CD", not translatable prose).
+  categories: string[];
   order: number;
   title: Localized;
   excerpt: Localized;
