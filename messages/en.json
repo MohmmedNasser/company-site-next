@@ -23,6 +23,18 @@
         "shipped": "Live",
         "inDevelopment": "In progress"
       }
+    },
+    "testimonials": {
+      "sectionLabel": "Testimonials",
+      "ctaPrimaryLabel": "Book a call",
+      "ctaSecondaryLabel": "See Services",
+      "previousLabel": "Previous testimonial",
+      "nextLabel": "Next testimonial"
+    },
+    "faq": {
+      "sectionLabel": "FAQ",
+      "helpHeading": "Have a question?",
+      "helpDescription": "Reach out anytime. We're happy to answer any questions before you commit to working together."
     }
   },
   "common": {

@@ -6,6 +6,8 @@ import ApproachSection from "@/components/sections/approach-section";
 import ProcessSection from "@/components/sections/process-section";
 import ServicesSection from "@/components/sections/services-section";
 import PortfolioSection from "@/components/sections/portfolio-section";
+import TestimonialsSection from "@/components/sections/testimonials-section";
+import FaqSection from "@/components/sections/faq-section";
 
 // The placeholder <Container> below is Phase 3's — Phase 5 replaces it with
 // the real home page sections. HeroSection (Phase 4) reads its copy from
@@ -19,14 +21,23 @@ export default async function Home({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const [settings, processSteps, services, projects, clients] =
-    await Promise.all([
-      content.getSettings(),
-      content.getProcessSteps(),
-      content.getServices(),
-      content.getProjects(),
-      content.getClients(),
-    ]);
+  const [
+    settings,
+    processSteps,
+    services,
+    projects,
+    clients,
+    testimonials,
+    faqItems,
+  ] = await Promise.all([
+    content.getSettings(),
+    content.getProcessSteps(),
+    content.getServices(),
+    content.getProjects(),
+    content.getClients(),
+    content.getTestimonials(),
+    content.getFaqItems(),
+  ]);
   const clientNameById = new Map(
     clients.map((client) => [client.id, pick(client.name, locale)]),
   );
@@ -89,6 +100,29 @@ export default async function Home({
           title: pick(service.title, locale),
           excerpt: pick(service.excerpt, locale),
           categories: service.categories,
+        }))}
+      />
+
+      <TestimonialsSection
+        heading={pick(settings.sections.testimonials.heading, locale)}
+        description={pick(settings.sections.testimonials.description, locale)}
+        testimonials={testimonials.map((testimonial) => ({
+          id: testimonial.id,
+          avatar: testimonial.avatar,
+          rating: testimonial.rating,
+          author: pick(testimonial.author, locale),
+          role: pick(testimonial.role, locale),
+          quote: pick(testimonial.quote, locale),
+        }))}
+      />
+
+      <FaqSection
+        heading={pick(settings.sections.faq.heading, locale)}
+        description={pick(settings.sections.faq.description, locale)}
+        items={faqItems.map((item) => ({
+          id: item.id,
+          question: pick(item.question, locale),
+          answer: pick(item.answer, locale),
         }))}
       />
 

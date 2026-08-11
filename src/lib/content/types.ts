@@ -37,6 +37,10 @@ export interface Testimonial {
   id: string;
   clientId: string; // Client.id
   avatar: string;
+  // Out of 5. Kept per-testimonial rather than assumed-5 across the board —
+  // real reviews aren't uniformly perfect, and the small variation reads as
+  // more credible than a flat row of identical scores.
+  rating: number;
   order: number;
   author: Localized;
   role: Localized;
@@ -60,6 +64,15 @@ export interface ProcessStep {
   order: number;
   title: Localized;
   description: Localized;
+}
+
+// Same shape as ProcessStep on purpose: an FAQ entry has no detail page
+// either, just a question/answer pair the accordion renders.
+export interface FaqItem {
+  id: string;
+  order: number;
+  question: Localized;
+  answer: Localized;
 }
 
 export interface Post {
@@ -115,6 +128,7 @@ export interface SiteSettings {
     services: SectionCopy;
     portfolio: SectionCopy;
     testimonials: SectionCopy;
+    faq: SectionCopy;
     clients: SectionCopy;
     contact: SectionCopy;
   };

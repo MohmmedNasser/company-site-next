@@ -2,7 +2,8 @@
   {
     "id": "test-youssef-adel",
     "clientId": "client-ferry-logistics",
-    "avatar": "/testimonials/youssef-adel.jpg",
+    "avatar": "/avatars/avatar1.jpg",
+    "rating": 5,
     "order": 1,
     "author": { "en": "Youssef Adel", "ar": "يوسف عادل" },
     "role": {
@@ -17,7 +18,8 @@
   {
     "id": "test-salma-farid",
     "clientId": "client-nour-fintech",
-    "avatar": "/testimonials/salma-farid.jpg",
+    "avatar": "/avatars/avatar2.jpg",
+    "rating": 4.9,
     "order": 2,
     "author": { "en": "Salma Farid", "ar": "سلمى فريد" },
     "role": {
@@ -32,13 +34,46 @@
   {
     "id": "test-omar-nabil",
     "clientId": "client-rawaq-learning",
-    "avatar": "/testimonials/omar-nabil.jpg",
+    "avatar": "/avatars/avatar3.jpg",
+    "rating": 5,
     "order": 3,
     "author": { "en": "Omar Nabil", "ar": "عمر نبيل" },
     "role": { "en": "Founder, Rawaq Learning", "ar": "مؤسس رواق للتعليم" },
     "quote": {
       "en": "They understood the multi-tenant architecture question before I finished explaining it, and that saved us months of rework.",
       "ar": "فهموا سؤال المعمارية متعددة المستأجرين قبل أن أنهي شرحه، وهذا وفّر علينا أشهرًا من إعادة العمل."
+    }
+  },
+  {
+    "id": "test-lina-hamdy",
+    "clientId": "client-basma-retail",
+    "avatar": "/avatars/avatar4.jpg",
+    "rating": 4.8,
+    "order": 4,
+    "author": { "en": "Lina Hamdy", "ar": "لينا حمدي" },
+    "role": {
+      "en": "E-commerce Lead, Basma Retail",
+      "ar": "مسؤولة التجارة الإلكترونية، بسمة للتجزئة"
+    },
+    "quote": {
+      "en": "Checkout abandonment dropped the same week we launched. The team explained every tradeoff before making it, not after.",
+      "ar": "انخفض معدل التخلي عن السلة في نفس أسبوع الإطلاق. الفريق شرح كل مفاضلة قبل اتخاذها، لا بعدها."
+    }
+  },
+  {
+    "id": "test-tarek-shawky",
+    "clientId": "client-waha-health",
+    "avatar": "/avatars/avatar5.jpg",
+    "rating": 5,
+    "order": 5,
+    "author": { "en": "Tarek Shawky", "ar": "طارق شوقي" },
+    "role": {
+      "en": "Clinic Manager, Waha Health",
+      "ar": "مدير العيادة، واحة للرعاية الصحية"
+    },
+    "quote": {
+      "en": "Front-desk staff stopped fielding booking calls within a week of launch. Patients just book it themselves now.",
+      "ar": "توقف موظفو الاستقبال عن الرد على مكالمات الحجز خلال أسبوع من الإطلاق. المرضى يحجزون بأنفسهم الآن."
     }
   }
 ]

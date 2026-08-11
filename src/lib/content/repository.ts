@@ -1,6 +1,7 @@
 // src/lib/content/repository.ts
 import type {
   Client,
+  FaqItem,
   Post,
   ProcessStep,
   Project,
@@ -31,6 +32,7 @@ export interface ContentRepository {
   getTestimonials(): Promise<Testimonial[]>;
   getClients(): Promise<Client[]>;
   getProcessSteps(): Promise<ProcessStep[]>;
+  getFaqItems(): Promise<FaqItem[]>;
   getPosts(page?: number): Promise<Post[]>;
   getPost(slug: string): Promise<Post | null>;
   getSettings(): Promise<SiteSettings>;

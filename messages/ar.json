@@ -23,6 +23,18 @@
         "shipped": "مباشر",
         "inDevelopment": "قيد التطوير"
       }
+    },
+    "testimonials": {
+      "sectionLabel": "آراء العملاء",
+      "ctaPrimaryLabel": "احجز مكالمة",
+      "ctaSecondaryLabel": "عرض الخدمات",
+      "previousLabel": "التقييم السابق",
+      "nextLabel": "التقييم التالي"
+    },
+    "faq": {
+      "sectionLabel": "الأسئلة الشائعة",
+      "helpHeading": "لديك سؤال؟",
+      "helpDescription": "تواصل معنا في أي وقت. يسعدنا الإجابة عن أي استفسار قبل أن تلتزم بالعمل معنا."
     }
   },
   "common": {

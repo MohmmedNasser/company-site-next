@@ -70,6 +70,13 @@
         "ar": "بكلماتهم، لا بكلماتنا."
       }
     },
+    "faq": {
+      "heading": { "en": "FAQ", "ar": "الأسئلة الشائعة" },
+      "description": {
+        "en": "Everything else you're wondering.",
+        "ar": "كل ما تبقى من تساؤلاتك."
+      }
+    },
     "clients": {
       "heading": { "en": "Trusted by", "ar": "يثق بنا" },
       "description": {

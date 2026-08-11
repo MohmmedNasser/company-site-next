@@ -77,7 +77,13 @@ export default async function LocaleLayout({
       className={`${sansLatin.variable} ${notoKufi.variable} ${jetbrainsMono.variable}`}
       suppressHydrationWarning
     >
-      <body>
+      {/* suppressHydrationWarning here for the same reason as <html> above:
+          browser extensions (e.g. ColorZilla's cz-shortcut-listen) inject
+          attributes onto <body> before React hydrates. That's noise from
+          the client environment, not a real server/client markup mismatch,
+          so it gets the same one-level-deep suppression instead of being
+          left to fail this warning on every load. */}
+      <body suppressHydrationWarning>
         {/* First focusable element in the document — invisible until it
             receives keyboard focus, then pinned to the top of the viewport.
             Bypasses Header's nav entirely for keyboard users. */}

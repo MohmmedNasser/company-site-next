@@ -1,0 +1,50 @@
+[
+  {
+    "id": "retainers",
+    "order": 1,
+    "question": {
+      "en": "How do retainers actually work?",
+      "ar": "كيف تعمل باقات الاشتراك الشهري فعليًا؟"
+    },
+    "answer": {
+      "en": "You reserve a fixed number of hours each month. We meet at the start of the cycle to set priorities, then work through them — no separate contracts or approvals for every small change.",
+      "ar": "تحجز عددًا ثابتًا من الساعات كل شهر. نجتمع في بداية كل دورة لتحديد الأولويات، ثم ننفذها مباشرة، دون عقود أو موافقات منفصلة لكل تعديل صغير."
+    }
+  },
+  {
+    "id": "unused-hours",
+    "order": 2,
+    "question": {
+      "en": "What if I don't use all my hours?",
+      "ar": "ماذا لو لم أستخدم كل ساعاتي؟"
+    },
+    "answer": {
+      "en": "Unused hours roll over into the following month, up to one extra cycle. We'd rather adjust the plan than bill you for time you didn't need.",
+      "ar": "الساعات غير المستخدمة تُرحَّل إلى الشهر التالي، لدورة إضافية واحدة كحد أقصى. نفضّل تعديل الخطة على تحصيل رسوم عن وقت لم تحتَجه."
+    }
+  },
+  {
+    "id": "start-speed",
+    "order": 3,
+    "question": {
+      "en": "How fast can you start?",
+      "ar": "ما مدى سرعة بدء العمل؟"
+    },
+    "answer": {
+      "en": "Most engagements kick off within a week of signing — sooner if the scope is already clear. We'll tell you upfront if a project needs more discovery first.",
+      "ar": "تبدأ معظم المشاريع خلال أسبوع من التوقيع، وأحيانًا أسرع إذا كان النطاق واضحًا. سنخبرك مسبقًا إن احتاج المشروع لمرحلة استكشاف إضافية."
+    }
+  },
+  {
+    "id": "team",
+    "order": 4,
+    "question": {
+      "en": "Who will be working on my account?",
+      "ar": "من الذي سيعمل على حسابي؟"
+    },
+    "answer": {
+      "en": "The same senior team from the first call through delivery — no handoffs to a different bench partway through, and no juniors learning on your budget.",
+      "ar": "نفس الفريق الأول من أول مكالمة حتى التسليم، دون تحويل العمل لفريق آخر في المنتصف، ودون تدريب مبتدئين على حساب ميزانيتك."
+    }
+  }
+]

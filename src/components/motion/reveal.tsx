@@ -2,6 +2,7 @@
 
 import { Children, type ReactNode } from "react";
 import { motion, useReducedMotion, type Variants } from "motion/react";
+import { readDurationSeconds } from "@/lib/motion/read-duration-seconds";
 
 interface RevealProps {
   children: ReactNode;
@@ -16,23 +17,6 @@ interface RevealProps {
 
 const DEFAULT_STAGGER = 0.08;
 const DEFAULT_Y = 24;
-
-// transition.duration in motion is a plain number of seconds — there is no
-// way to hand it a CSS var() directly, so the token is read from the
-// cascade at render time instead of being retyped as a literal here. That
-// keeps tokens.css the single source of truth: bump --duration-reveal there
-// and every Reveal picks it up with no code change. Duration tokens are
-// static across the light/dark toggle (unlike colour tokens), so a plain
-// read is enough — no useSyncExternalStore subscription needed, this isn't
-// mount/hydration state.
-function readDurationSeconds(cssVar: string, fallbackMs: number): number {
-  if (typeof window === "undefined") return fallbackMs / 1000;
-  const raw = getComputedStyle(document.documentElement)
-    .getPropertyValue(cssVar)
-    .trim();
-  const ms = Number.parseFloat(raw);
-  return (Number.isFinite(ms) && ms > 0 ? ms : fallbackMs) / 1000;
-}
 
 export default function Reveal({
   children,
