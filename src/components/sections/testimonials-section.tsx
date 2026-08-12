@@ -38,7 +38,7 @@ export default async function TestimonialsSection({
   const t = await getTranslations("home.testimonials");
 
   return (
-    <Container as="section" className="py-128 md:py-160">
+    <Container as="section" className="py-80 md:py-96">
       <SectionLabel number={5}>{t("sectionLabel")}</SectionLabel>
 
       {/* First DOM child = photo, second = heading/copy/CTAs — a plain
@@ -84,11 +84,18 @@ export default async function TestimonialsSection({
         </Reveal>
       </div>
 
+      {/* goToSlideLabel uses t.raw, not t() — this template's "{number}"
+          placeholder is filled in later on the client, once Embla knows
+          the real dot count (see testimonials-slider.tsx). t() runs the
+          string through ICU MessageFormat eagerly and throws
+          FORMATTING_ERROR when a placeholder has no value yet; t.raw
+          returns the message as-is with no interpolation attempted. */}
       <div className="mt-64 md:mt-96">
         <TestimonialsSlider
           testimonials={testimonials}
           previousLabel={t("previousLabel")}
           nextLabel={t("nextLabel")}
+          goToSlideLabel={t.raw("goToSlideLabel")}
         />
       </div>
     </Container>

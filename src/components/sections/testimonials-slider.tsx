@@ -20,17 +20,33 @@ interface TestimonialsSliderProps {
   testimonials: TestimonialDisplay[];
   previousLabel: string;
   nextLabel: string;
+  // Template containing a literal "{number}" placeholder — the client
+  // fills it in per dot at render time, since the actual dot COUNT is
+  // only known once Embla measures the DOM (see scrollSnaps below), not
+  // at server-render time.
+  goToSlideLabel: string;
 }
 
 export default function TestimonialsSlider({
   testimonials,
   previousLabel,
   nextLabel,
+  goToSlideLabel,
 }: TestimonialsSliderProps) {
   const locale = useLocale();
   const prefersReducedMotion = usePrefersReducedMotion();
   const [api, setApi] = useState<CarouselApi>();
   const [activeIndex, setActiveIndex] = useState(0);
+  // The number of DOTS is Embla's actual reachable-position count, not
+  // testimonials.length. With this carousel's card widths, the last few
+  // cards already fit together on screen once scrolled near the end —
+  // there is no remaining scroll distance to give each of them its own
+  // distinct position, so Embla's default "trimSnaps" containment
+  // correctly collapses those into one shared position. Building dots
+  // from the raw testimonial count instead of this list is what caused
+  // the earlier bug: a trailing dot with no reachable position of its
+  // own, and canScrollNext() disabling one step before the last dot.
+  const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
 
   // Single source of truth for the dot indicator, driven by Embla's own
   // "select" event — fires for arrow-button, dot, and raw drag/swipe
@@ -40,12 +56,16 @@ export default function TestimonialsSlider({
   useEffect(() => {
     if (!api) return;
     const onSelect = () => setActiveIndex(api.selectedScrollSnap());
+    const onInit = () => setScrollSnaps(api.scrollSnapList());
     onSelect();
+    onInit();
     api.on("select", onSelect);
     api.on("reInit", onSelect);
+    api.on("reInit", onInit);
     return () => {
       api.off("select", onSelect);
       api.off("reInit", onSelect);
+      api.off("reInit", onInit);
     };
   }, [api]);
 
@@ -113,12 +133,12 @@ export default function TestimonialsSlider({
 
       <div className="flex items-center justify-between gap-16">
         <div className="flex items-center gap-8">
-          {testimonials.map((testimonial, index) => (
+          {scrollSnaps.map((_, index) => (
             <button
-              key={testimonial.id}
+              key={index}
               type="button"
               onClick={() => api?.scrollTo(index, prefersReducedMotion)}
-              aria-label={testimonial.author}
+              aria-label={goToSlideLabel.replace("{number}", String(index + 1))}
               aria-current={index === activeIndex}
               className={cn(
                 "duration-micro size-8 rounded-full transition-colors",

@@ -57,7 +57,7 @@ export default async function ProcessSection({
   const { lead, last } = splitLastWord(heading);
 
   return (
-    <Container as="section" className="py-128 md:py-160">
+    <Container as="section" className="py-80 md:py-96">
       <Reveal className="mx-auto flex max-w-640 flex-col items-center gap-16 text-center">
         <h2 className="text-32 md:text-48 text-text-primary leading-tight font-semibold tracking-[-0.03em] text-balance">
           {lead}{" "}

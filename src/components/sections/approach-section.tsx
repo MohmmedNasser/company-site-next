@@ -98,7 +98,7 @@ export default function ApproachSection({
   const slots = words.length + WORD_FADE_SPAN - 1;
 
   return (
-    <Container as="section" className="py-128 md:py-160">
+    <Container as="section" className="py-80 md:py-96">
       <div className="mx-auto flex max-w-4xl flex-col gap-32 md:gap-48">
         {/* CRITICAL short-circuit, same contract as Reveal and HeroHeadline:
             fully revealed immediately, no split, no motion wrapper, no

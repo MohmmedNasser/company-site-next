@@ -29,7 +29,8 @@
       "ctaPrimaryLabel": "احجز مكالمة",
       "ctaSecondaryLabel": "عرض الخدمات",
       "previousLabel": "التقييم السابق",
-      "nextLabel": "التقييم التالي"
+      "nextLabel": "التقييم التالي",
+      "goToSlideLabel": "الانتقال إلى الشريحة {number}"
     },
     "faq": {
       "sectionLabel": "الأسئلة الشائعة",

@@ -29,7 +29,8 @@
       "ctaPrimaryLabel": "Book a call",
       "ctaSecondaryLabel": "See Services",
       "previousLabel": "Previous testimonial",
-      "nextLabel": "Next testimonial"
+      "nextLabel": "Next testimonial",
+      "goToSlideLabel": "Go to slide {number}"
     },
     "faq": {
       "sectionLabel": "FAQ",

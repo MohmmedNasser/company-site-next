@@ -32,7 +32,7 @@ export default async function PortfolioSection({
   const tPortfolio = await getTranslations("home.portfolio");
 
   return (
-    <Container as="section" className="py-128 md:py-160">
+    <Container as="section" className="py-80 md:py-96">
       <SectionLabel number={4}>{tNav("portfolio")}</SectionLabel>
 
       <Reveal className="mx-auto mt-32 mb-64 flex max-w-640 flex-col items-center gap-16 text-center md:mt-48 md:mb-96">

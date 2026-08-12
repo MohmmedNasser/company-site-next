@@ -28,7 +28,7 @@ export default async function ServicesSection({
   const tServices = await getTranslations("home.services");
 
   return (
-    <Container as="section" className="py-128 md:py-160">
+    <Container as="section" className="py-80 md:py-96">
       <SectionLabel number={3}>{tNav("services")}</SectionLabel>
 
       <Reveal className="mx-auto mt-32 mb-64 flex max-w-640 flex-col items-center gap-16 text-center md:mt-48 md:mb-96">

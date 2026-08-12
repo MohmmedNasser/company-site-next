@@ -19,7 +19,7 @@ export default async function FaqSection({
   const t = await getTranslations("home.faq");
 
   return (
-    <Container as="section" className="py-128 md:py-160">
+    <Container as="section" className="py-80 md:py-96">
       <SectionLabel number={6}>{t("sectionLabel")}</SectionLabel>
 
       {/* First DOM child = heading/help text, second = accordion — plain
