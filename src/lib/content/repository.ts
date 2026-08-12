@@ -26,6 +26,14 @@ export interface ContactResult {
   success: boolean;
 }
 
+export interface NewsletterPayload {
+  email: string;
+}
+
+export interface NewsletterResult {
+  success: boolean;
+}
+
 export interface ContentRepository {
   getServices(): Promise<Service[]>;
   getService(slug: string): Promise<Service | null>;
@@ -39,4 +47,6 @@ export interface ContentRepository {
   getPost(slug: string): Promise<Post | null>;
   getSettings(): Promise<SiteSettings>;
   submitContact(payload: ContactPayload): Promise<ContactResult>;
+  // Stub only — real wiring happens in Phase 14, same as submitContact.
+  subscribeNewsletter(payload: NewsletterPayload): Promise<NewsletterResult>;
 }

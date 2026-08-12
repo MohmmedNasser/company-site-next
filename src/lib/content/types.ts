@@ -141,5 +141,13 @@ export interface SiteSettings {
     // back out of the full address string.
     city: Localized;
   };
+  // Footer newsletter block copy (Phase 4 rebuild) — content, not UI chrome,
+  // so it lives here alongside hero/sections rather than in messages/*.json.
+  // The form's field labels/button/status text stay in messages, same split
+  // used by sections.contact vs. home.contact.form.
+  newsletter: {
+    heading: Localized;
+    subtext: Localized;
+  };
   social: { platform: string; url: string }[];
 }

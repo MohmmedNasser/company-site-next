@@ -2,6 +2,8 @@ import type {
   ContactPayload,
   ContactResult,
   ContentRepository,
+  NewsletterPayload,
+  NewsletterResult,
   ProjectFilter,
 } from "../repository";
 import type {
@@ -81,6 +83,12 @@ export const mockRepository: ContentRepository = {
   },
   async submitContact(payload: ContactPayload): Promise<ContactResult> {
     console.log("[mock-repository] contact submission received:", payload);
+    return { success: true };
+  },
+  async subscribeNewsletter(
+    payload: NewsletterPayload,
+  ): Promise<NewsletterResult> {
+    console.log("[mock-repository] newsletter subscription received:", payload);
     return { success: true };
   },
 };

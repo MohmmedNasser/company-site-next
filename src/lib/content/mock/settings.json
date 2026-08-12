@@ -101,13 +101,20 @@
     "address": { "en": "Cairo, Egypt", "ar": "القاهرة، مصر" },
     "city": { "en": "Cairo", "ar": "القاهرة" }
   },
+  "newsletter": {
+    "heading": { "en": "Keep you in the loop.", "ar": "ابقَ على اطلاع." },
+    "subtext": {
+      "en": "Get the latest news and insights, straight to your inbox.",
+      "ar": "أحدث الأخبار والرؤى تصل مباشرة إلى بريدك."
+    }
+  },
   "social": [
+    { "platform": "facebook", "url": "https://facebook.com/companysite" },
     {
       "platform": "linkedin",
       "url": "https://linkedin.com/company/company-site"
     },
     { "platform": "twitter", "url": "https://twitter.com/companysite" },
-    { "platform": "github", "url": "https://github.com/company-site" },
-    { "platform": "instagram", "url": "https://instagram.com/companysite" }
+    { "platform": "youtube", "url": "https://youtube.com/@companysite" }
   ]
 }

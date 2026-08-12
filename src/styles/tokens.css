@@ -177,3 +177,27 @@
   --hero-silk-low: var(--palette-mono-950);
   --hero-silk-high: var(--palette-mono-500);
 }
+
+/*
+ * Footer is a deliberate, fixed-light contrast band against the rest of
+ * the page — it does not follow the site's active theme the way every
+ * other section does. Scoped re-declaration of the same custom property
+ * names `:root`/.dark already use, pinned to their `:root` (light) values,
+ * so every existing `bg-bg`/`text-text-primary`/`bg-primary`/etc. utility
+ * already used inside <Footer> resolves to the light pairing regardless of
+ * whether `.dark` is active higher up the tree — no component classNames
+ * needed to change for this. Every value here is identical to `:root`'s
+ * above, so no new colour pairing is introduced and nothing new needs a
+ * contrast re-check.
+ */
+.theme-footer-light {
+  --bg: var(--palette-mono-25);
+  --border: var(--palette-border-light-mode);
+  --text-primary: var(--palette-mono-950);
+  --text-secondary: var(--palette-mono-600);
+  --primary: var(--palette-mono-950);
+  --primary-hover: var(--palette-mono-900);
+  --on-primary: var(--palette-mono-0);
+  --text-decorative: var(--palette-mono-200);
+  --error: var(--palette-error-light);
+}

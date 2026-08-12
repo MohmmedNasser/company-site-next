@@ -14,6 +14,8 @@ export type {
   ContactPayload,
   ContactResult,
   ContentRepository,
+  NewsletterPayload,
+  NewsletterResult,
   ProjectFilter,
 } from "./repository";
 export type * from "./types";

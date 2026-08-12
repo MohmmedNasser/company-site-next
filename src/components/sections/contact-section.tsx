@@ -36,7 +36,16 @@ export default async function ContactSection({
         style={{ backgroundImage: `url("/illustrations/world-map.jpg")` }}
       />
 
-      <div aria-hidden="true" className="bg-bg/95 absolute inset-0 -z-10" />
+      {/* Light mode: fully opaque — world-map.jpg's own colours read as a
+          visibly mismatched tinted rectangle against the near-white --bg
+          even at 5% bleed-through, since light mode has so little contrast
+          headroom to absorb it into. Dark mode keeps the original 95% (the
+          same faint bleed-through is invisible against near-black), left
+          untouched. */}
+      <div
+        aria-hidden="true"
+        className="bg-bg dark:bg-bg/95 absolute inset-0 -z-10"
+      />
 
       <SectionLabel number={7}>{t("sectionLabel")}</SectionLabel>
 

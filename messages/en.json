@@ -112,16 +112,17 @@
       "followOn": "Follow us on {platform}"
     },
     "footer": {
-      "description": "A software agency for teams who need a product built right the first time.",
       "columns": {
-        "company": "Company",
-        "services": "Services",
-        "resources": "Resources"
+        "main": "Main",
+        "links": "Links"
       },
-      "copyright": "© {year} Codexa. All rights reserved.",
-      "privacy": "Privacy Policy",
-      "terms": "Terms of Service",
-      "builtIn": "Built in {city}"
+      "newsletter": {
+        "emailLabel": "Email address",
+        "emailPlaceholder": "name@email.com",
+        "subscribeButton": "Subscribe",
+        "successMessage": "You're subscribed."
+      },
+      "contactEmailLabel": "Email"
     }
   },
   "notFound": {

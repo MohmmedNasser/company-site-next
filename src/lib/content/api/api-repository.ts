@@ -17,4 +17,5 @@ export const apiRepository: ContentRepository = {
   getPost: notImplemented,
   getSettings: notImplemented,
   submitContact: notImplemented,
+  subscribeNewsletter: notImplemented,
 };

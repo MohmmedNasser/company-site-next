@@ -112,16 +112,17 @@
       "followOn": "تابعنا على {platform}"
     },
     "footer": {
-      "description": "نبني منتجات برمجية جاهزة للإنتاج من أول مرة.",
       "columns": {
-        "company": "الشركة",
-        "services": "الخدمات",
-        "resources": "الموارد"
+        "main": "الرئيسية",
+        "links": "روابط"
       },
-      "copyright": "© {year} Codexa. جميع الحقوق محفوظة.",
-      "privacy": "سياسة الخصوصية",
-      "terms": "شروط الخدمة",
-      "builtIn": "صُنع في {city}"
+      "newsletter": {
+        "emailLabel": "البريد الإلكتروني",
+        "emailPlaceholder": "name@email.com",
+        "subscribeButton": "اشترك",
+        "successMessage": "تم الاشتراك بنجاح."
+      },
+      "contactEmailLabel": "البريد الإلكتروني"
     }
   },
   "notFound": {
