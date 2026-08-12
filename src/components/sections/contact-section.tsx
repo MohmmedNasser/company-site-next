@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { getTranslations } from "next-intl/server";
 import { Phone, ChevronRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
@@ -6,6 +8,11 @@ import SectionLabel from "@/components/ui/section-label";
 import { buttonClassNames } from "@/lib/utils/button-classes";
 import Reveal from "@/components/motion/reveal";
 import ContactForm from "@/components/sections/contact-form";
+
+// Inlined at module load (not a CSS mask-image/<img>) so `fill="currentColor"`
+// in the SVG actually inherits `text-text-decorative` from its wrapper — an
+// externally-referenced SVG (via <img> or mask-image: url(...)) can't see
+// page CSS, so currentColor would resolve to black instead of the token.
 
 interface ContactSectionProps {
   heading: string;
@@ -22,23 +29,21 @@ export default async function ContactSection({
   const tActions = await getTranslations("common.actions");
 
   return (
-    <Container as="section" className="py-80 md:py-96">
+    <Container as="section" className="relative overflow-hidden py-80 md:py-96">
+      <div
+        aria-hidden="true"
+        className="text-text-decorative pointer-events-none absolute inset-0 top-56 -z-20 h-full w-full bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url("/illustrations/world-map.jpg")` }}
+      />
+
+      <div aria-hidden="true" className="bg-bg/95 absolute inset-0 -z-10" />
+
       <SectionLabel number={7}>{t("sectionLabel")}</SectionLabel>
 
       {/* Plain logical flex-row, same technique as testimonials/faq —
           reorders itself under dir="rtl" with no rtl: classes needed. */}
       <div className="mt-32 flex flex-col gap-48 md:mt-48 md:flex-row md:items-center md:gap-64">
-        <Reveal className="relative flex flex-1 flex-col items-start gap-24 overflow-hidden">
-          {/* Decorative world-map silhouette. Colour comes entirely from
-              --color-text-decorative via a CSS mask (not a baked-in fill) —
-              an <img> can't inherit currentColor across its replaced-
-              element boundary, so a background-color + mask-image is the
-              token-driven way to tint an external SVG asset. */}
-          <div
-            aria-hidden="true"
-            className="bg-text-decorative pointer-events-none absolute inset-0 -z-10 [mask-image:url(/illustrations/world-map.svg)] [mask-size:contain] [mask-position:center] [mask-repeat:no-repeat] opacity-60 [-webkit-mask-image:url(/illustrations/world-map.svg)] [-webkit-mask-position:center] [-webkit-mask-repeat:no-repeat] [-webkit-mask-size:contain]"
-          />
-
+        <Reveal className="flex flex-1 flex-col items-start gap-24">
           <h2 className="text-48 md:text-64 text-text-primary leading-tight font-semibold tracking-[-0.03em] text-balance">
             {heading}
           </h2>
