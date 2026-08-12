@@ -17,6 +17,8 @@ export interface ProjectFilter {
 export interface ContactPayload {
   name: string;
   email: string;
+  service?: string;
+  budget?: string;
   message: string;
 }
 

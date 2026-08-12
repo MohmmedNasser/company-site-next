@@ -36,6 +36,38 @@
       "sectionLabel": "الأسئلة الشائعة",
       "helpHeading": "لديك سؤال؟",
       "helpDescription": "تواصل معنا في أي وقت. يسعدنا الإجابة عن أي استفسار قبل أن تلتزم بالعمل معنا."
+    },
+    "contact": {
+      "sectionLabel": "تواصل معنا",
+      "phoneLabel": "اتصل بنا على مدار الساعة",
+      "form": {
+        "nameLabel": "الاسم",
+        "namePlaceholder": "اسمك",
+        "emailLabel": "البريد الإلكتروني",
+        "emailPlaceholder": "you@company.com",
+        "serviceLabel": "الخدمة",
+        "servicePlaceholder": "اختر الخدمة",
+        "budgetLabel": "الميزانية",
+        "budgetPlaceholder": "اختر الميزانية",
+        "messageLabel": "الرسالة",
+        "messagePlaceholder": "أخبرنا عن مشروعك…",
+        "serviceOptions": {
+          "web": "موقع إلكتروني",
+          "mobile": "تطبيق جوال",
+          "ecommerce": "متجر إلكتروني",
+          "saas": "منتج SaaS",
+          "branding": "هوية وتصميم",
+          "other": "شيء آخر"
+        },
+        "budgetOptions": {
+          "under10k": "أقل من 10,000$",
+          "10to25k": "10,000$ – 25,000$",
+          "25to50k": "25,000$ – 50,000$",
+          "over50k": "أكثر من 50,000$",
+          "notSure": "لم أحدد بعد"
+        },
+        "successMessage": "تم الإرسال — سنتواصل معك خلال يوم واحد."
+      }
     }
   },
   "common": {

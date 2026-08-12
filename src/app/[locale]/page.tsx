@@ -8,6 +8,7 @@ import ServicesSection from "@/components/sections/services-section";
 import PortfolioSection from "@/components/sections/portfolio-section";
 import TestimonialsSection from "@/components/sections/testimonials-section";
 import FaqSection from "@/components/sections/faq-section";
+import ContactSection from "@/components/sections/contact-section";
 
 // The placeholder <Container> below is Phase 3's — Phase 5 replaces it with
 // the real home page sections. HeroSection (Phase 4) reads its copy from
@@ -124,6 +125,12 @@ export default async function Home({
           question: pick(item.question, locale),
           answer: pick(item.answer, locale),
         }))}
+      />
+
+      <ContactSection
+        heading={pick(settings.sections.contact.heading, locale)}
+        description={pick(settings.sections.contact.description, locale)}
+        phone={settings.contact.phone}
       />
 
       <Container className="py-96">

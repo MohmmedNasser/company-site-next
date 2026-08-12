@@ -85,7 +85,10 @@
       }
     },
     "contact": {
-      "heading": { "en": "Let's talk", "ar": "لنتحدث" },
+      "heading": {
+        "en": "Let's build something worth shipping.",
+        "ar": "لنبنِ شيئًا يستحق الإطلاق."
+      },
       "description": {
         "en": "Tell us about the project — we usually reply within a day.",
         "ar": "أخبرنا عن مشروعك — نرد عادة خلال يوم واحد."

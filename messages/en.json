@@ -36,6 +36,38 @@
       "sectionLabel": "FAQ",
       "helpHeading": "Have a question?",
       "helpDescription": "Reach out anytime. We're happy to answer any questions before you commit to working together."
+    },
+    "contact": {
+      "sectionLabel": "Contact",
+      "phoneLabel": "Call us 24/7",
+      "form": {
+        "nameLabel": "Name",
+        "namePlaceholder": "Your name",
+        "emailLabel": "Email",
+        "emailPlaceholder": "you@company.com",
+        "serviceLabel": "Service",
+        "servicePlaceholder": "Select a service",
+        "budgetLabel": "Budget",
+        "budgetPlaceholder": "Select a budget",
+        "messageLabel": "Message",
+        "messagePlaceholder": "Tell us about your project…",
+        "serviceOptions": {
+          "web": "Website",
+          "mobile": "Mobile app",
+          "ecommerce": "E-commerce",
+          "saas": "SaaS product",
+          "branding": "Branding & design",
+          "other": "Something else"
+        },
+        "budgetOptions": {
+          "under10k": "Under $10,000",
+          "10to25k": "$10,000 – $25,000",
+          "25to50k": "$25,000 – $50,000",
+          "over50k": "$50,000+",
+          "notSure": "Not sure yet"
+        },
+        "successMessage": "Message sent — we'll be in touch within a day."
+      }
     }
   },
   "common": {
