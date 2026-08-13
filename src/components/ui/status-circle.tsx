@@ -4,11 +4,18 @@ import { cn } from "@/lib/utils/cn";
 export type StatusCircleState =
   "backlog" | "todo" | "in-progress" | "done" | "cancelled";
 type StatusCircleSize = "sm" | "md";
+export type StatusCircleTone = "status" | "mono";
 
 interface StatusCircleProps extends Omit<SVGAttributes<SVGSVGElement>, "role"> {
   state: StatusCircleState;
   /** 14px | 24px. @default "sm" */
   size?: StatusCircleSize;
+  /**
+   * "status" keeps the issue-tracker colour semantics (green done, gold
+   * in-progress); "mono" renders every state in a neutral. See the comment
+   * on TONE_COLOR_CLASS below. @default "status"
+   */
+  tone?: StatusCircleTone;
   /** Accessible label override. Defaults to a human-readable form of `state`. */
   label?: string;
 }
@@ -24,17 +31,39 @@ const DEFAULT_LABEL: Record<StatusCircleState, string> = {
   cancelled: "Cancelled",
 };
 
-// Neutral/muted states (backlog, todo, cancelled) map to
-// --color-text-secondary — kept as the neutral/muted tone through the
-// monochrome migration; see docs/design-decisions.md's open question on
-// whether success/warning/error (still colour) survive the eventual
-// admin-panel decision.
-const COLOR_CLASS: Record<StatusCircleState, string> = {
-  backlog: "text-text-secondary",
-  todo: "text-text-secondary",
-  "in-progress": "text-warning",
-  done: "text-success",
-  cancelled: "text-text-secondary",
+// Two tones, not one.
+//
+// "status" is the original map and stays the default, so nothing that
+// already renders a StatusCircle changes, and docs/design-decisions.md's
+// admin-panel open question (do success/warning/error survive that
+// decision?) stays open rather than being answered by this prop.
+//
+// "mono" exists because the marketing site is monochrome — colour lives
+// only in the logo mark — so a status indicator on a marketing page cannot
+// use green/gold. Nothing is lost by dropping the colour here: the five
+// states are already distinguished by SHAPE (dashed ring, hollow ring,
+// half-filled, filled + check, filled + slash), so colour was never the
+// only channel carrying the meaning. Done/in-progress take text-primary
+// and the muted states text-secondary, which keeps the same "this one is
+// resolved, that one isn't" contrast step the colour map had.
+const TONE_COLOR_CLASS: Record<
+  StatusCircleTone,
+  Record<StatusCircleState, string>
+> = {
+  status: {
+    backlog: "text-text-secondary",
+    todo: "text-text-secondary",
+    "in-progress": "text-warning",
+    done: "text-success",
+    cancelled: "text-text-secondary",
+  },
+  mono: {
+    backlog: "text-text-secondary",
+    todo: "text-text-secondary",
+    "in-progress": "text-text-primary",
+    done: "text-text-primary",
+    cancelled: "text-text-secondary",
+  },
 };
 
 /**
@@ -47,6 +76,7 @@ const COLOR_CLASS: Record<StatusCircleState, string> = {
 export default function StatusCircle({
   state,
   size = "sm",
+  tone = "status",
   label,
   className,
   ...rest
@@ -63,7 +93,7 @@ export default function StatusCircle({
       height={px}
       role="img"
       aria-label={accessibleLabel}
-      className={cn(COLOR_CLASS[state], "shrink-0", className)}
+      className={cn(TONE_COLOR_CLASS[tone][state], "shrink-0", className)}
       {...rest}
     >
       {state === "backlog" && (

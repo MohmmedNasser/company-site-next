@@ -1,0 +1,55 @@
+[
+  {
+    "id": "team-nadia-fahmy",
+    "avatar": "https://picsum.photos/seed/team-nadia-fahmy/640/640",
+    "order": 1,
+    "name": { "en": "Nadia Fahmy", "ar": "نادية فهمي" },
+    "role": {
+      "en": "Founder, Product Engineering",
+      "ar": "المؤسِّسة، هندسة المنتج"
+    },
+    "bio": {
+      "en": "Spent eight years shipping logistics software before starting the studio. Runs discovery on every engagement and writes the architecture note the whole build answers to.",
+      "ar": "قضت ثماني سنوات في بناء أنظمة لوجستية قبل تأسيس الاستوديو. تقود مرحلة الاستكشاف في كل مشروع، وتكتب وثيقة المعمارية التي يلتزم بها البناء كله."
+    }
+  },
+  {
+    "id": "team-omar-said",
+    "avatar": "https://picsum.photos/seed/team-omar-said/640/640",
+    "order": 2,
+    "name": { "en": "Omar Said", "ar": "عمر سعيد" },
+    "role": {
+      "en": "Principal Engineer, Platform",
+      "ar": "مهندس رئيسي، المنصات"
+    },
+    "bio": {
+      "en": "Owns the parts nobody sees: deploy pipelines, observability, and the migration plan that lets a live product change shape without a maintenance window.",
+      "ar": "مسؤول عن الجزء الذي لا يراه أحد: خطوط النشر، والمراقبة، وخطة الترحيل التي تسمح لمنتج يعمل بأن يتغيّر دون توقّف."
+    }
+  },
+  {
+    "id": "team-layla-hassan",
+    "avatar": "https://picsum.photos/seed/team-layla-hassan/640/640",
+    "order": 3,
+    "name": { "en": "Layla Hassan", "ar": "ليلى حسن" },
+    "role": { "en": "Design Lead", "ar": "قائدة التصميم" },
+    "bio": {
+      "en": "Designs in the browser, not in a static file. Builds the design system first so the tenth screen costs a fraction of the first one.",
+      "ar": "تصمّم داخل المتصفح لا في ملف ثابت. تبني نظام التصميم أولًا حتى تكلّف الشاشة العاشرة جزءًا يسيرًا من تكلفة الأولى."
+    }
+  },
+  {
+    "id": "team-youssef-adel",
+    "avatar": "https://picsum.photos/seed/team-youssef-adel/640/640",
+    "order": 4,
+    "name": { "en": "Youssef Adel", "ar": "يوسف عادل" },
+    "role": {
+      "en": "Senior Engineer, Mobile",
+      "ar": "مهندس أول، تطبيقات الجوال"
+    },
+    "bio": {
+      "en": "Ships iOS and Android from one React Native codebase, and is the reason offline mode is a requirement here rather than a stretch goal.",
+      "ar": "يبني تطبيقات iOS وAndroid من كود React Native واحد، وهو سبب اعتبار العمل دون اتصال شرطًا أساسيًا لا ميزة إضافية."
+    }
+  }
+]

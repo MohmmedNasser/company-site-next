@@ -62,7 +62,10 @@ function buildSchema(tErrors: (key: string) => string) {
 type ContactFormValues = z.infer<ReturnType<typeof buildSchema>>;
 
 export default function ContactForm() {
-  const t = useTranslations("home.contact.form");
+  // Moved out of `home.contact.form` when /contact started rendering this
+  // same component — the i18n-keys rule is that anything used on two or
+  // more pages lives in `common` rather than under one page's namespace.
+  const t = useTranslations("common.contactForm");
   const tErrors = useTranslations("common.errors");
   const tActions = useTranslations("common.actions");
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");

@@ -16,8 +16,8 @@
       "ar": "لوحة تتبع شحنات لحظية حلّت محل مسار عمل قائم على جداول بيانات."
     },
     "description": {
-      "en": "Ferry Logistics tracked shipments across three warehouses using a shared spreadsheet that broke down past 40 concurrent updates. We built a dashboard with live status updates, driver check-ins, and exportable reports, cutting shipment-status queries from a support inbox to a self-serve view.",
-      "ar": "كانت فيري تتابع شحناتها عبر ثلاثة مستودعات باستخدام جدول بيانات مشترك يتعطل عند تجاوز 40 تحديثًا متزامنًا. بنينا لوحة تحكم بتحديثات حالة لحظية، تسجيل دخول للسائقين، وتقارير قابلة للتصدير، ما نقل استعلامات حالة الشحنات من صندوق دعم إلى واجهة ذاتية الخدمة."
+      "en": "Ferry Logistics tracked shipments across three warehouses using a shared spreadsheet that broke down past 40 concurrent updates. We built a dashboard with live status updates, driver check-ins, and exportable reports, cutting shipment-status queries from a support inbox to a self-serve view.\n\nThe hard part was never the dashboard. It was that three warehouses had each evolved their own column conventions inside the same file, and any schema we imposed would break at least two of them on day one. We spent the first week reading the spreadsheet rather than designing screens.\n\nWhat shipped keeps the shapes that mattered and drops the ones that were workarounds. Dispatchers still enter a shipment the way they always have; the difference is that the record now has one owner, one status, and an audit trail, so \"where is this load\" stopped being a question anyone had to ask a human.",
+      "ar": "كانت فيري تتابع شحناتها عبر ثلاثة مستودعات باستخدام جدول بيانات مشترك يتعطل عند تجاوز 40 تحديثًا متزامنًا. بنينا لوحة تحكم بتحديثات حالة لحظية، تسجيل دخول للسائقين، وتقارير قابلة للتصدير، ما نقل استعلامات حالة الشحنات من صندوق دعم إلى واجهة ذاتية الخدمة.\n\nالجزء الصعب لم يكن لوحة التحكم يومًا. الصعب أن كل مستودع من الثلاثة طوّر أعرافه الخاصة للأعمدة داخل الملف نفسه، وأي مخطط نفرضه كان سيعطّل اثنين منها على الأقل من اليوم الأول. قضينا الأسبوع الأول في قراءة جدول البيانات لا في تصميم الشاشات.\n\nما أُطلق حافظ على البنى التي كانت مهمة وأسقط ما كان حلولًا التفافية. ما زال المرسِلون يسجلون الشحنة بالطريقة التي اعتادوها؛ الفارق أن للسجل الآن مالكًا واحدًا وحالة واحدة وسجل تدقيق، فلم يعد سؤال «أين هذه الشحنة» سؤالًا يطرحه أحد على إنسان."
     }
   },
   {
@@ -37,8 +37,8 @@
       "ar": "تطبيق مصرفي بReact Native مع تسجيل دخول بالبصمة وتحويلات فورية."
     },
     "description": {
-      "en": "Nour needed a mobile banking app that felt as fast as their competitors' native apps without maintaining two separate codebases. We shipped a single React Native app with biometric login, instant transfers, and offline balance caching, live on both stores within four months.",
-      "ar": "احتاجت نور تطبيقًا مصرفيًا بسرعة تنافس التطبيقات الأصلية دون صيانة قاعدتي كود منفصلتين. أطلقنا تطبيق React Native واحدًا بتسجيل دخول بالبصمة، تحويلات فورية، وتخزين مؤقت للرصيد دون اتصال، ونُشر على المتجرين خلال أربعة أشهر."
+      "en": "Nour needed a mobile banking app that felt as fast as their competitors' native apps without maintaining two separate codebases. We shipped a single React Native app with biometric login, instant transfers, and offline balance caching, live on both stores within four months.\n\nA banking app is mostly the states nobody demos: a transfer that timed out, a session that expired mid-form, a device that lost signal between confirming and receiving. We wrote those paths first and the happy path second, which is the reverse of how most schedules are drawn.\n\nBiometric login took the longest, not to build but to agree. It touches a compliance boundary, and the version that shipped is narrower than the one first designed — the fallback to a passcode is always one tap away, and it never remembers a decision the user did not make explicitly.",
+      "ar": "احتاجت نور تطبيقًا مصرفيًا بسرعة تنافس التطبيقات الأصلية دون صيانة قاعدتي كود منفصلتين. أطلقنا تطبيق React Native واحدًا بتسجيل دخول بالبصمة، تحويلات فورية، وتخزين مؤقت للرصيد دون اتصال، ونُشر على المتجرين خلال أربعة أشهر.\n\nالتطبيق المصرفي في معظمه هو الحالات التي لا يعرضها أحد: تحويل انتهت مهلته، جلسة انتهت في منتصف النموذج، جهاز فقد الإشارة بين التأكيد والاستلام. كتبنا هذه المسارات أولًا والمسار السليم ثانيًا، وهو عكس ما تُرسم به معظم الجداول الزمنية.\n\nاستغرق تسجيل الدخول بالبصمة أطول وقت، لا لبنائه بل للاتفاق عليه. فهو يمس حدودًا تنظيمية، والنسخة التي أُطلقت أضيق من النسخة المصممة أولًا — الرجوع إلى رمز المرور على بعد لمسة واحدة دائمًا، ولا يحفظ التطبيق قرارًا لم يتخذه المستخدم صراحةً."
     }
   },
   {
@@ -49,14 +49,17 @@
     "client": "client-basma-retail",
     "coverImage": "https://picsum.photos/seed/basma-storefront/1600/900",
     "order": 3,
-    "title": { "en": "Basma Retail Storefront", "ar": "متجر بسمة الإلكتروني" },
+    "title": {
+      "en": "Basma Retail Storefront",
+      "ar": "متجر بسمة الإلكتروني"
+    },
     "summary": {
       "en": "A headless storefront that cut checkout time in half.",
       "ar": "متجر إلكتروني (headless) قلّص وقت إتمام الشراء إلى النصف."
     },
     "description": {
-      "en": "Basma's old storefront took four steps to check out and lost most mobile shoppers along the way. We rebuilt it as a headless storefront on Next.js with a single-page checkout, cutting checkout abandonment by more than a third in the first quarter after launch.",
-      "ar": "كان متجر بسمة القديم يتطلب أربع خطوات لإتمام الشراء ويفقد أغلب المتسوقين عبر الجوال في الطريق. أعدنا بناءه كمتجر headless على Next.js بصفحة دفع واحدة، ما خفّض معدل التخلي عن السلة بأكثر من الثلث في الربع الأول بعد الإطلاق."
+      "en": "Basma's old storefront took four steps to check out and lost most mobile shoppers along the way. We rebuilt it as a headless storefront on Next.js with a single-page checkout, cutting checkout abandonment by more than a third in the first quarter after launch.\n\nFour steps had accumulated one at a time, each for a defensible reason, and none of them survived being looked at together. Two collected data the fulfilment team never read. One existed to upsell. The last was a confirmation of a confirmation.\n\nCollapsing them into a single page meant renegotiating with three departments before writing any code. The engineering work took two weeks; getting agreement on what could be deleted took five. That ratio is normal, and pretending otherwise is how checkout rebuilds overrun.",
+      "ar": "كان متجر بسمة القديم يتطلب أربع خطوات لإتمام الشراء ويفقد أغلب المتسوقين عبر الجوال في الطريق. أعدنا بناءه كمتجر headless على Next.js بصفحة دفع واحدة، ما خفّض معدل التخلي عن السلة بأكثر من الثلث في الربع الأول بعد الإطلاق.\n\nتراكمت الخطوات الأربع واحدة تلو الأخرى، كلٌّ منها لسبب وجيه، ولم تصمد أي منها عند النظر إليها مجتمعة. اثنتان كانتا تجمعان بيانات لم يقرأها فريق التنفيذ يومًا. وواحدة وُجدت للبيع الإضافي. والأخيرة كانت تأكيدًا لتأكيد.\n\nدمجها في صفحة واحدة تطلّب التفاوض مع ثلاث إدارات قبل كتابة أي كود. استغرق العمل الهندسي أسبوعين، واستغرق الاتفاق على ما يمكن حذفه خمسة. هذه النسبة طبيعية، وإنكارها هو سبب تجاوز مشاريع إعادة بناء صفحات الدفع لمواعيدها."
     }
   },
   {
@@ -67,14 +70,17 @@
     "client": "client-waha-health",
     "coverImage": "https://picsum.photos/seed/waha-patient-portal/1600/900",
     "order": 4,
-    "title": { "en": "Waha Patient Portal", "ar": "بوابة مرضى واحة" },
+    "title": {
+      "en": "Waha Patient Portal",
+      "ar": "بوابة مرضى واحة"
+    },
     "summary": {
       "en": "A patient portal for appointment booking and lab results.",
       "ar": "بوابة مرضى لحجز المواعيد ونتائج التحاليل."
     },
     "description": {
-      "en": "Waha Health ran appointment booking entirely over phone calls. We built a patient portal for booking, rescheduling, and viewing lab results, with a Laravel backend enforcing the same validation rules the front-desk staff used to apply manually.",
-      "ar": "كانت واحة تدير حجز المواعيد بالكامل عبر المكالمات الهاتفية. بنينا بوابة مرضى لحجز المواعيد وإعادة جدولتها وعرض نتائج التحاليل، بخلفية Laravel تطبّق قواعد التحقق نفسها التي كان موظفو الاستقبال يطبقونها يدويًا."
+      "en": "Waha Health ran appointment booking entirely over phone calls. We built a patient portal for booking, rescheduling, and viewing lab results, with a Laravel backend enforcing the same validation rules the front-desk staff used to apply manually.\n\nThe front desk had been the validation layer for years, and most of the rules had never been written down — which appointment types need a referral, how far ahead a follow-up can be booked, who is allowed to reschedule a same-day slot. We collected them by sitting at the desk for two days.\n\nEncoding them server-side rather than in the form was the decision that mattered. The portal and the phone line now enforce the same rules, so a booking made online cannot be one the staff would have refused — which is what made them willing to trust it.",
+      "ar": "كانت واحة تدير حجز المواعيد بالكامل عبر المكالمات الهاتفية. بنينا بوابة مرضى لحجز المواعيد وإعادة جدولتها وعرض نتائج التحاليل، بخلفية Laravel تطبّق قواعد التحقق نفسها التي كان موظفو الاستقبال يطبقونها يدويًا.\n\nكان مكتب الاستقبال هو طبقة التحقق لسنوات، ولم تُدوَّن معظم القواعد يومًا — أي أنواع المواعيد تحتاج تحويلًا، وإلى أي مدى يمكن حجز مراجعة، ومن يحق له إعادة جدولة موعد في اليوم نفسه. جمعناها بالجلوس عند المكتب يومين.\n\nوالقرار المهم كان ترميزها في الخادم لا في النموذج. تطبّق البوابة والخط الهاتفي القواعد نفسها الآن، فلا يمكن أن يكون حجز تم عبر الإنترنت حجزًا كان الموظفون سيرفضونه — وهذا ما جعلهم مستعدين للوثوق به."
     }
   },
   {
@@ -85,14 +91,17 @@
     "client": "client-marsa-realestate",
     "coverImage": "https://picsum.photos/seed/marsa-listings-app/1600/900",
     "order": 5,
-    "title": { "en": "Marsa Listings App", "ar": "تطبيق مرسى العقاري" },
+    "title": {
+      "en": "Marsa Listings App",
+      "ar": "تطبيق مرسى العقاري"
+    },
     "summary": {
       "en": "A property-browsing app with saved searches and agent chat, currently in development.",
       "ar": "تطبيق لتصفح العقارات مع عمليات بحث محفوظة ومحادثة مع الوسيط، قيد التطوير حاليًا."
     },
     "description": {
-      "en": "Marsa's listings currently live on a public feed with no way to save a search or contact an agent directly. We're building a dedicated app with saved searches, push alerts for new matches, and in-app chat with listing agents.",
-      "ar": "تُعرض عقارات مرسى حاليًا على خلاصة عامة دون إمكانية حفظ بحث أو التواصل مباشرة مع وسيط. نعمل على بناء تطبيق مخصص بعمليات بحث محفوظة، تنبيهات فورية للعروض الجديدة، ومحادثة داخل التطبيق مع وسطاء العقارات."
+      "en": "Marsa's listings currently live on a public feed with no way to save a search or contact an agent directly. We're building a dedicated app with saved searches, push alerts for new matches, and in-app chat with listing agents.\n\nSaved searches sound trivial until you decide what \"a new match\" means. A price drop into range, a re-listing of a property the user already dismissed, a unit two streets outside the drawn boundary — each is a judgement call, and getting them wrong produces notifications people mute the app over.\n\nWe are tuning that now, with a small group of agents' own clients on a test build. Everything else is built; the alert rules are the reason this one is still listed as in development rather than shipped.",
+      "ar": "تُعرض عقارات مرسى حاليًا على خلاصة عامة دون إمكانية حفظ بحث أو التواصل مباشرة مع وسيط. نعمل على بناء تطبيق مخصص بعمليات بحث محفوظة، تنبيهات فورية للعروض الجديدة، ومحادثة داخل التطبيق مع وسطاء العقارات.\n\nتبدو عمليات البحث المحفوظة أمرًا بسيطًا إلى أن تحدد معنى «عرض جديد مطابق». انخفاض سعر إلى النطاق المطلوب، أو إعادة عرض عقار سبق أن تجاهله المستخدم، أو وحدة تبعد شارعين عن الحدود المرسومة — كل واحدة منها حالة تقدير، وإصابتها بالخطأ تنتج تنبيهات يكتم الناس التطبيق بسببها.\n\nنحن نضبط ذلك الآن مع مجموعة صغيرة من عملاء الوسطاء أنفسهم على نسخة تجريبية. كل ما عدا ذلك مكتمل؛ وقواعد التنبيه هي سبب بقاء هذا المشروع قيد التطوير لا مُسلَّمًا."
     }
   },
   {
@@ -112,8 +121,8 @@
       "ar": "منصة كورسات متعددة المستأجرين تخدم أكثر من 40 مدربًا."
     },
     "description": {
-      "en": "Rawaq wanted to let instructors run their own branded course pages under one platform. We built a multi-tenant Laravel application with per-instructor subdomains, video progress tracking, and a quiz engine, now serving more than 40 instructors and several thousand students.",
-      "ar": "أرادت رواق تمكين المدربين من إدارة صفحات كورسات بهويتهم الخاصة ضمن منصة واحدة. بنينا تطبيق Laravel متعدد المستأجرين بنطاقات فرعية لكل مدرب، تتبع تقدم الفيديو، ومحرك اختبارات، تخدم الآن أكثر من 40 مدربًا وآلاف الطلاب."
+      "en": "Rawaq wanted to let instructors run their own branded course pages under one platform. We built a multi-tenant Laravel application with per-instructor subdomains, video progress tracking, and a quiz engine, now serving more than 40 instructors and several thousand students.\n\nMulti-tenancy is a decision you make once and live with. We scoped tenants at the row level with a single shared schema rather than a database per instructor — cheaper to operate, and it keeps a cross-instructor report a query instead of a migration.\n\nThe cost of that choice is that every query is one missing scope away from leaking another instructor's data. So tenant scoping is enforced in a base model rather than remembered per query, and the test suite has a case that fails loudly if a new model is added without it.",
+      "ar": "أرادت رواق تمكين المدربين من إدارة صفحات كورسات بهويتهم الخاصة ضمن منصة واحدة. بنينا تطبيق Laravel متعدد المستأجرين بنطاقات فرعية لكل مدرب، تتبع تقدم الفيديو، ومحرك اختبارات، تخدم الآن أكثر من 40 مدربًا وآلاف الطلاب.\n\nتعدد المستأجرين قرار تتخذه مرة وتعيش معه. حددنا نطاق المستأجرين على مستوى الصف بمخطط واحد مشترك بدل قاعدة بيانات لكل مدرب — أرخص في التشغيل، ويبقي أي تقرير يشمل عدة مدربين استعلامًا لا ترحيلًا.\n\nوثمن هذا الاختيار أن كل استعلام يبعد نطاقًا مفقودًا واحدًا عن تسريب بيانات مدرب آخر. لذلك يُفرض تحديد نطاق المستأجر في نموذج أساسي بدل تذكّره في كل استعلام، وفي مجموعة الاختبارات حالة تفشل بوضوح إن أُضيف نموذج جديد دونه."
     }
   }
 ]

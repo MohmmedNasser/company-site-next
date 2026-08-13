@@ -12,8 +12,8 @@
       "ar": "مواقع وتطبيقات ويب سريعة وسهلة الوصول، مبنية على Next.js وأدوات حديثة."
     },
     "body": {
-      "en": "We build marketing sites, dashboards, and web applications that load fast, hold up under real traffic, and stay easy to change six months after launch. Every project ships with clean component architecture and a content layer your team can edit without touching code.",
-      "ar": "نبني مواقع تعريفية ولوحات تحكم وتطبيقات ويب تُحمَّل بسرعة وتتحمل حركة زوار حقيقية، وتبقى سهلة التعديل بعد الإطلاق بأشهر. كل مشروع يخرج بمعمارية مكونات نظيفة وطبقة محتوى يمكن لفريقك تعديلها دون لمس الكود."
+      "en": "We build marketing sites, dashboards, and web applications that load fast, hold up under real traffic, and stay easy to change six months after launch. Every project ships with clean component architecture and a content layer your team can edit without touching code.\n\nPerformance is a budget we agree on before the first component is written, not a cleanup pass at the end. We set targets for load time and interaction latency, measure them on real devices and throttled connections, and treat a regression as a bug that blocks release.\n\nAccessibility works the same way. Keyboard paths, focus order, contrast, and screen-reader labels are part of the definition of done for every screen — which is cheaper than retrofitting them after an audit, and is the difference between a site that technically works and one anyone can actually use.",
+      "ar": "نبني مواقع تعريفية ولوحات تحكم وتطبيقات ويب تُحمَّل بسرعة وتتحمل حركة زوار حقيقية، وتبقى سهلة التعديل بعد الإطلاق بأشهر. كل مشروع يخرج بمعمارية مكونات نظيفة وطبقة محتوى يمكن لفريقك تعديلها دون لمس الكود.\n\nالأداء ميزانية نتفق عليها قبل كتابة أول مكوّن، لا مرحلة تحسين في النهاية. نحدّد أهدافًا لزمن التحميل وسرعة الاستجابة، ونقيسها على أجهزة حقيقية وشبكات بطيئة، ونعامل أي تراجع فيها كخلل يمنع الإصدار.\n\nوسهولة الوصول تسير بالمنطق نفسه. مسارات لوحة المفاتيح، وترتيب التركيز، والتباين، وتسميات قارئات الشاشة كلها جزء من تعريف «مكتمل» لكل شاشة — وهذا أرخص من إصلاحها بعد التدقيق، وهو الفارق بين موقع يعمل نظريًا وموقع يستطيع أي شخص استخدامه فعلًا."
     }
   },
   {
@@ -29,8 +29,8 @@
       "ar": "تطبيقات iOS وAndroid بأداء قريب من التطبيقات الأصلية، من كود React Native واحد."
     },
     "body": {
-      "en": "From the first wireframe to an App Store listing, we handle the full mobile build: offline support, push notifications, and a release pipeline your team can keep shipping through after we hand off.",
-      "ar": "من أول تصميم أولي حتى النشر على المتاجر، نتولى بناء التطبيق بالكامل: العمل دون اتصال، الإشعارات، وخط نشر يمكن لفريقك الاستمرار في استخدامه بعد التسليم."
+      "en": "From the first wireframe to an App Store listing, we handle the full mobile build: offline support, push notifications, and a release pipeline your team can keep shipping through after we hand off.\n\nOne React Native codebase covers both platforms, but we don't pretend the platforms are identical. Navigation, permissions, and typography follow each platform's own conventions, and anything that genuinely needs native code gets native code rather than a workaround.\n\nOffline is a requirement here, not an enhancement. We assume the connection drops mid-action and design the sync and conflict behaviour around that, because the alternative is an app that only works in the office it was demoed in.",
+      "ar": "من أول تصميم أولي حتى النشر على المتاجر، نتولى بناء التطبيق بالكامل: العمل دون اتصال، الإشعارات، وخط نشر يمكن لفريقك الاستمرار في استخدامه بعد التسليم.\n\nكود React Native واحد يغطي المنصتين، لكننا لا نتعامل معهما كأنهما متطابقتان. التنقّل والأذونات والخطوط تتبع أعراف كل منصة، وما يحتاج فعلًا إلى كود أصلي يُكتب بكود أصلي لا بحلٍّ ملتوٍ.\n\nالعمل دون اتصال شرط أساسي لا ميزة إضافية. نفترض أن الاتصال ينقطع في منتصف العملية ونصمم المزامنة ومعالجة التعارض على هذا الأساس، لأن البديل تطبيق لا يعمل إلا في المكتب الذي عُرض فيه."
     }
   },
   {
@@ -54,8 +54,8 @@
       "ar": "تصميم واجهات مبني على نظام تصميم حقيقي، لا ملف Figma منفصل يُستخدم مرة واحدة."
     },
     "body": {
-      "en": "We design in tokens from day one — color, type, spacing, and motion — so what ships in production matches the mockups pixel for pixel, and stays consistent as the product grows past the first release.",
-      "ar": "نصمم باستخدام رموز تصميم (tokens) منذ البداية — الألوان، الخطوط، المسافات، والحركة — بحيث يطابق ما يُنشر فعليًا التصاميم بدقة، ويبقى متسقًا مع نمو المنتج بعد الإصدار الأول."
+      "en": "We design in tokens from day one — color, type, spacing, and motion — so what ships in production matches the mockups pixel for pixel, and stays consistent as the product grows past the first release.\n\nThat means the system comes before the screens. Once the primitives exist and every value has a name, the tenth screen costs a fraction of the first one, and a change to a button is one edit rather than forty.\n\nWe design in the browser as early as we can. A static file can hide how a layout behaves at an awkward width, in the other reading direction, or when the content is twice as long as the placeholder — and those are exactly the cases that break after launch.",
+      "ar": "نصمم باستخدام رموز تصميم (tokens) منذ البداية — الألوان، الخطوط، المسافات، والحركة — بحيث يطابق ما يُنشر فعليًا التصاميم بدقة، ويبقى متسقًا مع نمو المنتج بعد الإصدار الأول.\n\nهذا يعني أن النظام يسبق الشاشات. فور وجود المكوّنات الأساسية وامتلاك كل قيمة اسمًا، تصبح تكلفة الشاشة العاشرة جزءًا يسيرًا من تكلفة الأولى، ويصير تعديل زر تعديلًا واحدًا لا أربعين.\n\nونصمم داخل المتصفح في أبكر وقت ممكن. الملف الثابت يخفي سلوك التخطيط عند عرض غير معتاد، أو في اتجاه القراءة الآخر، أو حين يكون المحتوى ضعف النص التجريبي — وهذه تحديدًا الحالات التي تنهار بعد الإطلاق."
     }
   },
   {
@@ -74,8 +74,8 @@
       "ar": "واجهات برمجية، لوحات تحكم، ونماذج بيانات مبنية على Laravel بشكل احترافي."
     },
     "body": {
-      "en": "Migrations instead of hand-edited databases, jobs and queues for anything that shouldn't block a request, and a REST API your frontend team can rely on without guessing at undocumented behavior.",
-      "ar": "ترحيلات (migrations) بدل تعديل قواعد البيانات يدويًا، مهام وطوابير (queues) لكل ما لا يجب أن يُبطئ الطلب، وواجهة REST يمكن لفريق الواجهة الأمامية الاعتماد عليها دون تخمين سلوك غير موثّق."
+      "en": "Migrations instead of hand-edited databases, jobs and queues for anything that shouldn't block a request, and a REST API your frontend team can rely on without guessing at undocumented behavior.\n\nThe data model gets the most attention, because it's the part you cannot cheaply change later. We spend the first days on it deliberately: constraints in the database rather than only in application code, and a schema that still makes sense when the second and third features arrive.\n\nEvery endpoint ships with tests and a documented contract. If the API changes shape, the change is versioned and announced — never discovered by a frontend developer whose build stopped working on a Tuesday.",
+      "ar": "ترحيلات (migrations) بدل تعديل قواعد البيانات يدويًا، مهام وطوابير (queues) لكل ما لا يجب أن يُبطئ الطلب، وواجهة REST يمكن لفريق الواجهة الأمامية الاعتماد عليها دون تخمين سلوك غير موثّق.\n\nنموذج البيانات يأخذ أكبر قدر من الاهتمام، لأنه الجزء الذي يصعب تغييره لاحقًا. نقضي فيه الأيام الأولى عن قصد: قيود داخل قاعدة البيانات نفسها لا في الكود وحده، ومخطط يظل منطقيًا حين تصل الميزة الثانية والثالثة.\n\nوكل نقطة نهاية تُسلَّم مع اختبارات وعقد موثّق. وإن تغيّر شكل الواجهة البرمجية، يكون التغيير مُرقَّمًا ومُعلَنًا — لا يكتشفه مطوّر الواجهة حين يتوقف بناؤه فجأة."
     }
   },
   {
@@ -94,8 +94,8 @@
       "ar": "خطوط نشر وبنية خوادم تعمل باستقرار دون إنذارات متكررة كل أسبوع."
     },
     "body": {
-      "en": "CI/CD, monitoring, backups, and infrastructure as code — set up once, documented, and handed off with a runbook instead of tribal knowledge trapped in one engineer's head.",
-      "ar": "تكامل ونشر مستمر (CI/CD)، مراقبة، نسخ احتياطي، وبنية تحتية ككود — تُعد مرة واحدة، وتُوثّق، وتُسلَّم مع دليل تشغيل بدل معرفة حبيسة في رأس مهندس واحد."
+      "en": "CI/CD, monitoring, backups, and infrastructure as code — set up once, documented, and handed off with a runbook instead of tribal knowledge trapped in one engineer's head.\n\nDeploys should be boring. A merge to the main branch runs the tests, builds the artifact, and ships it, with a rollback that takes one command and no archaeology. If deploying is stressful, people deploy less often, and the releases get bigger and riskier.\n\nBackups are only real once they have been restored. We test the restore path on a schedule and write down how long it takes, so the number you plan around is measured rather than assumed.",
+      "ar": "تكامل ونشر مستمر (CI/CD)، مراقبة، نسخ احتياطي، وبنية تحتية ككود — تُعد مرة واحدة، وتُوثّق، وتُسلَّم مع دليل تشغيل بدل معرفة حبيسة في رأس مهندس واحد.\n\nالنشر يجب أن يكون حدثًا مملًا. الدمج في الفرع الرئيسي يشغّل الاختبارات ويبني النسخة وينشرها، مع تراجع بأمر واحد دون بحث وتنقيب. فحين يكون النشر مرهقًا يقلّ تكراره، وتكبر الإصدارات وتزداد مخاطرها.\n\nوالنسخ الاحتياطي لا يصير حقيقيًا إلا بعد استعادته. نختبر مسار الاستعادة دوريًا ونوثّق الزمن الذي يستغرقه، حتى يكون الرقم الذي تخطط على أساسه مقيسًا لا مفترضًا."
     }
   },
   {
@@ -111,8 +111,8 @@
       "ar": "رأي تقني خارجي حول بنيتكم التقنية، فريقكم، أو قرار البناء مقابل الشراء."
     },
     "body": {
-      "en": "Architecture reviews, code audits, and vendor evaluations for teams that need a second opinion before a decision that's expensive to reverse.",
-      "ar": "مراجعات معمارية، تدقيق كود، وتقييم موردين للفرق التي تحتاج رأيًا ثانيًا قبل قرار مكلف التراجع عنه."
+      "en": "Architecture reviews, code audits, and vendor evaluations for teams that need a second opinion before a decision that's expensive to reverse.\n\nAn engagement is usually two weeks: we read the code, talk to the people maintaining it, and come back with a written assessment that separates what is actually urgent from what merely looks untidy.\n\nThe deliverable is a document and a conversation, not a proposal to rebuild everything with us. Plenty of these end with \"your stack is fine, here are the three things to fix\" — and that is a successful outcome, not a lost sale.",
+      "ar": "مراجعات معمارية، تدقيق كود، وتقييم موردين للفرق التي تحتاج رأيًا ثانيًا قبل قرار مكلف التراجع عنه.\n\nيستغرق العمل عادة أسبوعين: نقرأ الكود، ونتحدث مع من يتولون صيانته، ثم نعود بتقييم مكتوب يفصل ما هو عاجل فعلًا عمّا يبدو غير مرتب فحسب.\n\nوالمُخرَج وثيقة وحوار، لا عرض لإعادة بناء كل شيء معنا. كثير من هذه المراجعات ينتهي بعبارة «بنيتكم التقنية سليمة، وهذه ثلاثة أشياء تحتاج إصلاحًا» — وهذه نتيجة ناجحة لا صفقة ضائعة."
     }
   }
 ]

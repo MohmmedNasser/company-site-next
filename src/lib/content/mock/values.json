@@ -1,0 +1,68 @@
+[
+  {
+    "id": "value-ship-it",
+    "icon": "Rocket",
+    "order": 1,
+    "title": { "en": "Shipped beats perfect", "ar": "التسليم قبل الكمال" },
+    "description": {
+      "en": "A feature in production teaches you more in a week than a prototype teaches you in a quarter. We cut scope before we cut quality, and we put things in front of real users early.",
+      "ar": "ميزة تعمل في الإنتاج تعلّمك في أسبوع أكثر مما يعلّمك نموذج أولي في ثلاثة أشهر. نقلّص النطاق قبل أن نقلّص الجودة، ونضع العمل أمام مستخدمين حقيقيين مبكرًا."
+    }
+  },
+  {
+    "id": "value-senior-only",
+    "icon": "Users",
+    "order": 2,
+    "title": {
+      "en": "The team you meet is the team you get",
+      "ar": "الفريق الذي تقابله هو الفريق الذي ينفّذ"
+    },
+    "description": {
+      "en": "No handover from the people who sold the work to the people who do it. The engineers in your first call are the ones writing the code and deploying it.",
+      "ar": "لا تسليم من فريق البيع إلى فريق التنفيذ. المهندسون في أول مكالمة هم من يكتبون الكود وينشرونه."
+    }
+  },
+  {
+    "id": "value-own-it",
+    "icon": "KeyRound",
+    "order": 3,
+    "title": { "en": "You own everything we build", "ar": "كل ما نبنيه ملكك" },
+    "description": {
+      "en": "Your repositories, your cloud accounts, your domains, from day one. No proprietary layer you have to keep paying us to maintain, and no lock-in dressed up as a platform.",
+      "ar": "مستودعاتك وحساباتك السحابية ونطاقاتك باسمك من اليوم الأول. لا طبقة مغلقة تدفع لنا لصيانتها، ولا ارتباط إجباري يُقدَّم في صورة منصة."
+    }
+  },
+  {
+    "id": "value-plain-language",
+    "icon": "MessageSquare",
+    "order": 4,
+    "title": { "en": "Plain language, always", "ar": "لغة واضحة دائمًا" },
+    "description": {
+      "en": "Status in sentences anyone can act on, not a burndown chart that hides the one thing that slipped. If a deadline is at risk you hear it from us the week it happens.",
+      "ar": "تقارير بجُمل يفهمها الجميع، لا رسم بياني يخفي ما تأخّر فعلًا. وإن كان موعد التسليم في خطر تسمعها منا في الأسبوع نفسه."
+    }
+  },
+  {
+    "id": "value-maintainable",
+    "icon": "Wrench",
+    "order": 5,
+    "title": { "en": "Built to be changed", "ar": "مبني ليتغيّر" },
+    "description": {
+      "en": "The real test of a codebase is the sixth month, not the launch. Tests, typed boundaries, and a README your next developer can start from without calling us.",
+      "ar": "الاختبار الحقيقي لأي كود هو الشهر السادس لا يوم الإطلاق. اختبارات، وحدود مكتوبة بأنواع واضحة، وتوثيق يبدأ منه مطوّرك التالي دون أن يتصل بنا."
+    }
+  },
+  {
+    "id": "value-say-no",
+    "icon": "Compass",
+    "order": 6,
+    "title": {
+      "en": "We say no to the wrong project",
+      "ar": "نرفض المشروع غير المناسب"
+    },
+    "description": {
+      "en": "If an off-the-shelf tool solves it for a tenth of the cost, we will tell you that in the first call. We would rather lose the engagement than build something you regret.",
+      "ar": "إن كان هناك حل جاهز يفي بالغرض بعُشر التكلفة، سنقولها لك في أول مكالمة. نفضّل خسارة المشروع على بناء شيء تندم عليه."
+    }
+  }
+]

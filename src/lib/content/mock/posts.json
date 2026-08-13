@@ -2,7 +2,7 @@
   {
     "id": "post-why-nextjs",
     "slug": "why-we-chose-nextjs",
-    "coverImage": "/blog/why-we-chose-nextjs.jpg",
+    "coverImage": "https://picsum.photos/seed/why-we-chose-nextjs/1600/900",
     "publishedAt": "2026-06-15",
     "order": 1,
     "author": { "en": "Mona Hesham", "ar": "منى هشام" },
@@ -15,48 +15,148 @@
       "ar": "App Router، العرض الثابت، وإطار عمل واحد لكل من المواقع التسويقية ولوحات التحكم."
     },
     "body": {
-      "en": "For most client projects we don't need a fully custom backend framework on day one — we need pages that render fast, an admin surface that can come later, and a deploy story that doesn't require a DevOps hire. Next.js's App Router gives us static rendering for marketing pages and server components for anything that needs live data, in the same codebase.",
-      "ar": "في معظم مشاريع العملاء لا نحتاج إطار خلفية مخصصًا بالكامل من اليوم الأول — نحتاج صفحات تُعرض بسرعة، ولوحة تحكم يمكن إضافتها لاحقًا، وقصة نشر لا تتطلب توظيف مهندس DevOps. يمنحنا App Router في Next.js عرضًا ثابتًا للصفحات التسويقية ومكونات خادم لأي شيء يحتاج بيانات حية، في نفس قاعدة الكود."
+      "en": "For most client projects we don't need a fully custom backend framework on day one — we need pages that render fast, an admin surface that can come later, and a deploy story that doesn't require a DevOps hire. Next.js's App Router gives us static rendering for marketing pages and server components for anything that needs live data, in the same codebase.\n\nThe part that actually decided it was the boundary. Being able to say \"this component runs on the server, that one runs in the browser\" as a one-line directive, rather than as an architectural split across two repositories, removes a whole category of decisions from every project.\n\nIt is not free. The App Router's caching model has caught us out more than once, and the answer to \"why is this page dynamic?\" is rarely obvious the first time. We have accepted that cost because the alternative — a separate SPA and a separate CMS, wired together per project — cost more, every time.",
+      "ar": "في معظم مشاريع العملاء لا نحتاج إطار خلفية مخصصًا بالكامل من اليوم الأول — نحتاج صفحات تُعرض بسرعة، ولوحة تحكم يمكن إضافتها لاحقًا، وقصة نشر لا تتطلب توظيف مهندس DevOps. يمنحنا App Router في Next.js عرضًا ثابتًا للصفحات التسويقية ومكونات خادم لأي شيء يحتاج بيانات حية، في نفس قاعدة الكود.\n\nالأمر الذي حسم الاختيار فعلًا هو الحدود الواضحة. أن تقول «هذا المكوّن يعمل على الخادم وذاك يعمل في المتصفح» بسطر واحد، بدل أن يكون انقسامًا معماريًا بين مستودعين، يزيح فئة كاملة من القرارات عن كل مشروع.\n\nوهذا ليس بلا ثمن. نموذج التخزين المؤقت في App Router أوقعنا في الخطأ أكثر من مرة، وإجابة سؤال «لماذا صارت هذه الصفحة ديناميكية؟» نادرًا ما تكون واضحة من أول مرة. قبلنا هذه الكلفة لأن البديل — تطبيق SPA منفصل ونظام إدارة محتوى منفصل يُوصلان يدويًا في كل مشروع — كان أغلى في كل مرة."
     }
   },
   {
     "id": "post-laravel-json-translations",
     "slug": "laravel-json-columns-for-translations",
-    "coverImage": "/blog/laravel-json-columns-for-translations.jpg",
+    "coverImage": "https://picsum.photos/seed/laravel-json-columns/1600/900",
     "publishedAt": "2026-05-02",
     "order": 2,
     "author": { "en": "Tarek Ismail", "ar": "طارق إسماعيل" },
     "title": {
-      "en": "Using JSON Columns for Multilingual Content in Laravel",
-      "ar": "استخدام أعمدة JSON للمحتوى متعدد اللغات في Laravel"
+      "en": "Storing Translations in JSON Columns, and When Not To",
+      "ar": "تخزين الترجمات في أعمدة JSON، ومتى لا تفعل ذلك"
     },
     "excerpt": {
-      "en": "Why a separate translations table is often the wrong call at small-to-medium scale.",
-      "ar": "لماذا يكون جدول ترجمات منفصل غالبًا خيارًا خاطئًا في الحجم الصغير إلى المتوسط."
+      "en": "One column per translatable field beats a translations table — until you need to query inside it.",
+      "ar": "عمود واحد لكل حقل قابل للترجمة أفضل من جدول ترجمات — إلى أن تحتاج للبحث داخله."
     },
     "body": {
-      "en": "A separate translations table looks like the 'correct' normalized design, until you're writing a join for every single list query. For a site with two languages and a few thousand rows per table, a JSON column holding {\"en\": ..., \"ar\": ...} keeps queries simple and lets Eloquent resolve the right string with a one-line accessor.",
-      "ar": "يبدو جدول الترجمات المنفصل التصميم المعياري 'الصحيح'، إلى أن تجد نفسك تكتب join لكل استعلام قائمة. لموقع بلغتين وآلاف قليلة من الصفوف في كل جدول، يبقي عمود JSON بالشكل {\"en\": ..., \"ar\": ...} الاستعلامات بسيطة، ويسمح لـEloquent بإرجاع النص الصحيح عبر accessor من سطر واحد."
+      "en": "A separate translations table is the textbook answer, and for a bilingual site it is usually the wrong one. Every read turns into a join, every write into two statements, and the model layer grows a set of accessors whose only job is to hide that from the rest of the app.\n\nA JSON column holding `{\"ar\": \"…\", \"en\": \"…\"}` collapses all of that. The record is one row, the locale fallback is one accessor, and adding a third language is a data change rather than a migration.\n\nThe line to watch is querying. The moment you need to sort or filter by the translated value — an alphabetical index, a search box — you are writing database-specific JSON path expressions, and the join you avoided starts looking cheap. Our rule: JSON until something needs to query inside it, then that field alone moves out.",
+      "ar": "جدول الترجمات المنفصل هو الإجابة المدرسية، وفي موقع ثنائي اللغة يكون عادةً الإجابة الخاطئة. كل قراءة تتحول إلى join، وكل كتابة إلى أمرين، وتنمو طبقة النماذج بمجموعة دوال وظيفتها الوحيدة إخفاء ذلك عن بقية التطبيق.\n\nعمود JSON يحمل `{\"ar\": \"…\", \"en\": \"…\"}` يختصر هذا كله. السجل صف واحد، والرجوع إلى لغة بديلة دالة واحدة، وإضافة لغة ثالثة تغيير في البيانات لا ترحيل في المخطط.\n\nالحد الذي ينبغي مراقبته هو الاستعلام. في اللحظة التي تحتاج فيها للترتيب أو التصفية حسب النص المترجم — فهرس أبجدي، أو مربع بحث — تجد نفسك تكتب تعبيرات مسار JSON خاصة بقاعدة بيانات بعينها، ويبدو الـ join الذي تجنبته رخيصًا فجأة. قاعدتنا: JSON حتى يحتاج شيء للاستعلام داخله، وعندها يخرج ذلك الحقل وحده."
     }
   },
   {
     "id": "post-performance-budget",
     "slug": "performance-budget-for-marketing-sites",
-    "coverImage": "/blog/performance-budget-for-marketing-sites.jpg",
+    "coverImage": "https://picsum.photos/seed/performance-budget/1600/900",
     "publishedAt": "2026-03-20",
     "order": 3,
     "author": { "en": "Mona Hesham", "ar": "منى هشام" },
     "title": {
-      "en": "Setting a Performance Budget for Marketing Sites",
-      "ar": "وضع ميزانية أداء لمواقع التسويق"
+      "en": "Agreeing a Performance Budget Before the First Component",
+      "ar": "الاتفاق على ميزانية أداء قبل أول مكوّن"
     },
     "excerpt": {
-      "en": "A hero animation is not worth a 4-second LCP on a mid-range phone.",
-      "ar": "لا تستحق حركة الواجهة الرئيسية أن تكلفك LCP بأربع ثوانٍ على هاتف متوسط."
+      "en": "A number everyone signed off on turns \"the site feels slow\" into a bug with an owner.",
+      "ar": "رقم وافق عليه الجميع يحوّل «الموقع يبدو بطيئًا» إلى خلل له مسؤول."
     },
     "body": {
-      "en": "Every marketing site we ship gets a written budget before the first component exists: LCP under 2.5s on throttled 4G, one WebGL canvas maximum, and a static fallback for anything that can't hit that number on a mid-range device. Agreeing on the number before the design gets attached to it is what makes the budget survive contact with a client who loves the hero animation.",
-      "ar": "كل موقع تسويقي نسلّمه يحصل على ميزانية أداء مكتوبة قبل بناء أول مكون: LCP أقل من 2.5 ثانية على اتصال 4G مخنوق، لوحة رسم WebGL واحدة كحد أقصى، وبديل ثابت لأي شيء لا يحقق هذا الرقم على جهاز متوسط. الاتفاق على الرقم قبل أن يتعلق به التصميم هو ما يجعل الميزانية تصمد أمام عميل معجب بحركة الواجهة الرئيسية."
+      "en": "Performance work added at the end of a project is a negotiation. Performance work agreed at the start is a requirement. The difference is entirely in when the number gets written down.\n\nWe set two: a total JavaScript budget for the route, and a Largest Contentful Paint target measured on a mid-range Android over a throttled connection — not on the developer's laptop. Both go in the same document as the deadline and the scope.\n\nWhat changes is the conversation. \"This carousel library costs 40 KB\" stops being a technical aside and becomes a trade against a number someone already approved. Most of the time the library still ships. Sometimes it doesn't, and nobody has to argue about taste.",
+      "ar": "العمل على الأداء في نهاية المشروع تفاوض. والعمل عليه من البداية شرط. والفارق كله في توقيت تدوين الرقم.\n\nنحدد رقمين: ميزانية إجمالية لحجم JavaScript في المسار، وهدف لـ Largest Contentful Paint يُقاس على هاتف أندرويد متوسط عبر اتصال مقيّد — لا على جهاز المطوّر. ويوضع الرقمان في نفس الوثيقة التي تضم الموعد النهائي والنطاق.\n\nما يتغير هو الحوار نفسه. تصبح جملة «مكتبة العرض الدوّار هذه تكلف 40 كيلوبايت» مقايضة مقابل رقم وافق عليه أحدهم مسبقًا، لا ملاحظة تقنية جانبية. وفي الغالب تبقى المكتبة، وأحيانًا لا تبقى، دون أن يضطر أحد للجدال في الذوق."
+    }
+  },
+  {
+    "id": "post-rtl-is-not-a-flip",
+    "slug": "rtl-is-not-a-flip",
+    "coverImage": "https://picsum.photos/seed/rtl-is-not-a-flip/1600/900",
+    "publishedAt": "2026-02-11",
+    "order": 4,
+    "author": { "en": "Layla Hassan", "ar": "ليلى حسن" },
+    "title": {
+      "en": "RTL Is Not a Mirror of Your Left-to-Right Layout",
+      "ar": "التصميم من اليمين لليسار ليس انعكاسًا لتصميمك الآخر"
+    },
+    "excerpt": {
+      "en": "Logical properties get you most of the way. Icons, numbers, and charts are where teams get caught.",
+      "ar": "الخصائص المنطقية تقطع بك معظم الطريق. الأيقونات والأرقام والرسوم البيانية هي ما يوقع الفرق."
+    },
+    "body": {
+      "en": "Switching from `padding-left` to `padding-inline-start` fixes the layout, and it does it everywhere at once. That part is genuinely a solved problem, and any project still writing physical properties is choosing to do the work twice.\n\nWhat logical properties do not solve is meaning. An arrow pointing at the next item should mirror. A play button should not. A checkmark should not. A chart's time axis usually should not, because the convention readers carry is stronger than the page's direction. Each of these is a judgement, and the only way to get them right is to look at the page in both directions.\n\nNumbers are the other trap. Latin digits inside Arabic text are correct and expected in most of the region, but a typeface's Arabic and Latin glyphs rarely share a baseline or an optical size, so a table of figures that looked fine in English can come apart. Decide the numeral system once, write it down, and set the type accordingly.",
+      "ar": "الانتقال من `padding-left` إلى `padding-inline-start` يصلح التخطيط، ويصلحه في كل مكان دفعة واحدة. هذا الجزء مشكلة محلولة فعلًا، وأي مشروع ما زال يكتب الخصائص الفيزيائية يختار أن ينجز العمل مرتين.\n\nما لا تحله الخصائص المنطقية هو المعنى. السهم الذي يشير إلى العنصر التالي يجب أن ينعكس. وزر التشغيل لا يجب. وعلامة الصح لا يجب. ومحور الزمن في رسم بياني غالبًا لا يجب، لأن العرف الذي يحمله القارئ أقوى من اتجاه الصفحة. كل واحدة من هذه حالة تقدير، والطريقة الوحيدة لضبطها هي النظر إلى الصفحة في الاتجاهين.\n\nوالأرقام هي الفخ الآخر. الأرقام اللاتينية داخل نص عربي صحيحة ومتوقعة في معظم المنطقة، لكن المحارف العربية واللاتينية في أي خط نادرًا ما تتشارك خط الأساس أو الحجم البصري، فجدول أرقام بدا سليمًا بالإنجليزية قد ينهار. احسم نظام الأرقام مرة واحدة، ودوّنه، واضبط الخط على أساسه."
+    }
+  },
+  {
+    "id": "post-migrations-not-backups",
+    "slug": "we-test-restores-not-backups",
+    "coverImage": "https://picsum.photos/seed/we-test-restores/1600/900",
+    "publishedAt": "2026-01-19",
+    "order": 5,
+    "author": { "en": "Omar Said", "ar": "عمر سعيد" },
+    "title": {
+      "en": "A Backup You Have Never Restored Is a Guess",
+      "ar": "نسخة احتياطية لم تستعدها يومًا مجرد تخمين"
+    },
+    "excerpt": {
+      "en": "The number that matters is how long a restore takes, and you only get it by doing one.",
+      "ar": "الرقم المهم هو المدة التي تستغرقها الاستعادة، ولا تعرفها إلا بتنفيذها."
+    },
+    "body": {
+      "en": "Every project we inherit has backups. Roughly none of them have a documented restore time, which means nobody can answer the only question that matters during an incident: how long until we are back?\n\nSo we schedule a restore. A real one, into a scratch environment, from the most recent artifact, timed end to end. The first run is always slower than anyone guessed — usually because of a step nobody had written down, like a credential that only lives in one person's password manager.\n\nThat first number is the deliverable. Once it exists it can be argued with, budgeted against, and improved. Before it exists, \"we have backups\" is a feeling.",
+      "ar": "كل مشروع نرثه لديه نسخ احتياطية. وتقريبًا لا أحد منها لديه زمن استعادة موثّق، ما يعني أن لا أحد يستطيع الإجابة عن السؤال الوحيد المهم أثناء العطل: متى نعود للعمل؟\n\nلذلك نجدول عملية استعادة. استعادة حقيقية، إلى بيئة تجريبية، من أحدث نسخة، ومقيسة من البداية إلى النهاية. التجربة الأولى دائمًا أبطأ مما توقّع الجميع — عادةً بسبب خطوة لم يدوّنها أحد، مثل بيانات دخول لا توجد إلا في مدير كلمات مرور شخص واحد.\n\nذلك الرقم الأول هو المُخرَج. فور وجوده يمكن مناقشته، وتخصيص ميزانية له، وتحسينه. وقبل وجوده تبقى عبارة «لدينا نسخ احتياطية» مجرد شعور."
+    }
+  },
+  {
+    "id": "post-design-tokens-first",
+    "slug": "design-tokens-before-screens",
+    "coverImage": "https://picsum.photos/seed/design-tokens-first/1600/900",
+    "publishedAt": "2025-12-08",
+    "order": 6,
+    "author": { "en": "Layla Hassan", "ar": "ليلى حسن" },
+    "title": {
+      "en": "Build the Token Layer Before the Tenth Screen",
+      "ar": "ابنِ طبقة الرموز التصميمية قبل الشاشة العاشرة"
+    },
+    "excerpt": {
+      "en": "The first screen costs the same either way. The difference shows up around the fourth.",
+      "ar": "الشاشة الأولى تكلف نفس الشيء في الحالتين. الفارق يظهر عند الرابعة."
+    },
+    "body": {
+      "en": "Naming every colour, spacing step, and radius before designing the second screen feels like overhead, and for exactly one screen it is. The cost curve crosses somewhere around the fourth, and after that the gap only widens.\n\nThe test is not whether the values are in a file. It is whether a component can be written without inventing one. If a developer has to pick a padding that isn't on the scale, the scale is incomplete and the next developer will pick a different number for the same situation.\n\nWe enforce it the boring way: raw hex and arbitrary values are a review failure, not a style preference. That sounds strict until you watch a rebrand land as a single-file change.",
+      "ar": "تسمية كل لون وخطوة مسافة ونصف قطر قبل تصميم الشاشة الثانية يبدو عبئًا زائدًا، وهو كذلك فعلًا لشاشة واحدة فقط. منحنى التكلفة يتقاطع عند الشاشة الرابعة تقريبًا، وبعدها تتسع الفجوة فحسب.\n\nوالاختبار ليس وجود القيم في ملف. الاختبار هو إمكانية كتابة مكوّن دون اختراع قيمة جديدة. فإن اضطر مطوّر لاختيار مسافة داخلية ليست على المقياس، فالمقياس ناقص، وسيختار المطوّر التالي رقمًا مختلفًا للحالة نفسها.\n\nنطبّق ذلك بالطريقة المملة: القيم الست عشرية المباشرة والقيم العشوائية سبب لرفض المراجعة، لا مسألة ذوق. يبدو هذا متشددًا إلى أن ترى تغيير هوية كاملة ينفَّذ بتعديل ملف واحد."
+    }
+  },
+  {
+    "id": "post-scoping-the-no",
+    "slug": "the-projects-we-turn-down",
+    "coverImage": "https://picsum.photos/seed/projects-we-turn-down/1600/900",
+    "publishedAt": "2025-11-14",
+    "order": 7,
+    "author": { "en": "Nadia Fahmy", "ar": "نادية فهمي" },
+    "title": {
+      "en": "The Projects We Turn Down, and Why We Say So Early",
+      "ar": "المشاريع التي نرفضها، ولماذا نقولها مبكرًا"
+    },
+    "excerpt": {
+      "en": "If an off-the-shelf tool solves it, saying so in the first call is cheaper for everyone.",
+      "ar": "إن كانت أداة جاهزة تحل المشكلة، فقول ذلك في أول مكالمة أرخص للجميع."
+    },
+    "body": {
+      "en": "A surprising share of the enquiries we get describe a problem that a configured off-the-shelf tool already solves for a fraction of what we would charge to build it. Taking those projects is profitable in the short term and corrosive over any longer window.\n\nSo we say it in the first call, before a proposal exists. Sometimes the answer is that the tool nearly fits and the gap is worth building; more often it fits well enough, and the honest recommendation is a subscription rather than an engagement.\n\nWhat we get back is a referral rate we could not buy. What we give up is a category of work we would have resented halfway through — and clients can tell when you resent their project.",
+      "ar": "نسبة مفاجئة من الطلبات التي تصلنا تصف مشكلة تحلها أداة جاهزة بعد ضبطها، بجزء يسير مما سنتقاضاه لبنائها. قبول هذه المشاريع مربح على المدى القصير ومُضرّ على أي مدى أطول.\n\nلذلك نقولها في أول مكالمة، قبل وجود أي عرض. أحيانًا تكون الأداة قريبة من الحل وتستحق الفجوة أن تُبنى؛ وفي الغالب تكفي كما هي، وتكون التوصية الأمينة اشتراكًا لا مشروعًا.\n\nما نحصل عليه في المقابل معدل ترشيح لا يمكن شراؤه. وما نتنازل عنه فئة من العمل كنا سنتضجر منها في منتصف الطريق — والعملاء يلاحظون حين تتضجر من مشروعهم."
+    }
+  },
+  {
+    "id": "post-handover-that-sticks",
+    "slug": "a-handover-that-actually-sticks",
+    "coverImage": "https://picsum.photos/seed/handover-that-sticks/1600/900",
+    "publishedAt": "2025-10-02",
+    "order": 8,
+    "author": { "en": "Omar Said", "ar": "عمر سعيد" },
+    "title": {
+      "en": "What a Handover Needs Besides the Repository",
+      "ar": "ما يحتاجه التسليم إلى جانب المستودع"
+    },
+    "excerpt": {
+      "en": "Access, a runbook, and one deploy the client's team performs while we watch.",
+      "ar": "الصلاحيات، ودليل تشغيل، ونشرة واحدة ينفذها فريق العميل ونحن نراقب."
+    },
+    "body": {
+      "en": "Handing over a repository is the easy part and the part everyone focuses on. What breaks three months later is never the code — it is a domain registered to an email nobody checks, or a deploy that only ever ran from one machine.\n\nSo the handover checklist is mostly access. Registrar, DNS, cloud account, error tracker, analytics, and the CI secrets, all transferred to the client's own organisation rather than shared from ours. If we still hold a credential, the handover is not finished.\n\nThe last item is a deploy the client's team runs themselves, from their machine, while we are on the call to answer questions and not to touch the keyboard. Anything the runbook got wrong surfaces in that half hour, while there is still someone around who knows the answer.",
+      "ar": "تسليم المستودع هو الجزء السهل وهو الجزء الذي يركز عليه الجميع. وما ينهار بعد ثلاثة أشهر ليس الكود أبدًا — بل نطاق مسجّل ببريد لا يتابعه أحد، أو نشر لم يُنفَّذ يومًا إلا من جهاز واحد.\n\nلذلك فإن قائمة التسليم في معظمها صلاحيات. مسجّل النطاق، وDNS، والحساب السحابي، ومتتبع الأخطاء، والتحليلات، ومفاتيح CI، تُنقل كلها إلى مؤسسة العميل نفسها لا تُشارَك من مؤسستنا. وإن بقي بحوزتنا مفتاح واحد فالتسليم لم يكتمل.\n\nوالبند الأخير نشرة ينفذها فريق العميل بنفسه من جهازه، ونحن على المكالمة للإجابة عن الأسئلة لا للمس لوحة المفاتيح. وكل خطأ في دليل التشغيل يظهر في تلك النصف ساعة، وما زال هناك من يعرف الإجابة."
     }
   }
 ]

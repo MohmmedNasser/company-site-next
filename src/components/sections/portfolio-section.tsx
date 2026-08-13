@@ -29,7 +29,10 @@ export default async function PortfolioSection({
   projects,
 }: PortfolioSectionProps) {
   const tNav = await getTranslations("common.nav");
-  const tPortfolio = await getTranslations("home.portfolio");
+  // Moved to `common` when /portfolio started rendering the same labels —
+  // the i18n-keys rule is that anything used on two or more pages lives
+  // there rather than under one page's namespace.
+  const tCommon = await getTranslations("common");
 
   return (
     <Container as="section" className="py-80 md:py-96">
@@ -49,13 +52,13 @@ export default async function PortfolioSection({
           <Reveal key={project.id} delay={(index % 2) * 0.08}>
             <PortfolioCard
               project={project}
-              categoryLabel={tPortfolio(`categories.${project.category}`)}
-              statusLabel={tPortfolio(
+              categoryLabel={tCommon(`projectCategories.${project.category}`)}
+              statusLabel={tCommon(
                 project.status === "shipped"
-                  ? "status.shipped"
-                  : "status.inDevelopment",
+                  ? "projectStatus.shipped"
+                  : "projectStatus.inDevelopment",
               )}
-              viewProjectLabel={tPortfolio("viewProjectLabel")}
+              viewProjectLabel={tCommon("actions.viewProject")}
             />
           </Reveal>
         ))}

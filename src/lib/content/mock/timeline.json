@@ -1,0 +1,69 @@
+[
+  {
+    "id": "milestone-founded",
+    "year": "2019",
+    "status": "done",
+    "order": 1,
+    "title": { "en": "Two people and one client", "ar": "شخصان وعميل واحد" },
+    "description": {
+      "en": "Started as a contract for a Cairo logistics operator whose dispatch board still ran on a spreadsheet. That build paid for the second year.",
+      "ar": "بدأنا بعقد مع شركة نقل في القاهرة كانت تدير جدول رحلاتها على ملف Excel. ذلك المشروع موّل سنتنا الثانية."
+    }
+  },
+  {
+    "id": "milestone-first-product",
+    "year": "2021",
+    "status": "done",
+    "order": 2,
+    "title": {
+      "en": "First product to 100,000 users",
+      "ar": "أول منتج يتجاوز 100 ألف مستخدم"
+    },
+    "description": {
+      "en": "A retail app we built in 2020 crossed six figures of monthly active users, which forced us to get serious about load testing and on-call.",
+      "ar": "تطبيق تجزئة بنيناه عام 2020 تجاوز مئة ألف مستخدم نشط شهريًا، وهو ما دفعنا للجدّية في اختبارات الحمل والمناوبة الفنية."
+    }
+  },
+  {
+    "id": "milestone-design-system",
+    "year": "2023",
+    "status": "done",
+    "order": 3,
+    "title": {
+      "en": "One design system, every project",
+      "ar": "نظام تصميم واحد لكل المشاريع"
+    },
+    "description": {
+      "en": "Stopped restyling from scratch per client. Tokens, primitives, and a documented contrast policy now carry from one engagement to the next.",
+      "ar": "توقّفنا عن إعادة التصميم من الصفر لكل عميل. صارت الرموز التصميمية والمكوّنات الأساسية وسياسة تباين موثّقة تنتقل من مشروع إلى آخر."
+    }
+  },
+  {
+    "id": "milestone-team-twelve",
+    "year": "2025",
+    "status": "in-progress",
+    "order": 4,
+    "title": {
+      "en": "Twelve engineers, still one team",
+      "ar": "اثنا عشر مهندسًا، وفريق واحد"
+    },
+    "description": {
+      "en": "Growing without splitting into account managers and doers. Everyone who joins ships code in their first fortnight.",
+      "ar": "ننمو دون أن ننقسم إلى مديري حسابات ومنفّذين. كل من ينضم إلينا يسلّم كودًا خلال أسبوعين."
+    }
+  },
+  {
+    "id": "milestone-open-source",
+    "year": "2026",
+    "status": "todo",
+    "order": 5,
+    "title": {
+      "en": "Opening the internal toolkit",
+      "ar": "فتح مصدر أدواتنا الداخلية"
+    },
+    "description": {
+      "en": "The deploy templates and content layer we reuse on every project are being cleaned up for a public release.",
+      "ar": "قوالب النشر وطبقة المحتوى التي نعيد استخدامها في كل مشروع يجري تجهيزها لإصدار عام."
+    }
+  }
+]

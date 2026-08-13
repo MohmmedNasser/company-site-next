@@ -1,10 +1,11 @@
-import type {
-  ContactPayload,
-  ContactResult,
-  ContentRepository,
-  NewsletterPayload,
-  NewsletterResult,
-  ProjectFilter,
+import {
+  POSTS_PER_PAGE,
+  type ContactPayload,
+  type ContactResult,
+  type ContentRepository,
+  type NewsletterPayload,
+  type NewsletterResult,
+  type ProjectFilter,
 } from "../repository";
 import type {
   Client,
@@ -14,7 +15,10 @@ import type {
   Project,
   Service,
   SiteSettings,
+  TeamMember,
   Testimonial,
+  TimelineEntry,
+  ValueItem,
 } from "../types";
 
 import clientsData from "./clients.json";
@@ -24,7 +28,10 @@ import processStepsData from "./process-steps.json";
 import projectsData from "./projects.json";
 import servicesData from "./services.json";
 import settingsData from "./settings.json";
+import teamData from "./team.json";
 import testimonialsData from "./testimonials.json";
+import timelineData from "./timeline.json";
+import valuesData from "./values.json";
 
 const services = servicesData as Service[];
 // Project.status is a string union; JSON imports infer plain `string`, so
@@ -35,9 +42,12 @@ const clients = clientsData as Client[];
 const posts = postsData as Post[];
 const processSteps = processStepsData as ProcessStep[];
 const faqItems = faqData as FaqItem[];
+const teamMembers = teamData as TeamMember[];
+const values = valuesData as ValueItem[];
+// TimelineEntry.status is a string union, same JSON-import widening
+// Project.status hits above — hence the same unknown-cast escape hatch.
+const timeline = timelineData as unknown as TimelineEntry[];
 const settings = settingsData as SiteSettings;
-
-const POSTS_PER_PAGE = 6;
 
 const byOrder = <T extends { order: number }>(items: T[]): T[] =>
   [...items].sort((a, b) => a.order - b.order);
@@ -77,6 +87,18 @@ export const mockRepository: ContentRepository = {
   },
   async getPost(slug) {
     return posts.find((post) => post.slug === slug) ?? null;
+  },
+  async getPostCount() {
+    return posts.length;
+  },
+  async getTeamMembers() {
+    return byOrder(teamMembers);
+  },
+  async getValues() {
+    return byOrder(values);
+  },
+  async getTimeline() {
+    return byOrder(timeline);
   },
   async getSettings() {
     return settings;

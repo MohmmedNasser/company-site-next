@@ -8,18 +8,30 @@
       "en": "We skip the fluff, pitch decks, and endless meetings. Just high-performing websites, scalable software, and stunning social media designs built by senior experts to grow your brand.",
       "ar": "نتجاوز العروض الطويلة والاجتماعات غير المنتجة. نقدم لك مواقع فائقة الأداء، برمجيات قابلة للتوسع، وتصاميم ابتكارية ينفذها خبراء ليكونوا امتداداً حقيقياً لفريقك.."
     },
-    "ctaPrimary": { "en": "Start a project", "ar": "ابدأ مشروعك" },
-    "ctaSecondary": { "en": "See our work", "ar": "شاهد أعمالنا" },
+    "ctaPrimary": {
+      "en": "Start a project",
+      "ar": "ابدأ مشروعك"
+    },
+    "ctaSecondary": {
+      "en": "See our work",
+      "ar": "شاهد أعمالنا"
+    },
     "trust": {
       "rating": "4.9",
       "ratingScale": "5",
       "clientsCount": "100+",
-      "clientsLabel": { "en": "Happy clients", "ar": "عميل سعيد" }
+      "clientsLabel": {
+        "en": "Happy clients",
+        "ar": "عميل سعيد"
+      }
     }
   },
   "sections": {
     "about": {
-      "heading": { "en": "About us", "ar": "من نحن" },
+      "heading": {
+        "en": "About us",
+        "ar": "من نحن"
+      },
       "description": {
         "en": "A small team that ships production software, not prototypes.",
         "ar": "فريق صغير يسلّم برمجيات جاهزة للإنتاج، لا نماذج أولية."
@@ -50,35 +62,50 @@
       }
     },
     "services": {
-      "heading": { "en": "Services", "ar": "الخدمات" },
+      "heading": {
+        "en": "Services",
+        "ar": "الخدمات"
+      },
       "description": {
         "en": "We work across the full stack, from the first line of product strategy to the infrastructure it runs on in production. Every engagement is scoped around a real business outcome, not a generic deliverables list. Six focus areas, one team that stays accountable end to end.",
         "ar": "نعمل على المنتج بالكامل، من أول قرار استراتيجي إلى البنية التحتية التي يعمل عليها في الإنتاج. كل مشروع يُصمَّم حول هدف عمل حقيقي، لا قائمة تسليمات عامة. ستة مجالات تخصص، وفريق واحد يبقى مسؤولاً من البداية حتى النهاية."
       }
     },
     "portfolio": {
-      "heading": { "en": "Selected work", "ar": "أعمال مختارة" },
+      "heading": {
+        "en": "Selected work",
+        "ar": "أعمال مختارة"
+      },
       "description": {
         "en": "A few of the products we've shipped for clients.",
         "ar": "بعض المنتجات التي سلّمناها لعملائنا."
       }
     },
     "testimonials": {
-      "heading": { "en": "What clients say", "ar": "ماذا يقول عملاؤنا" },
+      "heading": {
+        "en": "What clients say",
+        "ar": "ماذا يقول عملاؤنا"
+      },
       "description": {
         "en": "In their words, not ours.",
         "ar": "بكلماتهم، لا بكلماتنا."
       }
     },
     "faq": {
-      "heading": { "en": "FAQ", "ar": "الأسئلة الشائعة" },
+      "heading": {
+        "en": "FAQ",
+        "ar": "الأسئلة الشائعة"
+      },
       "description": {
         "en": "Everything else you're wondering.",
         "ar": "كل ما تبقى من تساؤلاتك."
       }
     },
     "clients": {
-      "heading": { "en": "Trusted by", "ar": "يثق بنا" },
+      "heading": {
+        "en": "Trusted by",
+        "ar": "يثق بنا"
+      },
       "description": {
         "en": "Teams across logistics, fintech, retail, and healthcare.",
         "ar": "فرق من قطاعات اللوجستيات، التقنية المالية، التجزئة، والرعاية الصحية."
@@ -95,26 +122,150 @@
       }
     }
   },
+  "pages": {
+    "services": {
+      "intro": {
+        "heading": {
+          "en": "Six things we do, and nothing else.",
+          "ar": "ستة أشياء نتقنها، ولا شيء غيرها."
+        },
+        "description": {
+          "en": "Each one is a full engagement, not a line item: we scope it, build it, deploy it, and stay reachable after handover. If your project needs something outside this list, we will tell you who does it better.",
+          "ar": "كل خدمة منها مشروع كامل لا بند في عرض سعر: نحدّد نطاقها ونبنيها وننشرها ونظل متاحين بعد التسليم. وإن كان مشروعك يحتاج شيئًا خارج هذه القائمة، سنرشدك إلى من يتقنه أكثر."
+        }
+      }
+    },
+    "portfolio": {
+      "intro": {
+        "heading": {
+          "en": "Six products, all still running.",
+          "ar": "ستة منتجات، وكلها ما زالت تعمل."
+        },
+        "description": {
+          "en": "Every project here went live and stayed live. Where we can name the client we have; where the numbers are theirs to share, we have left them out rather than invent a percentage.",
+          "ar": "كل مشروع هنا أُطلق وما زال يعمل. ذكرنا اسم العميل حيث سُمح لنا، وتركنا الأرقام التي تخصّه دون ذكر بدل أن نخترع نسبة مئوية."
+        }
+      }
+    },
+    "blog": {
+      "intro": {
+        "heading": {
+          "en": "Notes from the build.",
+          "ar": "ملاحظات من داخل العمل."
+        },
+        "description": {
+          "en": "Decisions we had to make on real projects, written up while they were still fresh — including the ones we would make differently now.",
+          "ar": "قرارات اضطررنا لاتخاذها في مشاريع حقيقية، كتبناها وهي ما زالت طازجة — بما فيها ما كنا سنقرره اليوم بشكل مختلف."
+        }
+      }
+    },
+    "about": {
+      "intro": {
+        "heading": {
+          "en": "A small studio that stays on the hook.",
+          "ar": "استوديو صغير يبقى مسؤولًا حتى النهاية."
+        },
+        "description": {
+          "en": "Twelve engineers and designers in Cairo, building production software for teams who need it to work on the first day, not the third rewrite.",
+          "ar": "اثنا عشر مهندسًا ومصممًا في القاهرة، نبني برمجيات جاهزة للإنتاج لفرق تحتاجها أن تعمل من اليوم الأول، لا بعد إعادة كتابتها ثلاث مرات."
+        }
+      },
+      "story": {
+        "heading": {
+          "en": "We started because handovers kept failing.",
+          "ar": "بدأنا لأن التسليمات كانت تفشل."
+        },
+        "description": {
+          "en": "Seven years, one operating principle: the people who plan the work are the people who ship it.",
+          "ar": "سبع سنوات، ومبدأ واحد: من يخطّط للعمل هو من يسلّمه."
+        },
+        "body": {
+          "en": "In 2019 we were both working inside agencies that sold projects one way and built them another. A senior team ran the pitch, a junior team inherited the deadline, and the client found out about the gap somewhere around week six.\n\nSo the studio was set up to make that structurally impossible. There is no sales team here. The engineer who scopes your project writes its code, sits on its incidents, and is still reachable a year after launch. That caps how much work we can take at once, and we treat that cap as a feature.\n\nWhat we build has narrowed since then. We turn down brand work, we turn down anything an existing tool already solves, and we say so in the first call. What is left is the work we are genuinely good at: web platforms, mobile apps, and the infrastructure that keeps both of them up.",
+          "ar": "في 2019 كنا نعمل داخل شركات تبيع المشاريع بطريقة وتنفّذها بطريقة أخرى. فريق خبير يقود العرض، وفريق أقل خبرة يرث الموعد النهائي، ويكتشف العميل الفجوة في الأسبوع السادس تقريبًا.\n\nلذلك أُسِّس الاستوديو ليجعل ذلك مستحيلًا من الأساس. لا يوجد هنا فريق مبيعات. المهندس الذي يحدّد نطاق مشروعك هو من يكتب كوده، ويتابع أعطاله، ويظل متاحًا بعد الإطلاق بعام. هذا يحدّ من حجم ما نقبله في الوقت نفسه، ونعتبر هذا الحد ميزة لا قيدًا.\n\nوقد ضاق نطاق ما نبنيه منذ ذلك الحين. نرفض أعمال الهوية البصرية، ونرفض ما تحلّه أداة جاهزة، ونقولها في أول مكالمة. ويبقى ما نجيده فعلًا: منصات الويب، وتطبيقات الجوال، والبنية التي تُبقي الاثنين يعملان."
+        }
+      },
+      "values": {
+        "heading": {
+          "en": "How we work",
+          "ar": "كيف نعمل"
+        },
+        "description": {
+          "en": "Six commitments we will hold to even when a project gets tight. If any of them sounds like a problem for your team, better to find out now.",
+          "ar": "ستة التزامات نتمسّك بها حتى حين يضيق المشروع. إن كان أيٌّ منها لا يناسب فريقك، فالأفضل أن نعرف الآن."
+        }
+      },
+      "team": {
+        "heading": {
+          "en": "The people on your project",
+          "ar": "من سيعمل على مشروعك"
+        },
+        "description": {
+          "en": "Not a directory of everyone who has ever worked here — these are the four you will actually meet.",
+          "ar": "ليست قائمة بكل من عمل معنا يومًا — هؤلاء الأربعة هم من ستقابلهم فعلًا."
+        }
+      },
+      "timeline": {
+        "heading": {
+          "en": "Seven years, five turning points",
+          "ar": "سبع سنوات، وخمس محطات"
+        },
+        "description": {
+          "en": "The moments that changed how the studio operates, including the one still in progress and the one that hasn't happened yet.",
+          "ar": "اللحظات التي غيّرت طريقة عمل الاستوديو، بما فيها ما هو جارٍ الآن وما لم يحدث بعد."
+        }
+      }
+    },
+    "contact": {
+      "intro": {
+        "heading": {
+          "en": "Tell us what you're building.",
+          "ar": "أخبرنا بما تبنيه."
+        },
+        "description": {
+          "en": "One of the engineers who would actually work on it reads every message. We reply within a working day, and we will tell you in the first call if we are not the right studio for it.",
+          "ar": "يقرأ كل رسالة أحد المهندسين الذين سيعملون على المشروع فعلًا. نرد خلال يوم عمل واحد، وسنخبرك في أول مكالمة إن لم نكن الاستوديو المناسب له."
+        }
+      }
+    }
+  },
   "contact": {
     "email": "hello@company-site.example",
     "phone": "+20 100 000 0000",
-    "address": { "en": "Cairo, Egypt", "ar": "القاهرة، مصر" },
-    "city": { "en": "Cairo", "ar": "القاهرة" }
+    "address": {
+      "en": "Cairo, Egypt",
+      "ar": "القاهرة، مصر"
+    },
+    "city": {
+      "en": "Cairo",
+      "ar": "القاهرة"
+    }
   },
   "newsletter": {
-    "heading": { "en": "Keep you in the loop.", "ar": "ابقَ على اطلاع." },
+    "heading": {
+      "en": "Keep you in the loop.",
+      "ar": "ابقَ على اطلاع."
+    },
     "subtext": {
       "en": "Get the latest news and insights, straight to your inbox.",
       "ar": "أحدث الأخبار والرؤى تصل مباشرة إلى بريدك."
     }
   },
   "social": [
-    { "platform": "facebook", "url": "https://facebook.com/companysite" },
+    {
+      "platform": "facebook",
+      "url": "https://facebook.com/companysite"
+    },
     {
       "platform": "linkedin",
       "url": "https://linkedin.com/company/company-site"
     },
-    { "platform": "twitter", "url": "https://twitter.com/companysite" },
-    { "platform": "youtube", "url": "https://youtube.com/@companysite" }
+    {
+      "platform": "twitter",
+      "url": "https://twitter.com/companysite"
+    },
+    {
+      "platform": "youtube",
+      "url": "https://youtube.com/@companysite"
+    }
   ]
 }

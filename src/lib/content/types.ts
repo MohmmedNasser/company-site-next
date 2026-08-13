@@ -87,6 +87,46 @@ export interface Post {
   body: Localized;
 }
 
+// --- /about page content -------------------------------------------------
+
+// Leaner than Service (no slug/body): a team member has no detail page, so
+// `bio` is the full text the card renders, not an excerpt pointing at one.
+export interface TeamMember {
+  id: string;
+  avatar: string;
+  order: number;
+  name: Localized;
+  role: Localized;
+  bio: Localized;
+}
+
+// Same shape as ProcessStep on purpose — a value is an icon + a title + a
+// paragraph, with no detail page — so the Phase 14 admin form for one
+// covers the other with no extra fields.
+export interface ValueItem {
+  id: string;
+  icon: string; // lucide-react icon name, resolved through a render-time map
+  order: number;
+  title: Localized;
+  description: Localized;
+}
+
+// `status` is a StatusCircleState, not a free-form string: the timeline
+// renders it through the existing StatusCircle primitive, so the content
+// layer can only express states that primitive already draws. Marketing
+// pages pass tone="mono" (see status-circle.tsx) — the shape carries the
+// meaning here, not the colour.
+export interface TimelineEntry {
+  id: string;
+  // Plain string, not localized — Western digits in both locales, same
+  // decision as SiteSettings.hero.trust's numerals.
+  year: string;
+  status: "done" | "in-progress" | "todo";
+  order: number;
+  title: Localized;
+  description: Localized;
+}
+
 interface SectionCopy {
   heading: Localized;
   description: Localized;
@@ -99,6 +139,37 @@ interface SectionCopy {
 // shared one for every section.
 interface ProcessSectionCopy extends SectionCopy {
   ctaLabel: Localized;
+}
+
+// Multi-paragraph prose. Stored as a single Localized string with blank
+// lines between paragraphs and split at render time by `toParagraphs()`
+// (src/lib/content/paragraphs.ts) — same storage shape Service.body and
+// Post.body already use, so one convention covers every long-form field
+// instead of prose being an array here and a string there.
+interface ProseSectionCopy extends SectionCopy {
+  body: Localized;
+}
+
+// Copy for an inner page's own sections. Kept in a `pages` block separate
+// from `sections`, because `sections` is specifically the HOME page's
+// section copy keyed by home section — an inner page's sections are not
+// home sections, and folding them in would make that key mean two things.
+// Only an intro: every other block on these pages is rendered from
+// collection records (Service / Project / Post), so there's nothing else
+// here for the admin panel to edit.
+interface IndexPageCopy {
+  intro: SectionCopy;
+}
+
+interface AboutPageCopy {
+  // The page opener: `heading` is the large page heading, `description` the
+  // supporting lede under it — same two fields every other section uses, so
+  // the shape stays uniform (see the comment on `approach` above).
+  intro: SectionCopy;
+  story: ProseSectionCopy;
+  values: SectionCopy;
+  team: SectionCopy;
+  timeline: SectionCopy;
 }
 
 export interface SiteSettings {
@@ -131,6 +202,16 @@ export interface SiteSettings {
     faq: SectionCopy;
     clients: SectionCopy;
     contact: SectionCopy;
+  };
+  // Inner-page copy. One key per page that needs copy of its own; a page
+  // whose every block comes from a collection (a detail page, which is just
+  // one record rendered) doesn't get an entry.
+  pages: {
+    about: AboutPageCopy;
+    services: IndexPageCopy;
+    portfolio: IndexPageCopy;
+    blog: IndexPageCopy;
+    contact: IndexPageCopy;
   };
   contact: {
     email: string;

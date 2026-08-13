@@ -9,7 +9,9 @@ export const content: ContentRepository =
     ? apiRepository
     : mockRepository;
 
+export { POSTS_PER_PAGE } from "./repository";
 export { pick } from "./locale";
+export { toParagraphs } from "./paragraphs";
 export type {
   ContactPayload,
   ContactResult,

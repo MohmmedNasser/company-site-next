@@ -11,19 +11,6 @@
     "services": {
       "categoriesLabel": "المجالات"
     },
-    "portfolio": {
-      "viewProjectLabel": "عرض المشروع",
-      "categories": {
-        "web": "ويب",
-        "mobile": "جوال",
-        "ecommerce": "تجارة إلكترونية",
-        "saas": "SaaS"
-      },
-      "status": {
-        "shipped": "مباشر",
-        "inDevelopment": "قيد التطوير"
-      }
-    },
     "testimonials": {
       "sectionLabel": "آراء العملاء",
       "ctaPrimaryLabel": "احجز مكالمة",
@@ -39,34 +26,74 @@
     },
     "contact": {
       "sectionLabel": "تواصل معنا",
-      "phoneLabel": "اتصل بنا على مدار الساعة",
-      "form": {
-        "nameLabel": "الاسم",
-        "namePlaceholder": "اسمك",
-        "emailLabel": "البريد الإلكتروني",
-        "emailPlaceholder": "you@company.com",
-        "serviceLabel": "الخدمة",
-        "servicePlaceholder": "اختر الخدمة",
-        "budgetLabel": "الميزانية",
-        "budgetPlaceholder": "اختر الميزانية",
-        "messageLabel": "الرسالة",
-        "messagePlaceholder": "أخبرنا عن مشروعك…",
-        "serviceOptions": {
-          "web": "موقع إلكتروني",
-          "mobile": "تطبيق جوال",
-          "ecommerce": "متجر إلكتروني",
-          "saas": "منتج SaaS",
-          "branding": "هوية وتصميم",
-          "other": "شيء آخر"
-        },
-        "budgetOptions": {
-          "under10k": "أقل من 10,000$",
-          "10to25k": "10,000$ – 25,000$",
-          "25to50k": "25,000$ – 50,000$",
-          "over50k": "أكثر من 50,000$",
-          "notSure": "لم أحدد بعد"
-        },
-        "successMessage": "تم الإرسال — سنتواصل معك خلال يوم واحد."
+      "phoneLabel": "اتصل بنا على مدار الساعة"
+    }
+  },
+  "services": {
+    "list": {
+      "viewLabel": "تفاصيل الخدمة"
+    },
+    "detail": {
+      "overviewLabel": "نظرة عامة",
+      "capabilitiesLabel": "ما تشمله",
+      "otherLabel": "خدمات أخرى"
+    }
+  },
+  "portfolio": {
+    "filter": {
+      "groupLabel": "تصفية الأعمال حسب الفئة",
+      "allLabel": "كل الأعمال",
+      "resultCount": "{count, plural, zero {لا مشاريع} one {مشروع واحد} two {مشروعان} few {# مشاريع} many {# مشروعًا} other {# مشروع}}"
+    },
+    "detail": {
+      "overviewLabel": "عن المشروع",
+      "clientLabel": "العميل",
+      "categoryLabel": "الفئة",
+      "statusLabel": "الحالة",
+      "moreLabel": "أعمال أخرى"
+    }
+  },
+  "blog": {
+    "list": {
+      "readLabel": "اقرأ المقال"
+    },
+    "detail": {
+      "authorLabel": "بقلم",
+      "moreLabel": "المزيد للقراءة"
+    },
+    "pagination": {
+      "navLabel": "صفحات المدونة",
+      "previousLabel": "الصفحة السابقة",
+      "nextLabel": "الصفحة التالية",
+      "pageLabel": "صفحة {number}",
+      "positionLabel": "صفحة {current} من {total}"
+    }
+  },
+  "contact": {
+    "details": {
+      "heading": "تواصل معنا مباشرة",
+      "emailLabel": "البريد الإلكتروني",
+      "phoneLabel": "الهاتف",
+      "addressLabel": "المكتب"
+    },
+    "formHeading": "أرسل رسالة"
+  },
+  "about": {
+    "story": {
+      "sectionLabel": "قصتنا"
+    },
+    "values": {
+      "sectionLabel": "مبادئنا"
+    },
+    "team": {
+      "sectionLabel": "الفريق"
+    },
+    "timeline": {
+      "sectionLabel": "مسيرتنا",
+      "status": {
+        "done": "مكتمل",
+        "in-progress": "جارٍ الآن",
+        "todo": "قادم"
       }
     }
   },
@@ -86,7 +113,18 @@
       "sending": "جارٍ الإرسال…",
       "backToTop": "العودة للأعلى",
       "learnMore": "تعرف أكثر",
-      "startProject": "ابدأ مشروعك"
+      "startProject": "ابدأ مشروعك",
+      "viewProject": "عرض المشروع"
+    },
+    "projectCategories": {
+      "web": "ويب",
+      "mobile": "جوال",
+      "ecommerce": "تجارة إلكترونية",
+      "saas": "SaaS"
+    },
+    "projectStatus": {
+      "shipped": "مباشر",
+      "inDevelopment": "قيد التطوير"
     },
     "theme": {
       "light": "فاتح",
@@ -102,6 +140,34 @@
       "invalidEmail": "أدخل بريدًا إلكترونيًا صحيحًا",
       "tooShort": "هذا قصير جدًا",
       "somethingWentWrong": "حدث خطأ ما، حاول مرة أخرى"
+    },
+    "contactForm": {
+      "nameLabel": "الاسم",
+      "namePlaceholder": "اسمك",
+      "emailLabel": "البريد الإلكتروني",
+      "emailPlaceholder": "you@company.com",
+      "serviceLabel": "الخدمة",
+      "servicePlaceholder": "اختر الخدمة",
+      "budgetLabel": "الميزانية",
+      "budgetPlaceholder": "اختر الميزانية",
+      "messageLabel": "الرسالة",
+      "messagePlaceholder": "أخبرنا عن مشروعك…",
+      "serviceOptions": {
+        "web": "موقع إلكتروني",
+        "mobile": "تطبيق جوال",
+        "ecommerce": "متجر إلكتروني",
+        "saas": "منتج SaaS",
+        "branding": "هوية وتصميم",
+        "other": "شيء آخر"
+      },
+      "budgetOptions": {
+        "under10k": "أقل من 10,000$",
+        "10to25k": "10,000$ – 25,000$",
+        "25to50k": "25,000$ – 50,000$",
+        "over50k": "أكثر من 50,000$",
+        "notSure": "لم أحدد بعد"
+      },
+      "successMessage": "تم الإرسال — سنتواصل معك خلال يوم واحد."
     },
     "a11y": {
       "skipToContent": "تخطَّ إلى المحتوى",

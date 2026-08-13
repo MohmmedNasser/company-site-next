@@ -136,3 +136,25 @@ body {
 [dir="rtl"] {
   --marquee-direction: -1;
 }
+
+/*
+ * No-JavaScript fallback for the page-open entrance.
+ *
+ * Motion renders a component's `initial` state into the server HTML, so
+ * every <Entrance> child ships as `opacity: 0; transform: translateY(24px)`
+ * and only becomes visible once hydration runs the animation. Below the
+ * fold that's harmless, but Entrance is used for the PAGE OPENER — the
+ * <h1> and its lede — so if JS never arrives, an inner page renders
+ * visually empty above the fold.
+ *
+ * `scripting: none` matches exactly that case (scripts unsupported or
+ * disabled) and nothing else: it does NOT match a slow or still-pending
+ * script, so this can't fight the animation during a normal load.
+ * !important is required — it has to beat motion's own inline style.
+ */
+@media (scripting: none) {
+  [data-entrance] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
