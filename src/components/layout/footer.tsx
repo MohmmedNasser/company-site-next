@@ -143,7 +143,14 @@ export default async function Footer({ settings }: FooterProps) {
           width to actually reach both edges, the one deliberate exception
           to the fixed type scale for this signature element. No start
           padding here (unlike the Container above it) — full bleed, flush
-          with the true edge, matching the reference. */}
+          with the true edge, matching the reference.
+
+          Colour is --color-text-decorative, not a raw hex: this IS the
+          token's documented purpose (a large, intentionally low-contrast
+          decorative number/word, aria-hidden, never real content a user
+          needs to read) — see the design-system skill's contrast section.
+          Already wired in .theme-footer-light below, so it resolves
+          correctly here regardless of the page's active theme. */}
       <div
         className="flex w-full items-center justify-center overflow-hidden"
         aria-hidden="true"
@@ -154,7 +161,7 @@ export default async function Footer({ settings }: FooterProps) {
             fontFamily: "var(--font-sans-latin), sans-serif",
             fontSize: "clamp(var(--text-96), 22vw, 260px)",
           }}
-          className="pointer-events-none -mb-16 leading-none font-semibold tracking-[-0.03em] whitespace-nowrap text-[#eceaea] select-none sm:-mb-24 lg:-mb-40"
+          className="text-text-decorative pointer-events-none -mb-16 leading-none font-semibold tracking-[-0.03em] whitespace-nowrap select-none sm:-mb-24 lg:-mb-40"
         >
           CODEXA
         </p>

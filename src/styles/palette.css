@@ -44,6 +44,30 @@
      Typography section's decorative-number note. */
   --palette-mono-200: #c4c4c4;
 
+  /* Derived: light-theme hero-silk FLOOR (the folds). Not measured —
+     DESIGN.md's source video is dark-mode only.
+
+     Replaces mono-25 in that role, which made the light hero a flat white
+     rectangle: mono-25 -> mono-0 is a 1.04:1 ramp, i.e. no visible tonal
+     range for the shader to render at all, while dark mode's
+     mono-950 -> mono-500 ramp is 4.48:1. The shader was running and
+     animating in light mode the whole time; it had nothing to draw with.
+
+     Chosen as the darkest floor that keeps BOTH hero text bars with real
+     margin, not as a perceptual mirror of dark mode's ramp. A true mirror
+     in CIE L* lands on ~#747474, which measures 4.31:1 for the subtitle
+     and fails the 4.5:1 body-text bar — light mode simply has less
+     headroom to spend than dark mode does, so its silk is legitimately
+     softer rather than symmetric.
+
+     At this value (ramp 2.07:1 against mono-0):
+       headline (mono-950) on the bare floor .......... 9.55:1  (bar 3:1)
+       subtitle (mono-600) under the 80% scrim stop ... 4.86:1  (bar 4.5:1)
+     Computed against the ramp's darkest point, which is the worst case
+     for both. Going one step darker (#a4a4a4, ramp 2.49:1) still clears
+     at 7.94:1 / 4.73:1 but leaves the subtitle only ~5% over its bar. */
+  --palette-mono-300: #b4b4b4;
+
   /* Measured (DESIGN.md §2, "Secondary/descriptive text"): the low end of
      a ~#8F8F8F–#9A9A9A measured range, not a darker step of mono-450 —
      the two are close, independently sampled points, not a scale. */

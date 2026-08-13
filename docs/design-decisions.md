@@ -111,6 +111,51 @@ ramp only got lighter/purer, never darker.
 **Status colours (`--success`/`--warning`/`--error`) are intentionally
 unchanged** — still green/gold/red. See the open question below.
 
+### Light-mode hero silk — the ramp was invisible, and the earlier note said it couldn't be
+
+The light hero rendered as a flat white rectangle. The cause was not the
+shader failing to run: `--hero-silk-low`/`high` were `mono-25` → `mono-0`
+(`#FAFAFA` → `#FFFFFF`), a **1.04:1** ramp. The shader was animating the
+whole time with no tonal range to draw with, against dark mode's 4.48:1
+(`mono-950` → `mono-500`).
+
+Fixed by adding `--palette-mono-300` (`#B4B4B4`) as the light floor —
+ramp now **2.07:1**.
+
+**Why not a symmetric mirror of the dark ramp.** Mirroring dark mode's span
+in CIE L\* lands on ~`#747474`. That measures 4.31:1 for the subtitle and
+**fails** the 4.5:1 body-text bar. Light mode has less headroom to spend
+than dark mode does — the near-black headline and the `#666666` subtitle
+both sit on it — so the light silk is legitimately softer rather than
+symmetric. This is the same asymmetry the palette already documents
+elsewhere: light mode is derived, not measured, and its constraints are its
+own.
+
+**The floor is bounded on both sides.** Visibility pushes it darker; the
+subtitle's AA bar stops it. Computed against the ramp's darkest point (the
+worst case for both):
+
+| Floor         | Ramp   | Headline (bar 3:1) | Subtitle @ 80% scrim (bar 4.5:1) |
+| ------------- | ------ | ------------------ | -------------------------------- |
+| `#FAFAFA` old | 1.04:1 | 18.97:1            | 5.50:1                           |
+| `#C4C4C4`     | 1.74:1 | 11.35:1            | 4.99:1                           |
+| **`#B4B4B4`** | 2.07:1 | 9.55:1             | **4.86:1**                       |
+| `#A4A4A4`     | 2.49:1 | 7.94:1             | 4.73:1                           |
+| `#747474`     | 4.67:1 | 4.24:1             | 4.31:1 ✗                         |
+
+**The subtitle is the binding constraint, and `HeroScrim` is coupled to
+this value.** At 4.86:1 it has ~8% headroom. Darkening the silk further
+requires strengthening the scrim in the same change, not treating the two as
+independent — `hero-scrim.tsx` now says so at the top.
+
+**A correction to the record:** the previous spot-check note in
+`hero-scrim.tsx` reported light-mode figures of ~16.5:1 / ~5.3:1 and reasoned
+they were safe because "the ramp only got lighter/purer... not darker, so
+the worst case couldn't have gotten meaningfully closer to either bar."
+This change moved it darker — the one direction that reasoning excluded — so
+those numbers described a ramp that no longer exists and have been replaced
+rather than carried forward.
+
 ---
 
 ## 2. The one exception: violet lives only in the logo mark

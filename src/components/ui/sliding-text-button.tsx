@@ -92,7 +92,13 @@ export default function SlidingTextButton({
           BADGE_SIZE_CLASSES[size],
         )}
       >
-        <ArrowUpRight className={ARROW_SIZE_CLASSES[size]} />
+        {/* rtl:-scale-x-100, matching this same icon's treatment in
+            mobile-nav.tsx — an up-right arrow is directional and must
+            mirror under RTL like every other ArrowRight/ChevronRight in
+            this project. */}
+        <ArrowUpRight
+          className={cn(ARROW_SIZE_CLASSES[size], "rtl:-scale-x-100")}
+        />
       </span>
     </button>
   );

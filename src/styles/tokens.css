@@ -140,13 +140,20 @@
      values, so use-token-colors.ts resolves them through getComputedStyle.
      That keeps palette.css authoritative even for the shader.
 
-     Light mode ramps between two near-white tones — pure white crests, a
-     hair-off-white in the folds, mirroring --bg/--card's own relationship.
-     It must NOT bottom out dark: the headline painted over this is
-     --text-primary (near-black in light mode), and a previous version of
-     this ramp using a violet-tinted low end put contrast at risk in the
-     pattern's dark bands. */
-  --hero-silk-low: var(--palette-mono-25);
+     Light mode ramps from pure-white crests down to a mid-light grey in
+     the folds. It previously bottomed out at mono-25 (--bg), which made
+     the ramp 1.04:1 — no tonal range at all, so the shader animated
+     invisibly and the light hero read as a flat white rectangle. mono-300
+     is the darkest floor that keeps the headline and the under-scrim
+     subtitle above their AA bars; see that entry in palette.css for the
+     measured ratios and for why this is deliberately NOT a symmetric
+     mirror of the dark ramp.
+
+     It must still not bottom out FULLY dark: the headline painted over
+     this is --text-primary (near-black in light mode), so the floor is
+     bounded by the headline's 3:1 large-text bar from one side and by
+     visibility from the other. */
+  --hero-silk-low: var(--palette-mono-300);
   --hero-silk-high: var(--palette-mono-0);
 }
 

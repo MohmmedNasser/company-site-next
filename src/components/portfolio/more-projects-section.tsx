@@ -54,9 +54,16 @@ export default async function MoreProjectsSection({
                 <span className="text-12 text-text-secondary font-medium">
                   {project.categoryLabel}
                 </span>
-                <h3 className="text-20 text-text-primary font-semibold">
+                {/* span, not a heading: this page's only <h2> would be the
+                    footer's newsletter heading, so an <h3> here (no <h2>
+                    ancestor) skipped a heading level. Matches the sibling
+                    tail sections' own pattern — OtherServicesSection and
+                    MorePostsSection both use a plain span for the same
+                    "secondary link list" role, since these are link labels
+                    rather than article headings. */}
+                <span className="text-20 text-text-primary font-semibold">
                   {project.title}
-                </h3>
+                </span>
                 <span className="text-13 text-text-primary inline-flex items-center gap-8 font-medium">
                   {tCommon("actions.viewProject")}
                   <ArrowRight

@@ -64,7 +64,7 @@ function LocaleSwitcher() {
       // swap — see header's contrast comment: text-secondary fails AA
       // against the condensed glass surface's worst-case backdrop even at
       // high opacity, so nothing in this header relies on it any more.
-      className="text-13 text-text-primary hover:bg-surface duration-micro rounded-full px-12 py-8 font-medium opacity-70 transition-opacity hover:opacity-100"
+      className="text-13 text-text-primary hover:bg-surface duration-micro shrink-0 rounded-full px-8 py-8 font-medium opacity-70 transition-opacity hover:opacity-100 sm:px-12"
     >
       {target === "ar" ? "AR" : "EN"}
     </button>
@@ -117,11 +117,20 @@ function HeaderContent({ ctaLabel }: { ctaLabel: string }) {
   const t = useTranslations("common");
 
   return (
-    <div className="flex h-full items-center justify-between gap-24 ps-8 pe-8">
+    // gap and padding both step down under `sm` (640px). At 320-390px the
+    // pill is only 288-358px wide and every one of these values is width
+    // the controls don't get — see the small-screen note on <header> below.
+    <div className="flex h-full items-center justify-between gap-8 ps-8 pe-8 sm:gap-24">
       <Link
         href="/"
         aria-label={t("nav.home")}
-        className="duration-micro inline-flex shrink-0 items-center gap-8 py-4 ps-4 pe-12"
+        // min-w-0 is what makes the truncate on the wordmark possible: a
+        // flex item defaults to min-width:auto and refuses to shrink below
+        // its content, which is how a row like this overflows instead of
+        // compressing. Not shrink-0 for the same reason — the logo is the
+        // one element here that CAN give up width, because the mark alone
+        // still identifies the site.
+        className="duration-micro inline-flex min-w-0 items-center gap-8 py-4 ps-4 pe-8 sm:pe-12"
       >
         {/* Fixed violet mark, same asset Footer already uses — the one
             place colour survives (docs/design-decisions.md, "The one
@@ -129,17 +138,20 @@ function HeaderContent({ ctaLabel }: { ctaLabel: string }) {
             variants this replaces, it never changes with theme, so there's
             no mount-gated branch and no hydration-mismatch risk to guard
             against. */}
+        {/* width/height stay 40 so the intrinsic ratio is right; the class
+            is what actually sizes it, stepping down to 32px on phones. */}
         <Image
           src="/brand/codexa-mark.svg"
           loading="eager"
           alt="logo"
           width={40}
           height={40}
+          className="size-32 shrink-0 sm:size-40"
         />
         <span
           lang="en"
           style={{ fontFamily: "var(--font-sans-latin), sans-serif" }}
-          className="text-text-primary text-16 leading-none font-semibold tracking-[-0.03em]"
+          className="text-text-primary text-16 truncate leading-none font-semibold tracking-[-0.03em]"
         >
           Codexa
         </span>
@@ -224,7 +236,14 @@ export default function Header() {
         // and centered on wider viewports so it doesn't stretch edge to
         // edge. `overflow-hidden` keeps the glass/blur inside the pill's
         // own rounded shape instead of bleeding past its corners.
-        "fixed inset-x-16 top-16 z-40 mx-auto max-w-5xl overflow-hidden rounded-full border",
+        // inset-x-8 under sm, not 16: at 320-390px those 16px margins are a
+        // meaningful share of the pill's total width, and the controls
+        // inside need it more than the gutter does. `overflow-hidden` keeps
+        // the glass inside the rounded shape but also means anything that
+        // DOES overflow is silently clipped rather than visibly wrapping —
+        // which is why the row above is built to compress (min-w-0 +
+        // truncate) instead of relying on there being enough room.
+        "fixed inset-x-8 top-16 z-40 mx-auto max-w-5xl overflow-hidden rounded-full border sm:inset-x-16",
         showGlass ? "h-52" : "h-64",
         // No transition at all under reduced motion — a static, permanently
         // settled header has nothing to ease between.

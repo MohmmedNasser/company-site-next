@@ -10,18 +10,27 @@ interface HeroScrimProps {
 // clears the large-text 3:1 AA bar against either theme's Silk background
 // on its own, unlike the 16-20px subtitle's 4.5:1 body-text bar.
 //
-// Re-spot-checked after the monochrome migration recoloured the silk ramp
-// (tokens.css's --hero-silk-low/high, now pure grey/white in both themes):
-// sampled the rendered background behind the headline/subtitle at a grid of
-// points on a live frame (not the exhaustive shader-pattern sweep the
-// original numbers below were derived from):
-//   headline on BARE silk — dark ~6.7:1, light ~16.5:1 (bar: 3:1)
-//   subtitle under this scrim — dark ~6.1:1, light ~5.3:1 (bar: 4.5:1)
-// All comfortably clear their bars, with more margin than the pre-migration
-// values (dark 3.93:1 / 4.72:1, light 11.76:1 / 5.21:1) — a single-frame
-// spot check rather than a full re-derivation, since the ramp only got
-// lighter/purer (no more violet-tinted low end), not darker, so the
-// worst case couldn't have gotten meaningfully closer to either bar.
+// Re-derived after the light-mode silk floor moved from mono-25 to mono-300
+// (see palette.css) — that change made the light ramp visible for the first
+// time, and it moved in the one direction the previous spot check had
+// explicitly reasoned it could not: DARKER. The old note here recorded
+// light ~16.5:1 / ~5.3:1 sampled off a live frame; those numbers described
+// a ramp that no longer exists.
+//
+// Current figures, computed against the ramp's DARKEST point (the floor),
+// which is the worst case for both bars — an upper bound on the worst
+// case rather than a single sampled frame:
+//   headline on BARE silk — light 9.55:1 (bar: 3:1)
+//   subtitle under this scrim — light 4.86:1 (bar: 4.5:1)
+// The subtitle figure models this gradient's 80% stop compositing
+// --color-bg over the silk floor in sRGB, which is what color-mix() below
+// resolves to. Dark mode is untouched by that change and keeps its
+// previously sampled ~6.7:1 / ~6.1:1.
+//
+// The subtitle is the binding constraint on how dark the light floor can
+// go — at 4.86:1 it has roughly 8% headroom over its bar, so a further
+// darkening of the silk needs this scrim strengthened in the same commit,
+// not treated as independent.
 //
 // The 45% stop is 80%, not the 70% it used to be. On a ~1440px viewport the
 // subtitle block spans roughly gradient positions 6%-41%, so that stop —
