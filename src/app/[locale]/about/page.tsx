@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { content, pick, toParagraphs } from "@/lib/content";
 import { localeAlternates } from "@/lib/metadata";
+import { breadcrumbJsonLd } from "@/lib/structured-data";
+import { JsonLd } from "@/components/seo/json-ld";
 import PageIntro from "@/components/ui/page-intro";
 import StorySection from "@/components/about/story-section";
 import ValuesSection from "@/components/about/values-section";
@@ -56,6 +58,16 @@ export default async function AboutPage({
 
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd(
+          [
+            { name: tNav("home"), path: "" },
+            { name: tNav("about"), path: ROUTE },
+          ],
+          locale,
+        )}
+      />
+
       <PageIntro
         label={tNav("about")}
         heading={pick(about.intro.heading, locale)}

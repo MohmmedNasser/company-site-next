@@ -121,11 +121,26 @@ export default function PortfolioGrid({
         {t("resultCount", { count: visible.length })}
       </p>
 
-      <PortfolioCards
-        projects={visible}
-        shouldReduceMotion={shouldReduceMotion ?? false}
-      />
+      {visible.length === 0 ? (
+        <PortfolioEmptyState />
+      ) : (
+        <PortfolioCards
+          projects={visible}
+          shouldReduceMotion={shouldReduceMotion ?? false}
+        />
+      )}
     </>
+  );
+}
+
+function PortfolioEmptyState() {
+  const t = useTranslations("portfolio.filter.emptyState");
+
+  return (
+    <div className="border-border bg-card rounded-card mt-32 flex flex-col items-start gap-8 border p-32 md:mt-48">
+      <p className="text-16 text-text-primary font-semibold">{t("heading")}</p>
+      <p className="text-14 text-text-secondary">{t("description")}</p>
+    </div>
   );
 }
 

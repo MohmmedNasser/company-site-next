@@ -43,7 +43,11 @@
     "filter": {
       "groupLabel": "تصفية الأعمال حسب الفئة",
       "allLabel": "كل الأعمال",
-      "resultCount": "{count, plural, zero {لا مشاريع} one {مشروع واحد} two {مشروعان} few {# مشاريع} many {# مشروعًا} other {# مشروع}}"
+      "resultCount": "{count, plural, zero {لا مشاريع} one {مشروع واحد} two {مشروعان} few {# مشاريع} many {# مشروعًا} other {# مشروع}}",
+      "emptyState": {
+        "heading": "لا مشاريع في هذه الفئة بعد.",
+        "description": "جرّب فئة أخرى، أو تصفح كل ما سلّمناه."
+      }
     },
     "detail": {
       "overviewLabel": "عن المشروع",
@@ -55,7 +59,11 @@
   },
   "blog": {
     "list": {
-      "readLabel": "اقرأ المقال"
+      "readLabel": "اقرأ المقال",
+      "emptyState": {
+        "heading": "لا شيء منشور بعد.",
+        "description": "ما زلنا نكتب أول مقال — تابعنا قريبًا."
+      }
     },
     "detail": {
       "authorLabel": "بقلم",
@@ -175,7 +183,8 @@
       "closeMenu": "إغلاق القائمة",
       "toggleTheme": "تبديل المظهر",
       "primaryNav": "التنقل الرئيسي",
-      "followOn": "تابعنا على {platform}"
+      "followOn": "تابعنا على {platform}",
+      "loading": "جارٍ التحميل"
     },
     "footer": {
       "columns": {
@@ -194,6 +203,12 @@
   "notFound": {
     "title": "الصفحة غير موجودة",
     "description": "الصفحة التي تبحث عنها غير موجودة أو تم نقلها.",
+    "backHome": "العودة للرئيسية"
+  },
+  "error": {
+    "title": "حدث خطأ ما",
+    "description": "الخطأ من عندنا لا منك. أعد المحاولة، أو عد إلى الصفحة الرئيسية.",
+    "retry": "أعد المحاولة",
     "backHome": "العودة للرئيسية"
   }
 }

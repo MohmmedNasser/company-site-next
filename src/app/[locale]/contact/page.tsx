@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { content, pick } from "@/lib/content";
 import { localeAlternates } from "@/lib/metadata";
+import { breadcrumbJsonLd } from "@/lib/structured-data";
+import { JsonLd } from "@/components/seo/json-ld";
 import Container from "@/components/ui/container";
 import PageIntro from "@/components/ui/page-intro";
 import Reveal from "@/components/motion/reveal";
@@ -44,6 +46,16 @@ export default async function ContactPage({
 
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd(
+          [
+            { name: tNav("home"), path: "" },
+            { name: tNav("contact"), path: ROUTE },
+          ],
+          locale,
+        )}
+      />
+
       <PageIntro
         label={tNav("contact")}
         heading={pick(intro.heading, locale)}

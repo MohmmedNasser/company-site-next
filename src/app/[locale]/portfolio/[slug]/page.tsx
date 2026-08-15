@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { content, pick, toParagraphs } from "@/lib/content";
 import { localeAlternates } from "@/lib/metadata";
+import { breadcrumbJsonLd } from "@/lib/structured-data";
+import { JsonLd } from "@/components/seo/json-ld";
 import Container from "@/components/ui/container";
 import PageIntro from "@/components/ui/page-intro";
 import HeroImage from "@/components/motion/hero-image";
@@ -76,6 +78,17 @@ export default async function CaseStudyPage({
 
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd(
+          [
+            { name: tNav("home"), path: "" },
+            { name: tNav("portfolio"), path: "/portfolio" },
+            { name: pick(project.title, locale), path: `/portfolio/${slug}` },
+          ],
+          locale,
+        )}
+      />
+
       {/* The label is the section this page belongs to, not the page's own
           title — the <h1> already carries that. It tells a visitor who
           arrived from search where in the site they've landed. */}

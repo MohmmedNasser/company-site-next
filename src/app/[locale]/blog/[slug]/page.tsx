@@ -5,6 +5,12 @@ import { POSTS_PER_PAGE, content, pick, toParagraphs } from "@/lib/content";
 import type { Post } from "@/lib/content";
 import { formatPostDate } from "@/lib/format-date";
 import { localeAlternates } from "@/lib/metadata";
+import {
+  absoluteUrl,
+  articleJsonLd,
+  breadcrumbJsonLd,
+} from "@/lib/structured-data";
+import { JsonLd } from "@/components/seo/json-ld";
 import Container from "@/components/ui/container";
 import PageIntro from "@/components/ui/page-intro";
 import HeroImage from "@/components/motion/hero-image";
@@ -95,6 +101,26 @@ export default async function PostPage({
 
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd(
+          [
+            { name: tNav("home"), path: "" },
+            { name: tNav("blog"), path: "/blog" },
+            { name: pick(post.title, locale), path: `/blog/${slug}` },
+          ],
+          locale,
+        )}
+      />
+      <JsonLd
+        data={articleJsonLd({
+          headline: pick(post.title, locale),
+          datePublished: post.publishedAt,
+          author: pick(post.author, locale),
+          url: absoluteUrl(locale, `/blog/${slug}`),
+          image: post.coverImage,
+        })}
+      />
+
       {/* The label is the section this page belongs to, not the article's
           title — the <h1> already carries that. */}
       <PageIntro

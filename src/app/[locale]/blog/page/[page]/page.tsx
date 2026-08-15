@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { POSTS_PER_PAGE, content, pick } from "@/lib/content";
 import { localeAlternates } from "@/lib/metadata";
+import { breadcrumbJsonLd } from "@/lib/structured-data";
+import { JsonLd } from "@/components/seo/json-ld";
 import BlogIndex from "@/components/blog/blog-index";
 
 type RouteParams = { locale: string; page: string };
@@ -77,7 +79,29 @@ export default async function BlogPaginatedPage({
     notFound();
   }
 
+  const [tNav, tPagination] = await Promise.all([
+    getTranslations({ locale, namespace: "common.nav" }),
+    getTranslations({ locale, namespace: "blog.pagination" }),
+  ]);
+
   // BlogIndex 404s on a page number past the end, so no upper-bound check
   // is needed here.
-  return <BlogIndex locale={locale} page={page} />;
+  return (
+    <>
+      <JsonLd
+        data={breadcrumbJsonLd(
+          [
+            { name: tNav("home"), path: "" },
+            { name: tNav("blog"), path: "/blog" },
+            {
+              name: tPagination("pageLabel", { number: page }),
+              path: `/blog/page/${page}`,
+            },
+          ],
+          locale,
+        )}
+      />
+      <BlogIndex locale={locale} page={page} />
+    </>
+  );
 }

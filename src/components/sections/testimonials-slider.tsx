@@ -140,11 +140,20 @@ export default function TestimonialsSlider({
               onClick={() => api?.scrollTo(index, prefersReducedMotion)}
               aria-label={goToSlideLabel.replace("{number}", String(index + 1))}
               aria-current={index === activeIndex}
-              className={cn(
-                "duration-micro size-8 rounded-full transition-colors",
-                index === activeIndex ? "bg-text-primary" : "bg-border",
-              )}
-            />
+              // The visible dot stays 8px (unchanged design), but the
+              // button itself is sized to a 24px hit area — WCAG 2.5.8
+              // target size, flagged by Lighthouse's target-size audit at
+              // the old 8x8 clickable area.
+              className="flex size-24 items-center justify-center"
+            >
+              <span
+                aria-hidden="true"
+                className={cn(
+                  "duration-micro size-8 rounded-full transition-colors",
+                  index === activeIndex ? "bg-text-primary" : "bg-border",
+                )}
+              />
+            </button>
           ))}
         </div>
 

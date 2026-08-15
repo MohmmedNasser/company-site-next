@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { content, pick } from "@/lib/content";
 import { localeAlternates } from "@/lib/metadata";
+import { breadcrumbJsonLd } from "@/lib/structured-data";
+import { JsonLd } from "@/components/seo/json-ld";
 import Container from "@/components/ui/container";
 import PageIntro from "@/components/ui/page-intro";
 import PortfolioGrid from "@/components/portfolio/portfolio-grid";
@@ -51,6 +53,16 @@ export default async function PortfolioPage({
 
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd(
+          [
+            { name: tNav("home"), path: "" },
+            { name: tNav("portfolio"), path: ROUTE },
+          ],
+          locale,
+        )}
+      />
+
       <PageIntro
         label={tNav("portfolio")}
         heading={pick(intro.heading, locale)}

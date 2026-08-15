@@ -1,4 +1,6 @@
 import { content, pick } from "@/lib/content";
+import { organizationJsonLd, websiteJsonLd } from "@/lib/structured-data";
+import { JsonLd } from "@/components/seo/json-ld";
 import Container from "@/components/ui/container";
 import HeroSection from "@/components/hero/hero-section";
 import MarqueeSection from "@/components/sections/marquee-section";
@@ -45,6 +47,9 @@ export default async function Home({
 
   return (
     <>
+      <JsonLd data={organizationJsonLd(settings, locale)} />
+      <JsonLd data={websiteJsonLd(locale)} />
+
       <HeroSection
         locale={locale}
         title={pick(settings.hero.title, locale)}

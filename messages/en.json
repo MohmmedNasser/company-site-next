@@ -43,7 +43,11 @@
     "filter": {
       "groupLabel": "Filter work by category",
       "allLabel": "All work",
-      "resultCount": "{count, plural, =0 {No projects} one {# project} other {# projects}}"
+      "resultCount": "{count, plural, =0 {No projects} one {# project} other {# projects}}",
+      "emptyState": {
+        "heading": "No projects in this category yet.",
+        "description": "Try a different filter, or see everything we've shipped."
+      }
     },
     "detail": {
       "overviewLabel": "The project",
@@ -55,7 +59,11 @@
   },
   "blog": {
     "list": {
-      "readLabel": "Read article"
+      "readLabel": "Read article",
+      "emptyState": {
+        "heading": "Nothing published yet.",
+        "description": "We're still writing the first post — check back soon."
+      }
     },
     "detail": {
       "authorLabel": "Written by",
@@ -175,7 +183,8 @@
       "closeMenu": "Close menu",
       "toggleTheme": "Toggle theme",
       "primaryNav": "Primary navigation",
-      "followOn": "Follow us on {platform}"
+      "followOn": "Follow us on {platform}",
+      "loading": "Loading"
     },
     "footer": {
       "columns": {
@@ -194,6 +203,12 @@
   "notFound": {
     "title": "Page not found",
     "description": "The page you're looking for doesn't exist or has moved.",
+    "backHome": "Back to home"
+  },
+  "error": {
+    "title": "Something went wrong",
+    "description": "That's on us, not you. Try again, or head back to the homepage.",
+    "retry": "Try again",
     "backHome": "Back to home"
   }
 }
