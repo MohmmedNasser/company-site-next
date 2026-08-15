@@ -10,7 +10,7 @@ export default function HeroBackground() {
       style={{
         backgroundImage: [
           "radial-gradient(60% 55% at 20% 25%, color-mix(in srgb, var(--color-primary) 22%, transparent), transparent 70%)",
-          "radial-gradient(55% 60% at 85% 80%, color-mix(in srgb, var(--color-secondary) 16%, transparent), transparent 70%)",
+          "radial-gradient(55% 60% at 85% 80%, color-mix(in srgb, var(--color-secondary) 16%, transparent), transparent 70%) ",
         ].join(", "),
         backgroundColor: "var(--color-bg)",
       }}
