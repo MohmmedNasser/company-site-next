@@ -229,15 +229,15 @@
     }
   },
   "contact": {
-    "email": "hello@company-site.example",
-    "phone": "+20 100 000 0000",
+    "email": "info@codexastudio.vercel.app",
+    "phone": "+972598059394",
     "address": {
-      "en": "Cairo, Egypt",
-      "ar": "القاهرة، مصر"
+      "en": "Gaza, Palestine",
+      "ar": "غزة، فلسطين"
     },
     "city": {
-      "en": "Cairo",
-      "ar": "القاهرة"
+      "en": "Gaza",
+      "ar": "غزة"
     }
   },
   "newsletter": {
@@ -253,19 +253,19 @@
   "social": [
     {
       "platform": "facebook",
-      "url": "https://facebook.com/companysite"
+      "url": "https://facebook.com/codexastudio"
     },
     {
       "platform": "linkedin",
-      "url": "https://linkedin.com/company/company-site"
+      "url": "https://linkedin.com/company/codexastudio"
     },
     {
-      "platform": "twitter",
-      "url": "https://twitter.com/companysite"
+      "platform": "X",
+      "url": "https://x.com/codexastudio"
     },
     {
       "platform": "youtube",
-      "url": "https://youtube.com/@companysite"
+      "url": "https://youtube.com/@codexastudio"
     }
   ]
 }
