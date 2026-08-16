@@ -14,5 +14,5 @@ export const config = {
   // Run on every path except API routes, Next.js internals, Vercel
   // internals, and any request for a path with a file extension (static
   // assets like favicon.ico, images, etc).
-  matcher: ["/((?!api|_next|_vercel|.*\\..*).*)"],
+  matcher: ["/((?!api|_next|_vercel|.*\\..*).*)"], // keep
 };
