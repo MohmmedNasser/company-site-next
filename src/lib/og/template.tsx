@@ -60,6 +60,7 @@ export function ogTemplate({
           fontWeight: 600,
           color: OG_TEXT_SECONDARY,
           letterSpacing: "0.02em",
+          textAlign: isRtl ? "right" : "left",
         }}
       >
         {`[ ${eyebrow} ]`}
@@ -76,6 +77,12 @@ export function ogTemplate({
           color: OG_TEXT,
           lineHeight: 1.15,
           maxWidth: 1000,
+          // Satori doesn't propagate the container's `direction: rtl` into
+          // an implicit right text-align for wrapped lines the way a
+          // browser would — without this, a title's first line reads
+          // correctly right-to-left but any wrapped continuation line
+          // falls back to left-aligned.
+          textAlign: isRtl ? "right" : "left",
         }}
       >
         {title}
