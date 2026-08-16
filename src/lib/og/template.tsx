@@ -10,6 +10,7 @@
 // See docs/design-decisions.md's Colour system section for the source
 // values, and its §2 for why no other colour belongs on this site.
 import type { ReactElement } from "react";
+import { splitBidiSegments } from "@/lib/bidi-isolate";
 
 const OG_BG = "#0A0A0A";
 const OG_TEXT = "#FFFFFF";
@@ -27,6 +28,15 @@ export function ogTemplate({
   locale: string;
 }): ReactElement {
   const isRtl = locale === "ar";
+  // Longer titles step down a size rather than wrapping past two lines and
+  // crowding the 630px-tall canvas.
+  const titleFontSize = title.length > 36 ? 60 : 76;
+  // Satori's incomplete bidi support (see src/lib/bidi-isolate.ts) only
+  // shows up here, where mixed-script titles ("Next.js", "وLaravel") get
+  // rendered through ImageResponse — split into individual words and lay
+  // them out ourselves via a row-reverse flex row instead of relying on
+  // Satori to bidi-resolve one text node.
+  const titleSegments = isRtl ? splitBidiSegments(title) : null;
   // "Cairo", not the site's real Noto Kufi Arabic — see src/lib/og/fonts.ts
   // for why (a renderer-compatibility substitution scoped to OG images
   // only). Inter Display has no Arabic coverage either way, so the font
@@ -70,9 +80,7 @@ export function ogTemplate({
         style={{
           display: "flex",
           fontFamily: textFontFamily,
-          // Longer titles step down a size rather than wrapping past two
-          // lines and crowding the 630px-tall canvas.
-          fontSize: title.length > 36 ? 60 : 76,
+          fontSize: titleFontSize,
           fontWeight: 700,
           color: OG_TEXT,
           lineHeight: 1.15,
@@ -85,7 +93,30 @@ export function ogTemplate({
           textAlign: isRtl ? "right" : "left",
         }}
       >
-        {title}
+        {titleSegments ? (
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              flexDirection: "row-reverse",
+              width: "100%",
+            }}
+          >
+            {titleSegments.map((segment, index) => (
+              <div
+                key={index}
+                style={{
+                  display: "flex",
+                  direction: segment.ltr ? "ltr" : "rtl",
+                }}
+              >
+                {segment.text}
+              </div>
+            ))}
+          </div>
+        ) : (
+          title
+        )}
       </div>
 
       {/* Brand wordmark — a proper noun, not translated content, same as
