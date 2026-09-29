@@ -107,7 +107,7 @@ export default function TestimonialsSlider({
 
               <div className="border-border border-t" />
 
-              <p className="text-14 text-text-secondary flex-1">
+              <p className="text-14 text-text-secondary line-clamp-5 flex-1">
                 {testimonial.quote}
               </p>
 

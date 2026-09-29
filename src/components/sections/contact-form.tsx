@@ -161,7 +161,14 @@ export default function ContactForm() {
               control={control}
               name="service"
               render={({ field }) => (
-                <Select value={field.value} onValueChange={field.onChange}>
+                <Select
+                  value={field.value}
+                  onValueChange={field.onChange}
+                  items={SERVICE_KEYS.map((key) => ({
+                    value: key,
+                    label: t(`serviceOptions.${key}`),
+                  }))}
+                >
                   <SelectTrigger
                     id="contact-service"
                     aria-invalid={!!errors.service}
@@ -194,7 +201,14 @@ export default function ContactForm() {
               control={control}
               name="budget"
               render={({ field }) => (
-                <Select value={field.value} onValueChange={field.onChange}>
+                <Select
+                  value={field.value}
+                  onValueChange={field.onChange}
+                  items={BUDGET_KEYS.map((key) => ({
+                    value: key,
+                    label: t(`budgetOptions.${key}`),
+                  }))}
+                >
                   <SelectTrigger
                     id="contact-budget"
                     aria-invalid={!!errors.budget}

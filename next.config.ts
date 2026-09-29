@@ -1,6 +1,7 @@
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import type { NextConfig } from "next";
+import type { RemotePattern } from "next/dist/shared/lib/image-config";
 import createNextIntlPlugin from "next-intl/plugin";
 
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
@@ -16,6 +17,24 @@ const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 // project.
 const projectRoot = path.dirname(fileURLToPath(import.meta.url));
 
+// The Laravel API serves uploaded images from its own /storage path, so its
+// origin must be allowed in next/image. Derived from NEXT_PUBLIC_API_URL so
+// local (http://company-site-api.test) and production hosts both work
+// without hardcoding either.
+function apiImagePattern(): RemotePattern[] {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  if (!apiUrl) return [];
+  const { protocol, hostname, port } = new URL(apiUrl);
+  return [
+    {
+      protocol: protocol === "https:" ? "https" : "http",
+      hostname,
+      port,
+      pathname: "/storage/**",
+    },
+  ];
+}
+
 const nextConfig: NextConfig = {
   turbopack: {
     root: projectRoot,
@@ -27,7 +46,11 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       { protocol: "https", hostname: "picsum.photos" },
       { protocol: "https", hostname: "fastly.picsum.photos" },
+      ...apiImagePattern(),
     ],
+    // Local Herd/Valet hosts (*.test) resolve to 127.0.0.1, which Next 16's
+    // image optimizer blocks as a private IP. Dev only — never in production.
+    dangerouslyAllowLocalIP: process.env.NODE_ENV !== "production",
   },
 };
 
