@@ -1,0 +1,44 @@
+[
+  {
+    "id": "client-ferry-logistics",
+    "name": { "en": "Ferry Logistics", "ar": "فيري للخدمات اللوجستية" },
+    "logo": "/clients/ferry-logistics.svg",
+    "url": "https://ferrylogistics.example",
+    "order": 1
+  },
+  {
+    "id": "client-nour-fintech",
+    "name": { "en": "Nour Fintech", "ar": "نور للتقنية المالية" },
+    "logo": "/clients/nour-fintech.svg",
+    "url": "https://nourfintech.example",
+    "order": 2
+  },
+  {
+    "id": "client-basma-retail",
+    "name": { "en": "Basma Retail", "ar": "بسمة للتجزئة" },
+    "logo": "/clients/basma-retail.svg",
+    "url": "https://basmaretail.example",
+    "order": 3
+  },
+  {
+    "id": "client-waha-health",
+    "name": { "en": "Waha Health", "ar": "واحة للرعاية الصحية" },
+    "logo": "/clients/waha-health.svg",
+    "url": "https://wahahealth.example",
+    "order": 4
+  },
+  {
+    "id": "client-marsa-realestate",
+    "name": { "en": "Marsa Real Estate", "ar": "مرسى العقارية" },
+    "logo": "/clients/marsa-realestate.svg",
+    "url": "https://marsarealestate.example",
+    "order": 5
+  },
+  {
+    "id": "client-rawaq-learning",
+    "name": { "en": "Rawaq Learning", "ar": "رواق للتعليم" },
+    "logo": "/clients/rawaq-learning.svg",
+    "url": "https://rawaqlearning.example",
+    "order": 6
+  }
+]

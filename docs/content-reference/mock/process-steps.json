@@ -1,0 +1,32 @@
+[
+  {
+    "id": "step-discover-define",
+    "icon": "Sparkles",
+    "order": 1,
+    "title": { "en": "Discover & Define", "ar": "الاستكشاف والتحديد" },
+    "description": {
+      "en": "We start by understanding your brand, audience, and objectives. This phase focuses on research, positioning, and defining a clear digital direction.",
+      "ar": "نبدأ بفهم علامتكم التجارية وجمهوركم وأهدافكم. تركز هذه المرحلة على البحث، تحديد الموقع، ورسم اتجاه رقمي واضح."
+    }
+  },
+  {
+    "id": "step-design-build",
+    "icon": "Wand2",
+    "order": 2,
+    "title": { "en": "Design & Build", "ar": "التصميم والبناء" },
+    "description": {
+      "en": "From wireframes to polished interfaces, we craft modern website experiences that balance visual clarity.",
+      "ar": "من المخططات الأولية إلى الواجهات النهائية، نصمم تجارب مواقع حديثة توازن بين الوضوح البصري والوظيفة."
+    }
+  },
+  {
+    "id": "step-launch-grow",
+    "icon": "Rocket",
+    "order": 3,
+    "title": { "en": "Launch & Grow", "ar": "الإطلاق والنمو" },
+    "description": {
+      "en": "After launch, we ensure your website is optimized for performance and ready to evolve as your business scales.",
+      "ar": "بعد الإطلاق، نحرص على أن يكون موقعكم محسّنًا من حيث الأداء وجاهزًا للتطور مع نمو أعمالكم."
+    }
+  }
+]
