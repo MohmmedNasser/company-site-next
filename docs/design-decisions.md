@@ -463,3 +463,176 @@ scopes the admin panel.
 
 Flagged here so it isn't silently forgotten and isn't accidentally decided
 by omission.
+
+---
+
+## 8. Contact form error handling — confirmed as-is (2026-09-29)
+
+**Decision:** `submitContact` and `subscribeNewsletter` return
+`{ success: false }` for **every** failure case — validation errors (422),
+rate limiting (429), server errors (5xx), and network/API unreachability —
+surfaced to the visitor as one generic message,
+`common.errors.somethingWentWrong` ("Something went wrong. Please try
+again." / "حدث خطأ ما، حاول مرة أخرى"). No field-level server error detail
+is surfaced; client-side zod validation is what catches field-level issues
+before a submission is ever sent.
+
+**This was an explicit deviation** from the original Phase 14 prompt's
+instruction that genuine network/server errors "should throw". The
+developer reviewed the tradeoff and confirmed this behavior is correct and
+final — not a shortcut to revisit later.
+
+**Rationale:** `ContactResult` has no slot for field-level server errors,
+and a thrown exception would leave the form with no user-facing feedback at
+all. A generic failure message is sufficient for a small agency site's
+contact form — the server-side log (`[api-repository] POST … failed: <status>
+<code>`, with the 422 `fields`) is where real debugging happens, not the
+client UI.
+
+**Scope of the rule:** only the two write methods. Reads still throw on real
+failures; the mock fallback in `src/lib/content/index.ts` never applies to
+writes (the mock would report a success that never reached the API).
+
+---
+
+## 9. RESOLVED — API rate limit vs. no caching was a pre-deploy blocker (2026-09-29)
+
+**This was a hard pre-deploy blocker, not an optimisation; it is now
+resolved (see Status below).** Found during Phase 14 integration testing
+against the real Laravel API. The problem description below is kept as the
+historical record of why the three fixes exist.
+
+**The problem.** The Laravel API throttles `/api/*` at **120 requests per
+minute per IP**. The Next.js site currently has **no request-level
+caching**: nearly every page calls `getSettings()` (layout, page, metadata)
+plus its own collections, so one page render is ~10 API calls and one
+`pnpm build` in `api` mode made ~350. All of them originate from a single IP
+(the Next.js server). Measured: a build plus a handful of page loads
+returned `429 Too Many Requests` on 85–108 calls, and a few more calls timed
+out at the 5s client limit.
+
+**Why it is dangerous rather than merely noisy.** The mock fallback in
+`src/lib/content/index.ts` treats 429 as "API unavailable" and silently
+serves mock data. So the build **succeeds**, pages render, and the site
+quietly ships stale mock content instead of the real database — with only a
+`[content] API unavailable … Too Many Requests` line in the server log to
+show for it. Nothing fails loudly.
+
+**Three fixes, all required together:**
+
+1. **Next.js request caching** — `"use cache"` + `cacheTag(...)` on the
+   content reads (invalidated by `revalidateTag` from the admin webhook,
+   already planned in PROJECT-PLAN Phase 14), so repeated calls for the same
+   data within one build or request window do not re-hit the API.
+2. **Revisit the Laravel throttle limit and key** — per `company-site-api`'s
+   `docs/design-decisions.md` §10: a per-IP key breaks down once traffic
+   arrives through a shared origin (Vercel's edge, or this server as the only
+   caller). Choose a limit/key that fits server-to-server traffic without
+   opening the public `POST /contact` and `/newsletter` limits.
+3. **The mock fallback must be scoped to development/local testing only** —
+   e.g. gated behind `NODE_ENV !== "production"` or a dedicated env flag —
+   and never active once the site is genuinely deployed. A 429 or any other
+   failure in production must surface as a real error state (the existing
+   `[locale]/error.tsx` boundary), not silently serve stale mock content.
+   Silent fallback in production means visitors see a "working" site with
+   wrong data, and the only trace is one easily-missed server log line
+   rather than anything that alerts anyone to the real problem. This is a
+   **firm decision**, not an option to weigh later.
+
+Fixes 1 and 2 remove the cause; fix 3 makes sure that any failure that still
+happens is loud. None is sufficient alone: caching without a sane throttle
+still fails on cold starts and revalidation bursts; a raised throttle without
+caching just moves the cliff; and either without fix 3 leaves the next,
+unforeseen failure invisible.
+
+**Consequence for PROJECT-PLAN Phase 14's "stopping the backend does not
+take the site down".** That goal was originally met by the mock fallback.
+With the fallback dev-only, production resilience to an API outage has to
+come from fix 1 instead (cached content served while the API is down) plus a
+designed error state for content that was never cached — not from mock data.
+
+**Status (2026-09-29): RESOLVED — all three fixes are complete and verified
+together.** The deployment blocker from this section no longer applies.
+
+- **Fix 2 — Laravel throttle (done in `company-site-api`).** Reads are now
+  limited to **600 requests/minute per IP** (writes 120/minute, kept as a
+  separate counter; `POST /contact` and `/newsletter` keep their own
+  5/minute limit) — `AppServiceProvider.php`, `RateLimiter::for('api')`.
+  Confirmed live: `X-RateLimit-Limit: 600`.
+- **Fix 1 — via the `fetch` data cache, not `"use cache"`.** `"use cache"`
+  requires `cacheComponents: true`, a project-wide switch. Trying it made
+  even the mock build fail (`Uncached data was accessed outside of
+<Suspense>` on every dynamic route, traced to the root-layout providers),
+  so adopting it is a layout/Suspense restructure of its own, not a caching
+  tweak. Instead `src/lib/content/api/client.ts` sets `next: { revalidate:
+300, tags: [<content type>] }` on every GET (POSTs are `no-store`), with
+  one tag per content type (`services`, `projects`, `testimonials`,
+  `clients`, `process-steps`, `faq-items`, `posts`, `team-members`,
+  `values`, `timeline`, `settings`). Measured through a counting proxy in
+  front of Laravel, one `pnpm build`: **368 requests / 245 × 429 → 40
+  requests / 0 × 429.** The tags are already in place for a later
+  `revalidateTag`. Until the admin webhook exists, an edit shows up within
+  ≤5 minutes.
+- **Fix 3 — `index.ts` only wraps the API repository in the mock fallback
+  when `NODE_ENV !== "production"`.** In a production build/`next start`, an
+  API failure on an uncached read reaches `[locale]/error.tsx` (verified
+  with the API down: the uncached page rendered the "Something went wrong"
+  boundary, the server logged the `ApiError`, and there was no mock
+  content). Cached reads keep serving their last good value while the API
+  is down, until they expire.
+- **Still true:** the mock fallback is a dev convenience only; the Phase 14
+  goal "stopping the backend does not take the site down" is now met by the
+  cache, not by mock data, and only for content that was fetched at least
+  once.
+
+**Verified together, empirically.** A cold `pnpm build` in `api` mode with
+all three fixes in place, counted through a proxy in front of Laravel:
+**368 requests / 245 × 429 → 40 requests / 0 × 429** (the "after" run on the
+current 65-page site, against a 600/minute read limit — about 7% of it).
+That is the proof the three fixes work as a set: the cache removes the
+storm, the throttle leaves real headroom, and the dev-only fallback means
+any failure that does still happen is loud instead of masked.
+
+**Follow-up, not a blocker:** instant invalidation. Time-based revalidation
+(≤5 minutes) is what ships; the per-content-type tags are already in place
+for a later admin-webhook `revalidateTag`, which is a cross-repo enhancement
+and not part of this section's resolution.
+
+---
+
+## 10. API caching uses the `fetch` data cache, not `"use cache"` (2026-09-29)
+
+**Decision:** the API repository's caching layer uses Next's native `fetch`
+data cache — `next: { revalidate: 300, tags: [<content type>] }`, set in one
+place (`src/lib/content/api/client.ts`) on every GET — and **not** the
+`"use cache"` directive.
+
+**What was tried:** `"use cache"` + `cacheTag` + `cacheLife` was the first
+choice (PROJECT-PLAN Phase 14, §9 fix 1). It requires `cacheComponents: true`
+in `next.config.ts`, which is a project-wide rendering-model switch, not a
+per-file opt-in. With it on, even the **mock** build failed on every dynamic
+route with `Uncached data was accessed outside of <Suspense>` (the blocking-
+route error), traced to the root-layout providers
+(`theme-provider.tsx` / `smooth-scroll-provider.tsx`). Getting past it means
+restructuring the root layout with Suspense boundaries — a UI/architecture
+change that violates this phase's no-UI-changes constraint and would have
+changed mock mode too.
+
+**Why the `fetch` cache is enough:** it gives the same two things this work
+needed, with none of that cost.
+
+- **Deduplication:** one `pnpm build` went from 368 requests (245 × 429) to
+  40 (0 × 429), measured through a counting proxy in front of Laravel.
+- **Tag-based invalidation readiness:** one tag per content type (`services`,
+  `projects`, `testimonials`, `clients`, `process-steps`, `faq-items`,
+  `posts`, `team-members`, `values`, `timeline`, `settings`), so a future
+  admin webhook can call `revalidateTag(tag)` with no change to how reads
+  are cached.
+- **Scope:** it lives entirely inside the API client, so mock mode never
+  touches it.
+
+**Revisit only if** a future, unrelated need for `cacheComponents` arises
+(e.g. adopting Partial Prerendering / instant navigation deliberately). At
+that point moving the reads to `"use cache"` is a mechanical swap of the one
+option in `client.ts`; it is not a reason to enable `cacheComponents` on its
+own.
